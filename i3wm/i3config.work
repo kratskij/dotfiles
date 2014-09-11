@@ -167,7 +167,7 @@ bindsym $mod+Shift+s mode "soundedit"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command /home/henrik/hspconfig/my_i3status.sh
+        status_command /usr/local/bin/my_i3status.sh
 }
 
 # Henrik specific stuff
@@ -200,7 +200,7 @@ workspace "$wsSQL" output DVI-1
 #startup
 exec xautolock -time 5 -locker lock
 exec setxkbmap no
-exec xrandr --auto --output DVI-0 --mode 1920x1080 --left-of DVI-1
+#exec xrandr --auto --output DVI-0 --mode 1920x1080 --left-of DVI-1
 
 exec pidgin
 exec thunderbird

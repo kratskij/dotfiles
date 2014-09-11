@@ -1,0 +1,6 @@
+#!/bin/bash
+scrot /tmp/screenshot.png
+#convert /tmp/screenshot.png -blur 5x5 -modulate 30,0,0 -colorize 50,0,50 -charcoal 1 -swirl 2 -negate /tmp/screenshotblur.png
+convert /tmp/screenshot.png -blur 5x5 -modulate 80,0,0 -colorize 50,0,20 /tmp/screenshotblur.png
+
+i3lock -i /tmp/screenshotblur.png
