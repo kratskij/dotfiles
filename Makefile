@@ -1,3 +1,5 @@
+# dear future self,
+# 
 ifndef ENV
 $(error ENV is not set. Use "home" or "work")
 endif
@@ -5,12 +7,27 @@ endif
 all: i3
 
 i3:
-	sudo apt-get install i3 scrot imagemagick i3lock 
+	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat	
+
+	-git clone git://github.com/vivien/i3blocks
+	cd i3blocks && make clean
+	cd i3blocks && sudo make install
+
+	-rm ~/.i3blocks.conf
+	ln -s `pwd`/i3wm/i3blocks.conf ~/.i3blocks.conf
+	sudo rm /usr/local/libexec/i3blocks/volume
+	sudo ln -s `pwd`/i3wm/i3blocks_volume /usr/local/libexec/i3blocks/volume
+
 	rm ~/.i3/config
 	ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config
-	sudo rm /etc/i3status.conf
-	sudo ln -s `pwd`/i3wm/i3status.conf.$(ENV) /etc/i3status.conf
-	sudo rm -f /bin/lock
-	sudo ln -s `pwd`/i3wm/lockscreen /bin/lock
-	sudo rm -f /usr/local/bin/my_i3status.sh
-	sudo ln -s `pwd`/i3wm/my_i3status.sh /usr/local/bin/my_i3status.sh
+
+	rm /etc/i3status.conf
+	ln -s `pwd`/i3wm/i3status.conf.$(ENV) /etc/i3status.conf
+
+	rm -f /bin/lock
+	ln -s `pwd`/i3wm/lockscreen /bin/lock
+
+	rm -f /usr/local/bin/my_i3status.sh
+	ln -s `pwd`/i3wm/my_i3status.sh /usr/local/bin/my_i3status.sh
+
+	i3-msg restart
