@@ -2,10 +2,10 @@ ifndef ENV
 $(error ENV is not set. Use "home" or "work")
 endif
 
-all: i3
+all: i3 git
 
 i3:
-	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat	
+	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat
 
 	-git clone git://github.com/vivien/i3blocks
 	cd i3blocks && make clean
@@ -23,3 +23,7 @@ i3:
 	ln -s `pwd`/i3wm/lockscreen /bin/lock
 
 	i3-msg restart
+git:
+	sudo apt-get install git
+
+	git config --global include.path `pwd`/gitconfig
