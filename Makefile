@@ -2,7 +2,7 @@ ifndef ENV
 $(error ENV is not set. Use "home" or "work")
 endif
 
-all: i3 git
+all: i3 git bash
 
 i3:
 	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat
@@ -27,3 +27,8 @@ git:
 	sudo apt-get install git
 
 	git config --global include.path `pwd`/gitconfig
+
+bash:
+	-rm ~/.bash_aliases
+	ln -s `pwd`/bash_aliases ~/.bash_aliases
+	source ̃/.bash_aliases
