@@ -17,6 +17,12 @@
 CARD="${1:-0}"
 MIXER="${2:-default}" # use pulse for pulseaudio, default is alsa
 
-amixer -c $CARD -D $MIXER get Master |
-	sed -n 's/^[^:]*: Playback [0-9]* \[\([0-9]*%\)\] .*/\1/p' |
-	head -n1
+PLAYBACK=`amixer -c $CARD -D $MIXER get Master | grep ": Playback"`;
+PCT=`echo $PLAYBACK | egrep -o "[0-9]*%"`;
+MUTE=`echo $PLAYBACK | egrep -o "\[o[fn]*\]" | egrep -o [onf]*`;
+
+echo "${PCT}";
+echo "${PCT}";
+if [ "$MUTE" = "off" ]; then
+	echo "#FF0000";
+fi;

@@ -154,11 +154,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+bindcode 121 exec amixer -D pulse set Master toggle && pkill -RTMIN+1 i3blocks
+bindcode 122 exec amixer -q set Master 2dB- && pkill -RTMIN+1 i3blocks
+bindcode 123 exec amixer -q set Master 2dB+ && pkill -RTMIN+1 i3blocks
 
 mode "soundedit" {
-	bindsym Up exec amixer -q set Master 2dB+ unmute
-	bindsym Down exec amixer -q set Master 2dB- unmute
-
+	bindsym Up exec amixer -q set Master 2dB+ unmute && pkill -RTMIN+1 i3blocks
+	bindsym Down exec amixer -q set Master 2dB- unmute && pkill -RTMIN+1 i3blocks
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -176,8 +178,8 @@ focus_follows_mouse no
 bindsym $mod+p exec /bin/lock
 bindsym $mod+t border toggle
 
-for_window [class="Wimp" instance="wimp"] floating enable # all wimp windows
-for_window [class="Wimp" instance="wimp" title="^[a-zA-Z].*$"] floating disable # wimp (not notification)
+for_window [class="Wimp" instance="wimp"] floating enable
+for_window [class="Wimp" instance="wimp" title="^[a-zA-Z].*$"] floating disable
 for_window [class="Thunderbird" instance="Msgcompose"] floating enable
 for_window [class="Wine" instance="TeamViewer.exe"] floating enable
 for_window [class="Guake" instance="guake"] floating enable
