@@ -14,15 +14,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+if [ ! -z $BLOCK_BUTTON ]; then
+    amixer -D pulse set Master toggle > /dev/null
+fi;
+
 CARD="${1:-0}"
 MIXER="${2:-default}" # use pulse for pulseaudio, default is alsa
 
 PLAYBACK=`amixer -c $CARD -D $MIXER get Master | grep ": Playback"`;
 PCT=`echo $PLAYBACK | egrep -o "[0-9]*%"`;
-MUTE=`echo $PLAYBACK | egrep -o "\[o[fn]*\]" | egrep -o [onf]*`;
+SOUND=`echo $PLAYBACK | egrep -o "\[o[fn]*\]" | egrep -o [onf]\*`;
 
 echo "${PCT}";
 echo "${PCT}";
-if [ "$MUTE" = "off" ]; then
+if [ "$SOUND" = "off" ]; then
 	echo "#FF0000";
 fi;
