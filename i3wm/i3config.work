@@ -158,6 +158,7 @@ bindsym $mod+r mode "resize"
 mode "soundedit" {
 	bindsym Up exec amixer -q set Master 2dB+ unmute && pkill -RTMIN+1 i3blocks
 	bindsym Down exec amixer -q set Master 2dB- unmute && pkill -RTMIN+1 i3blocks
+        bindsym space exec amixer -D pulse set Master toggle && pkill -RTMIN+1 i3blocks
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
