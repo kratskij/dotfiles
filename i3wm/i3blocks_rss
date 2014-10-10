@@ -1,0 +1,30 @@
+#!/usr/bin/python
+
+import libxml2
+import urllib
+import sys
+import codecs
+import md5
+import webbrowser
+
+url = sys.argv[1]
+
+m = md5.new(url)
+filename = '/tmp/i3blocksrss_' + m.hexdigest()
+
+if len(sys.argv) > 2:
+    f = open(filename, 'r')
+    webbrowser.open(f.read())
+    f.close()
+
+rss = libxml2.parseDoc(urllib.urlopen(url).read())
+
+titles = rss.xpathEval('/rss/channel/item/title')
+urls = rss.xpathEval('/rss/channel/item/link')
+
+f = open(filename, 'w')
+f.write(urls[0].content)
+f.close()
+
+print titles[0].content
+print titles[0].content

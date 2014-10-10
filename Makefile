@@ -15,6 +15,8 @@ i3:
 	ln -s `pwd`/i3wm/i3blocks.conf ~/.i3blocks.conf
 	-sudo rm /usr/local/libexec/i3blocks/volume
 	sudo ln -s `pwd`/i3wm/i3blocks_volume /usr/local/libexec/i3blocks/volume
+	-sudo rm /usr/local/libexec/i3blocks/rss
+	sudo ln -s `pwd`/i3wm/i3blocks_rss /usr/local/libexec/i3blocks/rss
 
 	rm ~/.i3/config
 	ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config
