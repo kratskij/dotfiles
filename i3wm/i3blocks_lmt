@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+import json
+import sys
+import codecs
+import urllib
+
+nextmatchesurl = "http://ls.betradar.com/ls/feeds/?/betradar/no/gismo/stats_team_nextx/" + sys.argv[1]
+
+data = urllib.urlopen(nextmatchesurl)
+
+obj=json.loads(data.read(), "utf-8")
+
+nextMatch = obj["doc"][0]["data"]["matches"][0]
+
+print (nextMatch["time"]["date"] + " " + nextMatch["time"]["time"] + ": " + nextMatch["teams"]["home"]["name"] + " - " + nextMatch["teams"]["away"]["name"]).encode("utf-8");

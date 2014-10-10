@@ -2,12 +2,6 @@ separator_block_width=10
 separator=false
 color=#444444
 
-[nrk]
-label=NRK
-command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON
-interval=300
-separator_block_width=24
-
 [topprocess]
 command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}')"
 interval=5
@@ -53,7 +47,7 @@ color=#DDDDAA
 [battery]
 label=BAT
 #label=⚡
-command=/usr/local/libexec/i3blocks/battery BAT0
+#command=/usr/local/libexec/i3blocks/battery BAT0
 interval=30
 color=#AADDDD
 

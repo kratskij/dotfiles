@@ -169,6 +169,12 @@ bindsym $mod+Shift+s mode "soundedit"
 # finds out, if available)
 bar {
         status_command i3blocks
+        output DVI-1
+}
+
+bar {
+        status_command i3blocks -c ~/.i3blocks.conf.2
+        output DVI-0
 }
 
 # Henrik specific stuff

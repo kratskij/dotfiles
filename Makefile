@@ -12,11 +12,18 @@ i3:
 	cd i3blocks && sudo make install
 
 	-rm ~/.i3blocks.conf
-	ln -s `pwd`/i3wm/i3blocks.conf ~/.i3blocks.conf
+	ln -s `pwd`/i3wm/i3blocks.conf.$(ENV) ~/.i3blocks.conf
+	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).2 ] ; \
+		-rm ~/.i3blocks.conf.2 ;\
+		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).2 ~/.i3blocks.conf.2 ; \
+	fi;
+
 	-sudo rm /usr/local/libexec/i3blocks/volume
 	sudo ln -s `pwd`/i3wm/i3blocks_volume /usr/local/libexec/i3blocks/volume
 	-sudo rm /usr/local/libexec/i3blocks/rss
 	sudo ln -s `pwd`/i3wm/i3blocks_rss /usr/local/libexec/i3blocks/rss
+	-sudo rm /usr/local/libexec/i3blocks/lmt
+	sudo ln -s `pwd`/i3wm/i3blocks_lmt /usr/local/libexec/i3blocks/lmt
 
 	rm ~/.i3/config
 	ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config
