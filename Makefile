@@ -13,8 +13,8 @@ i3:
 
 	-rm ~/.i3blocks.conf
 	ln -s `pwd`/i3wm/i3blocks.conf.$(ENV) ~/.i3blocks.conf
-	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).2 ] ; \
-		-rm ~/.i3blocks.conf.2 ;\
+	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).2 ] ; then \
+		-rm ~/.i3blocks.conf.2 ; \
 		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).2 ~/.i3blocks.conf.2 ; \
 	fi;
 
