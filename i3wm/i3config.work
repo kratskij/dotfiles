@@ -207,7 +207,7 @@ workspace "$wsSQL" output DVI-1
 #startup
 exec xautolock -time 5 -locker lock
 exec setxkbmap no
-#exec xrandr --auto --output DVI-0 --mode 1920x1080 --left-of DVI-1
+exec xrandr --auto --output DVI-0 --mode 1920x1080 --left-of DVI-1
 
 exec pidgin
 exec thunderbird
