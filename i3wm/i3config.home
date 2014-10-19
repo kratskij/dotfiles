@@ -170,6 +170,21 @@ bindsym $mod+Shift+s mode "soundedit"
 # finds out, if available)
 bar {
         status_command i3blocks
+	font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+
+	colors {
+		background #111111
+	}
+}
+
+bar {
+	status_command		i3blocks -c ~/.i3blocks.conf.2
+	position		top
+	tray_output		none
+	workspace_buttons	no
+	colors {
+		background	#556677
+	}
 }
 
 # Henrik specific stuff
