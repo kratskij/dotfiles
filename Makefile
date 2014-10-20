@@ -24,6 +24,8 @@ i3:
 	sudo ln -s `pwd`/i3wm/i3blocks_rss /usr/local/libexec/i3blocks/rss
 	-sudo rm /usr/local/libexec/i3blocks/lmt
 	sudo ln -s `pwd`/i3wm/i3blocks_lmt /usr/local/libexec/i3blocks/lmt
+	-sudo rm /usr/local/libexec/i3blocks/capitals
+	sudo ln -s `pwd`/i3wm/i3blocks_capitals /usr/local/libexec/i3blocks/capitals
 
 	rm ~/.i3/config
 	ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config

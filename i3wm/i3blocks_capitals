@@ -1,0 +1,18 @@
+#!/bin/bash
+
+FILE="/tmp/i3blocks_capitals"
+
+if [[ $BLOCK_BUTTON -gt 0 ]] && [ -f $FILE ]; then
+    LINE=`cat ${FILE}`
+    rm $FILE
+    echo "${LINE}"
+    echo "${LINE}"
+else
+    LINE=`shuf -n 1 ~/dotfiles/i3wm/capitals.txt`
+    COUNTRY=`echo "${LINE}" | cut -d "	" -f 1`
+    CAPITAL=`echo "${LINE}" | cut -d "	" -f 2`
+    echo "${COUNTRY}: ${CAPITAL}" > $FILE
+
+    echo "${COUNTRY}: ${CAPITAL//[a-z(),-]/ }"
+    echo "${COUNTRY}: ${CAPITAL//[a-z(),-]/ }"
+fi
