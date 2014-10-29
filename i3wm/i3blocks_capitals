@@ -13,6 +13,6 @@ else
     CAPITAL=`echo "${LINE}" | cut -d "	" -f 2`
     echo "${COUNTRY}: ${CAPITAL}" > $FILE
 
-    echo "${COUNTRY}: ${CAPITAL//[a-zA-Z(),\-.\']/ }"
-    echo "${COUNTRY}: ${CAPITAL//[a-zA-Z(),\-.\']/ }"
+    echo "${COUNTRY}: ${CAPITAL//[a-zA-Z(),\-.\'\/]/ }"
+    echo "${COUNTRY}: ${CAPITAL//[a-zA-Z(),\-.\'\/]/ }"
 fi
