@@ -198,7 +198,7 @@ for_window [class="Wimp" instance="wimp" title="^[a-zA-Z].*$"] floating disable
 for_window [class="Thunderbird" instance="Msgcompose"] floating enable
 for_window [class="Wine" instance="TeamViewer.exe"] floating enable
 for_window [class="Guake" instance="guake"] floating enable
-
+for_window [title="Controlled multi-tab browsing"] floating enable
 
 #assign certain applications to certain workspaces
 assign [class="Pidgin"] $ws2
