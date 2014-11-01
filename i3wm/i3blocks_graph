@@ -1,0 +1,36 @@
+#!/usr/bin/python
+# This Python file uses the following encoding: utf-8
+
+import sys, pprint, os.path, subprocess, re
+
+filename = "/tmp/i3blocks_graph_" + sys.argv[1]
+maxValue = int(sys.argv[2])
+length = int(sys.argv[3])
+
+lines = sys.stdin.read().split('\n');
+cleanValue = float(re.match('[\d\.]+', lines[0]).group(0))
+
+graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+
+if (os.path.isfile(filename) and length > 1):
+	f = open(filename, 'r')
+	values = f.read().split(' ')[-length:]
+	f.close()
+else:
+	values = (" " * length).split(" ")
+
+newValue = graph[int((cleanValue / maxValue) * (len(graph) - 1))]
+
+values.append(newValue)
+
+f = open(filename, 'w')
+f.write(' '.join(values))
+f.close()
+
+g = ''
+for a in values:
+	g += a
+
+print g + ' ' + lines[0]
+print g + ' ' + lines[1]
+print lines[2]

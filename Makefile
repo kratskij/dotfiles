@@ -26,6 +26,11 @@ i3:
 	sudo ln -s `pwd`/i3wm/i3blocks_lmt /usr/local/libexec/i3blocks/lmt
 	-sudo rm /usr/local/libexec/i3blocks/capitals
 	sudo ln -s `pwd`/i3wm/i3blocks_capitals /usr/local/libexec/i3blocks/capitals
+	-sudo rm /usr/local/libexec/i3blocks/graph
+	sudo ln -s `pwd`/i3wm/i3blocks_graph /usr/local/libexec/i3blocks/graph
+	
+	-sudo rm /usr/local/libexec/i3blocks/temperature
+	sudo ln -s `pwd`/i3blocks/contrib/temperature /usr/local/libexec/i3blocks/temperature
 
 	rm ~/.i3/config
 	ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config

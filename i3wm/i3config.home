@@ -170,20 +170,30 @@ bindsym $mod+Shift+s mode "soundedit"
 # finds out, if available)
 bar {
         status_command i3blocks
-	font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+        colors {
+                background              #444444
 
-	colors {
-		background #111111
-	}
+                inactive_workspace      #ffffff #666666
+                focused_workspace       #ffffff #888888
+                urgent_workspace        #ffffff #ddaaaa
+                active_workspace        #ffffff #888888
+        }
 }
 
 bar {
 	status_command		i3blocks -c ~/.i3blocks.conf.2
 	position		top
 	tray_output		none
-	workspace_buttons	no
+
 	colors {
-		background	#556677
+		background	#444444
+
+                statusline #444444
+
+                focused_workspace  #444444 #444444
+                active_workspace   #444444 #444444
+                inactive_workspace #444444 #444444
+                urgent_workspace   #444444 #444444
 	}
 }
 
