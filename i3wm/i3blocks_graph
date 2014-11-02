@@ -12,12 +12,14 @@ cleanValue = float(re.match('[\d\.]+', lines[0]).group(0))
 
 graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
 
-if (os.path.isfile(filename) and length > 1):
-	f = open(filename, 'r')
-	values = f.read().split(' ')[-length:]
-	f.close()
-else:
-	values = (" " * length).split(" ")
+values = []
+if (length > 1):
+	if (os.path.isfile(filename)):
+		f = open(filename, 'r')
+		values = f.read().split(' ')[-length:]
+		f.close()
+	else:
+		values = ((" " + graph[0]) * length).split(' ')
 
 newValue = graph[int((cleanValue / maxValue) * (len(graph) - 1))]
 
