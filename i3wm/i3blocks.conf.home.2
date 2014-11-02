@@ -1,20 +1,23 @@
-separator_block_width=10
+separator_block_width=24
 separator=false
 color=#444444
 
 [capitals]
 command=/usr/local/libexec/i3blocks/capitals
 interval=60
-separator_block_width=24
 color=#000000
 
 [lmt]
 #command=/usr/local/libexec/i3blocks/lmt 1161 $BLOCK_BUTTON
 interval=3600
-separator_block_width=24
 
 [nrk]
 label=NRK: 
 command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON
 interval=300
-separator_block_width=24
+
+[tv]
+label=TV:
+command=/usr/local/libexec/i3blocks/tv $BLOCK_BUTTON
+interval=once
+color=#FF00FF

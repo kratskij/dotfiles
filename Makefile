@@ -28,7 +28,9 @@ i3:
 	sudo ln -s `pwd`/i3wm/i3blocks_capitals /usr/local/libexec/i3blocks/capitals
 	-sudo rm /usr/local/libexec/i3blocks/graph
 	sudo ln -s `pwd`/i3wm/i3blocks_graph /usr/local/libexec/i3blocks/graph
-	
+	-sudo rm /usr/local/libexec/i3blocks/tv
+	sudo ln -s `pwd`/i3wm/i3blocks_tv /usr/local/libexec/i3blocks/tv
+
 	-sudo rm /usr/local/libexec/i3blocks/temperature
 	sudo ln -s `pwd`/i3blocks/contrib/temperature /usr/local/libexec/i3blocks/temperature
 
