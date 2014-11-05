@@ -5,7 +5,7 @@ endif
 all: i3 git bash
 
 i3:
-	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat
+	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat lm-sensors
 
 	-git clone git://github.com/vivien/i3blocks
 	cd i3blocks && make clean
