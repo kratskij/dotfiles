@@ -7,15 +7,21 @@ command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")"
 interval=5
 separator_block_width=24
 
+[temp]
+label=TEMP
+command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph temp 100 10
+interval=10
+separator_block_width=24
+
 [cpu]
 label=CPU
-command=/usr/local/libexec/i3blocks/cpu_usage
-interval=10
+command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph cpu 100 10
+interval=2
 separator_block_width=24
 
 [load]
 label=LOAD
-command=/usr/local/libexec/i3blocks/load_average
+command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph load 4 10
 interval=10
 separator_block_width=24
 
