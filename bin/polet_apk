@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+
+$file = file('http://www.vinmonopolet.no/api/produkter');
+$data = array();
+foreach ($file as $f) {
+    $f = utf8_encode($f);
+    $data[] = str_getcsv($f, ';');
+}
+
+unset($data[0]);
+
+$data = array_filter($data, function($var) {
+    return $var[6] == 'Øl';
+});
+
+usort($data, function($a, $b) {
+    $av = $a[26] / $a[5];
+    $bv = $b[26] / $b[5];
+
+    if ($av == $bv) return 0;
+    return ($av > $bv) ? -1 : 1;
+});
+
+$i = 0;
+foreach($data as $row) {
+    echo ++$i . "\t" . $row[2] . "\t" . $row[3] . "\t" . $row[4] . "kr\t" . $row[26] . "%\t" . round(($row[26] / $row[5]) * 100, 2) . 'apk' . "\n";
+}
+
