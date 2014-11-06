@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-setlocale(LC_ALL, "NO_no");
+setlocale(LC_ALL, "nb_NO.UTF-8");
 
 # First param is delimiter for the resulting list. Default is <TAB>.
 # Example for pretty print in terminal: bin/polet_apk \; | head -50 | column -t -s \;
