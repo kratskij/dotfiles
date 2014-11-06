@@ -1,11 +1,24 @@
 #!/usr/bin/env php
 <?php
 
-$file = file('http://www.vinmonopolet.no/api/produkter');
+setlocale(LC_ALL, "NO_no");
+
+# First param is delimiter for the resulting list. Default is <TAB>.
+# Example for pretty print in terminal: bin/polet_apk \; | head -50 | column -t -s \;
+$delim = "\t";
+if (isset($argv[1])) $delim = $argv[1];
+
+$cacheFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'polet_apk_w' . date('W') . '.csv';
+
+if (!file_exists($cacheFile)) {
+    file_put_contents($cacheFile, file_get_contents('http://www.vinmonopolet.no/api/produkter'));
+}
+
+$csv = file($cacheFile);
 $data = array();
-foreach ($file as $f) {
-    $f = utf8_encode($f);
-    $data[] = str_getcsv($f, ';');
+foreach ($csv as $row) {
+    $row = utf8_encode($row);
+    $data[] = str_getcsv($row, ';');
 }
 
 unset($data[0]);
@@ -24,6 +37,6 @@ usort($data, function($a, $b) {
 
 $i = 0;
 foreach($data as $row) {
-    echo ++$i . "\t" . $row[2] . "\t" . $row[3] . "\t" . $row[4] . "kr\t" . $row[26] . "%\t" . round(($row[26] / $row[5]) * 100, 2) . 'apk' . "\n";
+    echo ++$i . "$delim" . $row[2] . "$delim" . $row[3] . "$delim" . $row[4] . " kr$delim" . $row[26] . " %$delim" . round(($row[26] / $row[5]) * 100, 2) . " apk$delim" . $row[1]  . "\n";
 }
 
