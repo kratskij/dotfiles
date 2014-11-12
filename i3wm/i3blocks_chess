@@ -1,0 +1,42 @@
+#!/usr/bin/python
+# This Python file uses the following encoding: utf-8
+
+import json
+import sys
+import urllib
+import webbrowser
+import time
+
+
+pieces = {
+    "bk": "♔",
+    "bq": "♕",
+    "br": "♖",
+    "bb": "♗",
+    "bn": "♘",
+    "bp": "♙",
+    "wk": "♚",
+    "wq": "♛",
+    "wr": "♜",
+    "wb": "♝",
+    "wn": "♞",
+    "wp": "♟"
+}
+
+
+
+
+matchid = sys.argv[1]
+filename = '/tmp/i3blocks_lmt_' + matchid
+#7566
+matchinfo = "http://snutt.nrk.no/sport_apps/sjakk/api/zugzwang/game/" + matchid
+data = urllib.urlopen(matchinfo)
+obj=json.loads(data.read(), "utf-8")
+moves = obj["engine"]["moves"]
+
+text = []
+for move in moves:
+    text.append(pieces[move["color"] + move["piece"]].decode("utf-8") + " " + move["from"] + " → ".decode("utf-8") + move["to"] + "  (" + (str(move["engineScore"])) + ")")
+
+print "    |    ".join(text).encode("utf-8")
+print "    |    ".join(text).encode("utf-8");
