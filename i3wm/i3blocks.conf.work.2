@@ -2,11 +2,6 @@ separator_block_width=10
 separator=false
 color=#444444
 
-[chess]
-command=//usr/local/libexec/i3blocks/chess 7566
-interval=10
-color=#ff00ff
-
 [nowplaying]
 label=♫
 command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8");print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8");')"
@@ -18,6 +13,11 @@ command=/usr/local/libexec/i3blocks/capitals
 interval=60
 separator_block_width=24
 color=#888888
+
+[chess]
+command=//usr/local/libexec/i3blocks/chess 7566
+interval=10
+color=#ff00ff
 
 [lmt]
 #command=/usr/local/libexec/i3blocks/lmt 6187860 $BLOCK_BUTTON
