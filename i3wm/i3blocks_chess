@@ -24,21 +24,29 @@ pieces = {
 }
 
 
+apibase = "http://snutt.nrk.no/sport_apps/sjakk/api/zugzwang/"
 
+data = urllib.urlopen(apibase + "fetch-games/2")
+games = json.loads(data.read(), "utf-8")
+gameId = games["games"][len(games["games"]) - 1]["gameId"]
 
-matchid = sys.argv[1]
-filename = '/tmp/i3blocks_lmt_' + matchid
-#7566
-matchinfo = "http://snutt.nrk.no/sport_apps/sjakk/api/zugzwang/game/" + matchid
-data = urllib.urlopen(matchinfo)
-obj=json.loads(data.read(), "utf-8")
-moves = obj["engine"]["moves"]
+data = urllib.urlopen(apibase + "game/" + str(gameId))
+game = json.loads(data.read(), "utf-8")
+
+moves = []
+moveColor = "w"
+if game["engine"]:
+    moves = game["engine"]["moves"]
+    moveColor = moves[0]["color"]
+
 
 def getTime(ms):
+    if (ms < 0):
+        ms = 0
     s = ms/1000
     return str(int(s/60)) + ":" + "%02d" % (s % 60,)
 
-text = [str(int(obj["move"] / 2) + 1) + moves[0]["color"] + " ( w: " + getTime(obj["clock"]["white"]) + ", b: " + getTime(obj["clock"]["black"]) + " )"]
+text = [str(int(game["move"] / 2) + 1) + moveColor + " ( w: " + getTime(game["clock"]["white"]) + ", b: " + getTime(game["clock"]["black"]) + " )"]
 for move in moves:
     text.append(pieces[move["color"] + move["piece"]].decode("utf-8") + " " + move["from"] + " → ".decode("utf-8") + move["to"] + "  (" + (str(move["engineScore"])) + ")")
 
