@@ -1,0 +1,52 @@
+#!/usr/bin/python
+# This Python file uses the following encoding: utf-8
+
+import csv, urllib2, sqlite3, sys, locale, datetime, time
+
+locale.setlocale(locale.LC_ALL, 'nb_NO.UTF-8')
+
+cachefile = '/tmp/vmputf'
+url ='http://www.vinmonopolet.no/api/produkter'
+
+def adapt_datetime(ts):
+    return time.mktime(ts.timetuple())
+
+sqlite3.register_adapter(datetime.datetime, adapt_datetime)
+
+uts = datetime.datetime.now()
+
+response = open(cachefile)
+#response = urllib2.urlopen(url)
+#encoding = response.headers['content-type'].split('charset=')[-1]
+
+products = list(csv.DictReader(response, delimiter=';'))
+
+#print products[1]['Varetype']
+
+conn = sqlite3.connect('unibeer.db')
+c = conn.cursor()
+
+#c.execute('''DROP TABLE vinmonopolet''')
+c.execute('''CREATE TABLE IF NOT EXISTS vinmonopolet (id INTEGER, imported bigint, updated bigint, name text, price real, abv real, volume real, url text)''')
+c.execute('''CREATE UNIQUE INDEX IF NOT EXISTS vmp ON vinmonopolet(id)''')
+
+for p in products:
+	if p['Varetype'].decode("utf-8") == "Øl".decode('utf-8'):
+		c.execute('''INSERT OR IGNORE INTO vinmonopolet (id, imported) VALUES (?,?)''', (int(p['Varenummer'].decode('utf-8')), uts))
+		c.execute("UPDATE vinmonopolet SET updated = ?, name = ?, price = ?, abv = ?, volume = ?, url = ? WHERE id = ?",
+			(uts, p['Varenavn'].decode('utf-8'), float(p["Pris"].replace(",", ".")), float(p["Alkohol"].replace(",", ".")), float(p["Volum"].replace(",", ".")), p["Vareurl"].decode('utf-8'), int(p["Varenummer"].decode('utf-8')))
+		)
+
+
+rows = c.execute("select * from vinmonopolet").fetchall()
+
+conn.commit()
+conn.close()
+
+
+print len(rows)
+for row in rows:
+	print row
+
+
+
