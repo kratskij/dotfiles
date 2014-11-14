@@ -34,9 +34,13 @@ data = urllib.urlopen(matchinfo)
 obj=json.loads(data.read(), "utf-8")
 moves = obj["engine"]["moves"]
 
-text = []
+def getTime(ms):
+    s = ms/1000
+    return str(int(s/60)) + ":" + "%02d" % (s % 60,)
+
+text = [str(int(obj["move"] / 2) + 1) + moves[0]["color"] + " ( w: " + getTime(obj["clock"]["white"]) + ", b: " + getTime(obj["clock"]["black"]) + " )"]
 for move in moves:
     text.append(pieces[move["color"] + move["piece"]].decode("utf-8") + " " + move["from"] + " → ".decode("utf-8") + move["to"] + "  (" + (str(move["engineScore"])) + ")")
 
-print "    |    ".join(text).encode("utf-8")
-print "    |    ".join(text).encode("utf-8");
+print "  |  ".join(text).encode("utf-8")
+print "  |  ".join(text).encode("utf-8");
