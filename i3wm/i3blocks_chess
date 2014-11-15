@@ -7,6 +7,14 @@ import urllib
 import webbrowser
 import time
 
+def getTime(ms):
+    if (ms < 0):
+        ms = 0
+    s = ms/1000
+    h = int(s / 3600)
+    m = (int(s % 3600) / 60)
+    s = s % 60
+    return ("%02d" % (h,)) + ":" + ("%02d" % (m,)) + ":" + ("%02d" % (s,))
 
 pieces = {
     "bk": "♔",
@@ -26,13 +34,13 @@ pieces = {
 
 apibase = "http://snutt.nrk.no/sport_apps/sjakk/api/zugzwang/"
 
-data = urllib.urlopen(apibase + "fetch-games/2")
-games = json.loads(data.read(), "utf-8")
-game = games["games"][len(games["games"]) - 1]
-#gameId = games["games"][len(games["games"]) - 1]["gameId"]
-
-#data = urllib.urlopen(apibase + "game/" + str(gameId))
-#game = json.loads(data.read(), "utf-8")
+if len(sys.argv) > 1:
+    data = urllib.urlopen(apibase + "game/" + sys.argv[1])
+    game = json.loads(data.read(), "utf-8")
+else:
+    data = urllib.urlopen(apibase + "fetch-games/2")
+    games = json.loads(data.read(), "utf-8")
+    game = games["games"][len(games["games"]) - 1]
 
 moves = []
 moveColor = "w"
@@ -41,18 +49,10 @@ if game["engine"]:
     moveColor = moves[0]["color"]
 
 
-def getTime(ms):
-    if (ms < 0):
-        ms = 0
-    s = ms/1000
-    h = int(s / 3600)
-    m = (int(s % 3600) / 60)
-    s = s % 60
-    return ("%02d" % (h,)) + ":" + ("%02d" % (m,)) + ":" + ("%02d" % (s,))
 
 text = [str(int(game["move"] / 2) + 1) + moveColor + " ( w: " + getTime(game["clock"]["white"]) + ", b: " + getTime(game["clock"]["black"]) + " )"]
 for move in moves:
     text.append(pieces[move["color"] + move["piece"]].decode("utf-8") + " " + move["from"] + " → ".decode("utf-8") + move["to"] + "  (" + (str(move["engineScore"])) + ")")
 
 print "  |  ".join(text).encode("utf-8")
-print "  |  ".join(text).encode("utf-8");
+print "  |  ".join(text).encode("utf-8")
