@@ -52,7 +52,8 @@ if game["engine"]:
 
 text = [str(int(game["move"] / 2) + 1) + moveColor + " ( w: " + getTime(game["clock"]["white"]) + ", b: " + getTime(game["clock"]["black"]) + " )"]
 for move in moves:
-    text.append(pieces[move["color"] + move["piece"]].decode("utf-8") + " " + move["from"] + " → ".decode("utf-8") + move["to"] + "  (" + (str(move["engineScore"])) + ")")
+    nextMove = ", ".join(move["line"][move["line"].find(" pv ") + 4:].split(" ")[1:4])
+    text.append(str(move["engineScore"]) + ': ' + pieces[move["color"] + move["piece"]].decode("utf-8") + " " + move["from"] + " → ".decode("utf-8") + move["to"] + " (" + nextMove + ")")
 
 print "  |  ".join(text).encode("utf-8")
 print "  |  ".join(text).encode("utf-8")
