@@ -1,38 +1,75 @@
 #!/usr/bin/python
 # This Python file uses the following encoding: utf-8
 
-import sys, pprint, os.path, subprocess, re
+import sys, pprint, os.path, subprocess, re, getopt
 
-filename = "/tmp/i3blocks_graph_" + sys.argv[1]
-maxValue = int(sys.argv[2])
-length = int(sys.argv[3])
+def usage():
+    print "Example usage: <cmd> | graph --id=test [--length=10] [--max=100] [--min=50]"
 
-lines = sys.stdin.read().split('\n');
-cleanValue = float(re.match('[\d\.]+', lines[0]).group(0))
+def main(argv, stdinLines):
+    try:
+        minValue = 0
+        maxValue = 1
+        length = 10
+        opts, args = getopt.getopt(argv, "x:v", ['max=', 'min=', 'id=', 'length='])
+        for opt, arg in opts:
+            if opt == '--max':
+                maxValue = int(arg)
+            elif opt == '--min':
+                minValue = int(arg)
+            elif opt == '--id':
+                filename = arg
+            elif opt in ['--length', '-l']:
+                length = int(arg)
+            elif opt in ['--help', '-h']:
+                usage()
+                sys.exit(2)
+            else:
+                usage()
+                sys.exit(2)
+        if not filename:
+            usage()
+            sys.exit(2)
+        lines = sys.stdin.read().split('\n')
+        cleanValue = float(re.match('[\d\.]+', stdinLines[0]).group(0))
+        cleanValue = min(cleanValue, maxValue)
+        cleanValue = max(cleanValue, minValue)
 
-graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+        graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
 
-values = []
-if (length > 1):
-	if (os.path.isfile(filename)):
-		f = open(filename, 'r')
-		values = f.read().split(' ')[-length:]
-		f.close()
-	else:
-		values = ((" " + graph[0]) * length).split(' ')
+        values = []
+        if (length > 1):
+            if (os.path.isfile(filename)):
+                f = open(filename, 'r')
+                values = f.read().split(' ')[-length:]
+                f.close()
+            else:
+                values = ((" " + graph[0]) * length).split(' ')
 
-newValue = graph[int((cleanValue / maxValue) * (len(graph) - 1))]
+        newValue = graph[int((cleanValue / maxValue) * (len(graph) - 1))]
 
-values.append(newValue)
+        values.append(newValue)
 
-f = open(filename, 'w')
-f.write(' '.join(values))
-f.close()
+        f = open(filename, 'w')
+        f.write(' '.join(values))
+        f.close()
 
-g = ''
-for a in values:
-	g += a
+        g = ''
+        for a in values:
+            g += a
 
-print g + ' ' + lines[0]
-print g + ' ' + lines[1]
-print lines[2]
+        print g + ' ' + stdinLines[0]
+        print g + ' ' + stdinLines[1]
+        print stdinLines[2]
+
+    except getopt.GetoptError,e:
+        print e
+        usage()
+        sys.exit(2)
+    except UnboundLocalError, e:
+        print e
+        usage()
+        sys.exit(2)
+
+if __name__ == '__main__':
+    main(sys.argv[1:], sys.stdin.read().split('\n'))

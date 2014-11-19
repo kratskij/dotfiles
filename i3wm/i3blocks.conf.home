@@ -8,17 +8,17 @@ interval=5
 
 [temp]
 label=TEMP
-command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph temp 100 10
+command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50 --length=10
 interval=10
 
 [cpu]
 label=CPU
-command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph cpu 100 10
+command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph cpu --id=100 --max=1 --length=10
 interval=10
 
 [load]
 label=LOAD
-command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph load 1 10
+command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph load --id=1 --max=1 --length=10
 interval=10
 
 [memory]
@@ -47,7 +47,7 @@ color=#DDDDAA
 [battery]
 label=BAT
 #label=⚡
-command=/usr/local/libexec/i3blocks/battery BAT0 | /usr/local/libexec/i3blocks/graph battery 100 1
+command=/usr/local/libexec/i3blocks/battery BAT0 | /usr/local/libexec/i3blocks/graph --id=battery --max=100 --length=1
 interval=30
 color=#AADDDD
 
