@@ -1,6 +1,6 @@
 separator_block_width=10
 separator=false
-color=#444444
+color=#888888
 
 [topprocess]
 command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}')"
