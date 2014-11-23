@@ -46,7 +46,7 @@ def main(argv, stdinLines):
             else:
                 values = ((" " + graph[0]) * length).split(' ')
 
-        newValue = graph[int((cleanValue / maxValue) * (len(graph) - 1))]
+        newValue = graph[int(((cleanValue - minValue) / (maxValue - minValue)) * (len(graph) - 1))]
 
         values.append(newValue)
 

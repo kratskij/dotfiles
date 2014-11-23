@@ -170,11 +170,27 @@ bindsym $mod+Shift+s mode "soundedit"
 bar {
         status_command i3blocks
         output DVI-1
+        colors {
+                background              #444444
+
+                inactive_workspace      #888888 #444444
+                focused_workspace       #ffffff #666666
+                urgent_workspace        #ffffff #dd6666
+                active_workspace        #ffffff #555555
+        }
 }
 
 bar {
         status_command i3blocks -c ~/.i3blocks.conf.2
         output DVI-0
+        colors {
+                background              #444444
+
+                inactive_workspace      #888888 #444444
+                focused_workspace       #ffffff #666666
+                urgent_workspace        #ffffff #dd6666
+                active_workspace        #ffffff #555555
+        }
 }
 
 # Henrik specific stuff
