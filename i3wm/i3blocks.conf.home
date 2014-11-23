@@ -13,12 +13,12 @@ interval=10
 
 [cpu]
 label=CPU
-command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph cpu --id=100
+command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph --id=cpu --max=100
 interval=10
 
 [load]
 label=LOAD
-command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --id=load
+command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --max=4 --id=load
 interval=10
 
 [memory]
