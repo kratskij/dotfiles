@@ -19,7 +19,7 @@ MIXER="${2:-default}" # use pulse for pulseaudio, default is alsa
 SCONTROL="${3:-Master}"
 
 case $BLOCK_BUTTON in
-  2) amixer -q sset $SCONTROL toggle ;; # middle click, toggle mute mode
+  2) amixer -q -D pulse sset $SCONTROL toggle ;; # middle click, toggle mute mode
   4) amixer -q sset $SCONTROL 1%+ ;;    # scroll up, increase
   5) amixer -q sset $SCONTROL 1%- ;;    # scroll down, decrease
 esac
