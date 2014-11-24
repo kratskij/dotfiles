@@ -1,0 +1,8 @@
+#!/bin/sh
+
+VPN=`nmcli con status | awk '{print $1,$5}' | grep yes | head -1 | awk '{print $1}'`
+if [ -n "${VPN}" ]; then
+	echo "VPN: ${VPN}";
+	echo "VPN: ${VPN}";
+	echo "#FF0000";
+fi;

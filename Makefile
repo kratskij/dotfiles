@@ -5,7 +5,7 @@ endif
 all: i3 git bash
 
 i3:
-	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat lm-sensors
+	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat lm-sensors nmcli
 
 	-git clone git://github.com/vivien/i3blocks
 	cd i3blocks && make clean
@@ -32,9 +32,10 @@ i3:
 	sudo ln -s `pwd`/i3wm/i3blocks_tv /usr/local/libexec/i3blocks/tv
 	-sudo rm /usr/local/libexec/i3blocks/chess
 	sudo ln -s `pwd`/i3wm/i3blocks_chess /usr/local/libexec/i3blocks/chess
-
 	-sudo rm /usr/local/libexec/i3blocks/temperature
 	sudo ln -s `pwd`/i3blocks/contrib/temperature /usr/local/libexec/i3blocks/temperature
+	-sudo rm /usr/local/libexec/i3blocks/vpn
+	sudo ln -s `pwd`/i3wm/i3blocks_vpn /usr/local/libexec/i3blocks/vpn
 
 	rm ~/.i3/config
 	ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config
