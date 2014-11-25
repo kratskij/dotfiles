@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango:Ubuntu Mono 10
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
@@ -167,29 +167,32 @@ bindsym $mod+Shift+s mode "soundedit"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+
 bar {
+        tray_output none
         status_command i3blocks
         output DVI-1
         colors {
-                background              #444444
+                background              #323232
 
-                inactive_workspace      #888888 #444444
-                focused_workspace       #ffffff #666666
+                inactive_workspace      #666666 #323232
+                focused_workspace       #ffffff #323232
                 urgent_workspace        #ffffff #dd6666
-                active_workspace        #ffffff #555555
+                active_workspace        #ffffff #323232
         }
 }
 
 bar {
+        tray_output none
         status_command i3blocks -c ~/.i3blocks.conf.2
         output DVI-0
         colors {
-                background              #444444
+                background              #323232
 
-                inactive_workspace      #888888 #444444
-                focused_workspace       #ffffff #666666
+                inactive_workspace      #666666 #323232
+                focused_workspace       #ffffff #323232
                 urgent_workspace        #ffffff #dd6666
-                active_workspace        #ffffff #555555
+                active_workspace        #ffffff #323232
         }
 }
 

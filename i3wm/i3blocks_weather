@@ -1,0 +1,49 @@
+#!/usr/bin/python
+# encoding: utf-8
+
+import urllib2, sys, getopt
+from bs4 import BeautifulSoup
+from dateutil.parser import parse
+
+#import pprint
+
+def usage():
+    print "Example usage: i3blocks_weather --limit=2"
+
+def main(argv):
+    try:
+        symbolmap = { '1': '☀', '2': '☀', '3': '☁', '4': '☁', '5': '☂', '6': '⚡', '7': '❄', '8': '❄', '9': '☂', '10': '☔', '11': '⚡', '12': '❄', '13': '❄', '14': '❄', '14': '☁', '20': '⚡', '21': '⚡', '22': '⚡', '23': '⚡', '24': '⚡', '25': '⚡', '26': '⚡', '27': '⚡', '28': '⚡', '29': '⚡', '30': '⚡', '31': '⚡', '32': '⚡', '33': '⚡', '34': '⚡', '30': '⚡', '40': '☂', '41': '☔', '42': '❄', '43': '❄', '43': '❄', '44': '❄', '45': '❄', '46': '☂', '47': '❄', '48': '❄', '49': '❄', '50': '❄' }
+        winddirmap = { 'E': '←', 'S': '↑', 'W': '→', 'N': '↓', 'SE': '↖', 'SSE': '↖', 'ESE': '↖', 'SW': '↗', 'SSW': '↗', 'WSW': '↗', 'NW': '↘', 'NNW': '↘', 'WNW': '↘', 'NE': '↙', 'NNE': '↙', 'ENE': '↙' }
+
+        limit = 3
+        opts, args = getopt.getopt(argv, "x:v", ['limit='])
+        for opt, arg in opts:
+            if opt == '--limit':
+                limit = int(arg)
+
+        url="http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast_hour_by_hour.xml"
+
+        soup = BeautifulSoup(urllib2.urlopen(url).read())
+
+        forecasts = soup.find('forecast').tabular.find_all('time')[0:limit]
+
+        texts = []
+
+        for f in forecasts:
+            time = parse(f['from']).strftime('%H:%M')
+            rain = f.find('precipitation')['value']
+            winddir = f.find('winddirection')['code']
+            windspeed = f.find('windspeed')['mps']
+            temp = f.find('temperature')['value']
+            weathertype = f.find('symbol')['number']
+            texts.append(time + ': ' + symbolmap[weathertype] + " " +  temp + "° " + rain + 'mm ' + windspeed + winddirmap[winddir] + ' ')
+
+        print "[" +  "] [".join(texts) + "]"
+        print "[" +  "] [".join(texts) + "]"
+    except getopt.GetoptError,e:
+        print e
+        usage()
+        sys.exit(2)
+
+if __name__ == '__main__':
+    main(sys.argv[1:])

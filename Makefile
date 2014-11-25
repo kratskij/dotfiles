@@ -36,6 +36,8 @@ i3:
 	sudo ln -s `pwd`/i3blocks/contrib/temperature /usr/local/libexec/i3blocks/temperature
 	-sudo rm /usr/local/libexec/i3blocks/vpn
 	sudo ln -s `pwd`/i3wm/i3blocks_vpn /usr/local/libexec/i3blocks/vpn
+	-sudo rm /usr/local/libexec/i3blocks/weather
+	sudo ln -s `pwd`/i3wm/i3blocks_weather /usr/local/libexec/i3blocks/weather
 
 	rm ~/.i3/config
 	ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config
