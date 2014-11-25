@@ -1,6 +1,8 @@
 separator_block_width=10
 separator=false
 color=#888888
+full_text=❮
+align=center
 
 [topprocess]
 command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --min=10 --length=10)"
@@ -36,6 +38,7 @@ label=SWAP
 command=/usr/local/libexec/i3blocks/memory swap
 interval=30
 separator_block_width=24
+[separator]
 
 [volume]
 label=♪
@@ -43,13 +46,14 @@ command=/usr/local/libexec/i3blocks/volume
 interval=once
 signal=1
 color=#DDDDAA
+[separator]
 
-[battery]
-label=BAT
+#[battery]
+#label=BAT
 #label=⚡
 #command=/usr/local/libexec/i3blocks/battery BAT0
-interval=30
-color=#AADDDD
+#interval=30
+#color=#AADDDD
 
 [time]
 label=⌚
