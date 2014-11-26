@@ -196,7 +196,7 @@ bar {
         }
 }
 
-client.focused              #444444        #333333         #FFFFFF
+client.focused              #444444        #2A333b         #FFFFFF
 client.focused_inactive     #444444        #333333         #888888
 client.unfocused            #333333        #222222         #888888
 client.urgent               #333333        #333333         #8888FF
