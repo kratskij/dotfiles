@@ -177,7 +177,7 @@ bar {
 
                 inactive_workspace      #666666 #323232
                 focused_workspace       #ffffff #323232
-                urgent_workspace        #ffffff #dd6666
+                urgent_workspace        #ffffff #883232
                 active_workspace        #ffffff #323232
         }
 }
@@ -191,10 +191,15 @@ bar {
 
                 inactive_workspace      #666666 #323232
                 focused_workspace       #ffffff #323232
-                urgent_workspace        #ffffff #dd6666
+                urgent_workspace        #ffffff #883232
                 active_workspace        #ffffff #323232
         }
 }
+
+client.focused              #444444        #333333         #FFFFFF
+client.focused_inactive     #444444        #333333         #888888
+client.unfocused            #333333        #222222         #888888
+client.urgent               #333333        #333333         #8888FF
 
 # Henrik specific stuff
 focus_follows_mouse no

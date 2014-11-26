@@ -34,7 +34,7 @@ interval=30
 separator_block_width=24
 
 [swap]
-label=SWAP
+label=⇆
 command=/usr/local/libexec/i3blocks/memory swap
 interval=30
 separator_block_width=24
@@ -47,13 +47,6 @@ interval=once
 signal=1
 color=#DDDDAA
 [separator]
-
-#[battery]
-#label=BAT
-#label=⚡
-#command=/usr/local/libexec/i3blocks/battery BAT0
-#interval=30
-#color=#AADDDD
 
 [time]
 label=⌚
