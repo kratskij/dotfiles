@@ -196,10 +196,10 @@ bar {
         }
 }
 
-client.focused              #2A333b        #2A333b         #FFFFFF
-client.focused_inactive     #333333        #333333         #888888
-client.unfocused            #222222        #222222         #888888
-client.urgent               #8888FF        #8888FF         #FFFFFF
+client.focused              #333333        #333333         #FFFFFF
+client.focused_inactive     #323232        #323232         #888888
+client.unfocused            #323232        #323232         #888888
+client.urgent               #883232        #883232         #FFFFFF
 
 # Henrik specific stuff
 focus_follows_mouse no
