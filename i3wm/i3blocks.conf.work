@@ -5,7 +5,7 @@ full_text=❮
 align=center
 
 [topprocess]
-command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --min=10 --length=10)"
+command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --length=10)"
 interval=5
 separator_block_width=24
 
