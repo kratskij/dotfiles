@@ -18,7 +18,7 @@ def main(argv, stdinLines):
             elif opt == '--min':
                 minValue = int(arg)
             elif opt == '--id':
-                filename = arg
+                filename = "/tmp/i3blocks_graph_" + arg
             elif opt in ['--length', '-l']:
                 length = int(arg)
             elif opt in ['--help', '-h']:
