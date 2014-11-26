@@ -172,29 +172,30 @@ bindsym $mod+Shift+s mode "soundedit"
 bar {
         status_command i3blocks
         colors {
-                background              #444444
+                background              #323232
 
-                inactive_workspace      #ffffff #666666
-                focused_workspace       #ffffff #888888
+
+                inactive_workspace      #666666 #323232
+                focused_workspace       #ffffff #323232
                 urgent_workspace        #ffffff #dd6666
-                active_workspace        #ffffff #888888
+                active_workspace        #ffffff #323232
         }
 }
 
 bar {
-	status_command		i3blocks -c ~/.i3blocks.conf.2
+	status_command		i3blocks -c /home/henrik/dotfiles/i3wm/i3blocks.conf.home.2
 	position		top
 	tray_output		none
 
 	colors {
-		background	#444444
+		background	#323232
 
-                statusline #444444
+                statusline #323232
 
-                focused_workspace  #444444 #444444
-                active_workspace   #444444 #444444
-                inactive_workspace #444444 #444444
-                urgent_workspace   #444444 #444444
+                focused_workspace  #323232 #323232
+                active_workspace   #323232 #323232
+                inactive_workspace #323232 #323232
+                urgent_workspace   #323232 #323232
 	}
 }
 
