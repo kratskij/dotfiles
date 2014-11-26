@@ -1,25 +1,30 @@
 separator_block_width=24
 color=#888888
 
-
 [capitals]
 command=/usr/local/libexec/i3blocks/capitals
 interval=60
 
-[lmt]
+#[lmt]
 #command=/usr/local/libexec/i3blocks/lmt 5076538 $BLOCK_BUTTON
-interval=10
+#interval=10
 
-[chess]
+#[chess]
 #command=/usr/local/libexec/i3blocks/chess 7573
-interval=10
-color=#bb88bb
+#interval=10
+#color=#bb88bb
 
 [nrk]
 label=NRK:
 command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON
 interval=300
 color=#8096bA
+
+[weather]
+command=/usr/local/libexec/i3blocks/weather --limit=3
+interval=once
+signal=1
+color=#DDDDAA
 
 [tv]
 label=TV:

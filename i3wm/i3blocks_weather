@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# encoding: utf-8
+# This python file uses the following encoding: utf-8
 
 import urllib2, sys, getopt
 from bs4 import BeautifulSoup
@@ -31,12 +31,12 @@ def main(argv):
 
         for f in forecasts:
             time = parse(f['from']).strftime('%H:%M')
-            rain = f.find('precipitation')['value']
+            rain = f.find('precipitation')['value'].encode('utf-8')
             winddir = f.find('winddirection')['code']
-            windspeed = f.find('windspeed')['mps']
-            temp = f.find('temperature')['value']
+            windspeed = f.find('windspeed')['mps'].encode('utf-8')
+            temp = f.find('temperature')['value'].encode('utf-8')
             weathertype = f.find('symbol')['number']
-            texts.append(time + ': ' + symbolmap[weathertype] + " " +  temp + "° " + rain + 'mm ' + windspeed + winddirmap[winddir] + ' ')
+            texts.append(time + ': ' + symbolmap[weathertype] + " " +  temp + "° " + rain + 'mm ' + windspeed + winddirmap[winddir])
 
         print "[" +  "] [".join(texts) + "]"
         print "[" +  "] [".join(texts) + "]"
