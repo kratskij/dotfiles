@@ -8,7 +8,7 @@ from dateutil.parser import parse
 #import pprint
 
 def usage():
-    print "Example usage: i3blocks_weather --limit=2"
+    print "Example usage: i3blocks_weather --limit=2 --badcolor=#FF0000 --warmcolor=#FFFF00 --coldcolor=#0088FF"
 
 def main(argv):
     try:
@@ -16,11 +16,25 @@ def main(argv):
         winddirmap = { 'E': '←', 'S': '↑', 'W': '→', 'N': '↓', 'SE': '↖', 'SSE': '↖', 'ESE': '↖', 'SW': '↗', 'SSW': '↗', 'WSW': '↗', 'NW': '↘', 'NNW': '↘', 'WNW': '↘', 'NE': '↙', 'NNE': '↙', 'ENE': '↙' }
 
         limit = 3
-        opts, args = getopt.getopt(argv, "x:v", ['limit='])
+        badcolor = "#FF0000"
+        warmcolor = "#FFFF00"
+        coldcolor = "#0088FF"
+
+        nicetemp = 20
+        badtemp = -10
+        badprecipitaion = 1
+        badwind = 10
+
+        opts, args = getopt.getopt(argv, "x:v", ['limit=', 'badcolor=', 'warmcolor=', 'coldcolor='])
         for opt, arg in opts:
             if opt == '--limit':
                 limit = int(arg)
-
+            if opt == '--badcolor':
+                badcolor = arg
+            if opt == '--warmcolor':
+                warmcolor = arg
+            if opt == '--coldcolor':
+                coldcolor = arg
         url="http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast_hour_by_hour.xml"
 
         soup = BeautifulSoup(urllib2.urlopen(url).read())
@@ -28,28 +42,38 @@ def main(argv):
         forecasts = soup.find('forecast').tabular.find_all('time')[0:limit]
 
         texts = []
-
+        color = ""
         for f in forecasts:
             time = parse(f['from']).strftime('%H')
-            temp = f.find('temperature')['value'].encode('utf-8')
+            temp = int(f.find('temperature')['value'])
             weathertype = f.find('symbol')['number']
 
             precipitation = float(f.find('precipitation')['value'].encode('utf-8'))
             windspeed = float(f.find('windspeed')['mps'].encode('utf-8'))
 
             rain = ""
-            if (precipitation > 0):
+            if precipitation > 0:
                 rain = str(precipitation) + "mm "
 
             wind = ""
-            if (windspeed > 1):
+            if windspeed > 1:
                 winddir = f.find('winddirection')['code']
                 wind = str(windspeed) + winddirmap[winddir];
 
-            texts.append(time + ': ' + symbolmap[weathertype] + " " +  temp + "° " + rain + wind)
+            if not color and temp > nicetemp:
+                color = warmcolor
+            if not color and temp < badtemp:
+                color = coldcolor
+            if not color and precipitation > badprecipitaion:
+                color = badcolor
+            if not color and windspeed > badwind:
+                color = badcolor
+
+            texts.append(time + ': ' + symbolmap[weathertype] + " " +  str(temp) + "° " + rain + wind)
 
         print "[" +  "] [".join(texts) + "]"
         print "[" +  "] [".join(texts) + "]"
+        print color
     except getopt.GetoptError,e:
         print e
         usage()
