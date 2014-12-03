@@ -4,6 +4,7 @@
 import urllib2, sys, getopt
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
+from datetime import timedelta
 
 #import pprint
 
@@ -40,11 +41,12 @@ def main(argv):
         soup = BeautifulSoup(urllib2.urlopen(url).read())
 
         forecasts = soup.find('forecast').tabular.find_all('time')[0:limit]
+        utcoffset = int(soup.find('timezone')['utcoffsetminutes'])
 
         texts = []
         color = ""
         for f in forecasts:
-            time = parse(f['from']).strftime('%H')
+            time = (parse(f['from']) - timedelta(minutes=utcoffset)).strftime('%H')
             temp = int(f.find('temperature')['value'])
             weathertype = f.find('symbol')['number']
 
