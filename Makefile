@@ -2,9 +2,9 @@ ifndef ENV
 $(error ENV is not set. Use "home" or "work")
 endif
 
-all: i3 git bash
+all: install-i3 install-git install-bash install-icdiff
 
-i3:
+install-i3:
 	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat lm-sensors nmcli
 
 	-git clone git://github.com/vivien/i3blocks
@@ -46,12 +46,19 @@ i3:
 	ln -s `pwd`/i3wm/lockscreen /bin/lock
 
 	i3-msg restart
-git:
+install-git:
 	sudo apt-get install git
 
 	git config --global include.path `pwd`/gitconfig
 
-bash:
+install-icdiff:
+	-git clone https://github.com/jeffkaufman/icdiff.git
+	-sudo rm /usr/local/bin/icdiff
+	sudo ln -s `pwd`/icdiff/icdiff /usr/local/bin/icdiff
+	-sudo rm /usr/local/bin/git-icdiff
+	sudo ln -s `pwd`/icdiff/git-icdiff /usr/local/bin/git-icdiff
+
+install-bash:
 	-rm ~/.bash_aliases
 	ln -s `pwd`/bash_aliases ~/.bash_aliases
 	echo "source ̃/.bash_aliases <- DO IT!"
