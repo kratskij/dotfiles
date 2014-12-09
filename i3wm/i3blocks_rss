@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# This python file uses the following encoding: utf-8
 
 import libxml2
 import urllib
@@ -11,7 +12,7 @@ url = sys.argv[1]
 
 m = md5.new(url)
 filename = '/tmp/i3blocksrss_' + m.hexdigest()
-
+maxLength = 50
 if len(sys.argv) > 2:
     f = open(filename, 'r')
     webbrowser.open(f.read())
@@ -26,5 +27,9 @@ f = open(filename, 'w')
 f.write(urls[0].content)
 f.close()
 
-print titles[0].content
-print titles[0].content
+text = titles[0].content
+if len(text) > maxLength:
+    text = text[:maxLength] + "…"
+
+print text
+print text
