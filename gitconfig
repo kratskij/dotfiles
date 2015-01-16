@@ -14,20 +14,20 @@
     tags = substr($7, 0, 40); \
     message = substr($4, 0, 100); \
     \
-    printf \"\\033[31m%s\t\", revision; \
-    printf \"\\033[0m \\033[32m%s %s\t\", committerDate, committerName; \
+    printf \"\\033[31;3;48m%s\t\", revision; \
+    printf \"\\033[32m%s %s\t\", committerDate, committerName; \
     \
-    if ($3 != $2 || $6 != $5) printf \"\\033[0;37m(%s %s)\", authorDate, authorName; \
-    else printf \"\\033[0;37m\"; \
+    if ($3 != $2 || $6 != $5) printf \"\\033[33m(%s %s)\", authorDate, authorName; \
+    else printf \"\\033[37m\"; \
     printf \"\t\"; \
     \
-    printf \"\\033[0m  \\033[30;1m%s\", message; \
+    printf \"\\033[37m%s\", message; \
     if (length(message) == 100) printf \"...\"; \
     printf \"\t\"; \
     \
-    printf \"\\033[0m\\033[33m%s\", tags; \
+    printf \"\\033[33m%s\", tags; \
     if (length(tags) == 40) printf \"...\"; \
-    printf \"\\n\"; \
+    printf \"\\033[0m\\n\"; \
   }' | column -txn -c 30 -s \"\t\" | less -R; }; f"
   uhist = "!f () { git hist -i --author=$1 --max-count=${2:-10} | head -n ${2:-10}; }; f"
   type = cat-file -t
