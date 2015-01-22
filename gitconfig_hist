@@ -22,3 +22,4 @@
     printf \"\\033[0m\\n\"; \
   }' | column -txn -c 30 -s \"\t\" | less -R; }; f"
   uhist = "!f () { git hist -i --author=$1 --max-count=${2:-10} | head -n ${2:-10}; }; f"
+  ulog = "!f () { git hist -i --max-count=${2:-10} $1 | head -n ${2:-10}; }; f"
