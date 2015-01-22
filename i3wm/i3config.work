@@ -238,3 +238,5 @@ exec thunderbird
 exec i3-sensible-terminal
 exec chromium-browser
 exec wimp
+
+exec feh --bg-scale ~/dotfiles/wp.jpg
