@@ -10,6 +10,7 @@
   wd = diff --color-words
   ws = show --color-words
   meld = difftool -y -t meld
+  search = "!f() { git show :/$1; }; f"
 [color]
     diff = always
     branch = auto
