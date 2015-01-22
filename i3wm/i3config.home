@@ -225,5 +225,6 @@ assign [class="Wimp" instance="wimp" title="^[a-zA-Z].*$"] $ws6
 #startup
 exec xautolock -time 5 -locker lock
 exec setxkbmap no
+exec feh --bg-scale ~/dotfiles/wp.jpg
 
 exec chromium-browser
