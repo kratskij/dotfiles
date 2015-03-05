@@ -33,7 +33,7 @@ install-i3:
 	-sudo rm /usr/local/libexec/i3blocks/chess
 	sudo ln -s `pwd`/i3wm/i3blocks_chess /usr/local/libexec/i3blocks/chess
 	-sudo rm /usr/local/libexec/i3blocks/temperature
-	sudo ln -s `pwd`/i3blocks/contrib/temperature /usr/local/libexec/i3blocks/temperature
+	sudo ln -s `pwd`/i3blocks/scripts/temperature /usr/local/libexec/i3blocks/temperature
 	-sudo rm /usr/local/libexec/i3blocks/vpn
 	sudo ln -s `pwd`/i3wm/i3blocks_vpn /usr/local/libexec/i3blocks/vpn
 	-sudo rm /usr/local/libexec/i3blocks/weather
