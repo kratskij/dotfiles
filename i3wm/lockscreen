@@ -1,6 +1,23 @@
 #!/bin/bash
+SCREENWIDTH=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x' -f1`
+SCREENHEIGHT=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x' -f2`
+SCREENS=`xrandr --current | grep '*' | wc -l`
+
+URL=`curl -s www.xkcd.com | grep /comics/ | awk '{print $2}' | cut -d '"' -f 2 | head -1`
+EXT=`echo $URL | rev | cut -d '.' -f1 | rev`
+XKCDFILE=/tmp/todaysxkcd.${EXT}
+curl -s $URL -o ${XKCDFILE}
+XKCDWIDTH=`identify -format '%w' ${XKCDFILE}`
+XKCDHEIGHT=`identify -format '%h' ${XKCDFILE}`
+LEFTPOS=`bc <<< "(${SCREENWIDTH}-${XKCDWIDTH})/2"`
+TOPPOS=`bc <<< "(${SCREENHEIGHT}-${XKCDHEIGHT})/2"`
+
 scrot /tmp/screenshot.png
 #convert /tmp/screenshot.png -blur 5x5 -modulate 30,0,0 -colorize 50,0,50 -charcoal 1 -swirl 2 -negate /tmp/screenshotblur.png
 convert /tmp/screenshot.png -blur 5x5 -modulate 80,0,0 -colorize 50,0,20 /tmp/screenshotblur.png
+for i in $(seq 1 ${SCREENS}); do
+	convert -composite /tmp/screenshotblur.png ${XKCDFILE} -geometry +${LEFTPOS}+${TOPPOS} /tmp/screenshotblur.png;
+	LEFTPOS=`bc <<< "${LEFTPOS}+${SCREENWIDTH}"`;
+done
 
 i3lock -i /tmp/screenshotblur.png
