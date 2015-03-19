@@ -1,0 +1,41 @@
+separator_block_width=10
+separator=false
+color=#888888
+full_text=❮
+align=center
+
+[topprocess]
+command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --length=10)"
+interval=5
+separator_block_width=24
+
+[temp]
+label=TEMP
+command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50 --length=10
+interval=10
+separator_block_width=24
+
+[cpu]
+label=CPU
+command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph --id=cpu --max=100 --length=10
+interval=2
+separator_block_width=24
+
+[load]
+label=LOAD
+command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --id=load --max=4 --length=10
+interval=10
+separator_block_width=24
+
+[memory]
+label=MEM
+command=/usr/local/libexec/i3blocks/memory
+interval=30
+separator_block_width=24
+
+[swap]
+label=⇆
+command=/usr/local/libexec/i3blocks/memory swap
+interval=30
+separator_block_width=24
+[separator]

@@ -11,11 +11,21 @@ install-i3:
 	cd i3blocks && make clean
 	cd i3blocks && sudo make install
 
-	-rm ~/.i3blocks.conf
-	ln -s `pwd`/i3wm/i3blocks.conf.$(ENV) ~/.i3blocks.conf
-	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).2 ] ; then \
-		-rm ~/.i3blocks.conf.2 ; \
-		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).2 ~/.i3blocks.conf.2 ; \
+	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).bottomleft ] ; then \
+		-rm ~/.i3blocks.conf.bottomleft ; \
+		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).bottomleft ~/.i3blocks.conf.bottomleft ; \
+	fi;
+	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).bottomright ] ; then \
+		-rm ~/.i3blocks.conf.bottomright ; \
+		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).bottomright ~/.i3blocks.conf.bottomright ; \
+	fi;
+	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).topleft ] ; then \
+		-rm ~/.i3blocks.conf.topleft ; \
+		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).topleft ~/.i3blocks.conf.topleft ; \
+	fi;
+	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).topright ] ; then \
+		-rm ~/.i3blocks.conf.topright ; \
+		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).topright ~/.i3blocks.conf.topright ; \
 	fi;
 
 	-sudo rm /usr/local/libexec/i3blocks/volume

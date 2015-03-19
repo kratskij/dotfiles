@@ -4,13 +4,6 @@ color=#888888
 full_text=❮
 align=center
 
-[nowplaying]
-label=♫
-command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8");print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8");')"
-interval=10
-color=#DDAADD
-[separator]
-
 [capitals]
 command=/usr/local/libexec/i3blocks/capitals
 interval=60
@@ -18,27 +11,10 @@ separator_block_width=24
 color=#888888
 [separator]
 
-#[chess]
-#command=/usr/local/libexec/i3blocks/chess
-#interval=10
-#color=#bb88bb
-#[separator]
-
-#[lmt]
-#command=/usr/local/libexec/i3blocks/lmt 6187860 $BLOCK_BUTTON
-#interval=3600
-#separator_block_width=24
-#[separator]
-
-[nrk]
-label=NRK
-command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON
-interval=300
-separator_block_width=24
 [separator]
 
-[weather]
-command=/usr/local/libexec/i3blocks/weather --limit=4
-interval=3600
-separator_block_width=24
-color=#bbffff
+[timesystem]
+label=Timesystem:
+command=/home/henrik/dotfiles/i3wm/timesystem.py
+interval=10
+
