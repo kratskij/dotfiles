@@ -7,29 +7,32 @@ import sys
 import codecs
 import md5
 import webbrowser
+try:
+    url = sys.argv[1]
 
-url = sys.argv[1]
+    m = md5.new(url)
+    filename = '/tmp/i3blocksrss_' + m.hexdigest()
+    maxLength = 50
+    if len(sys.argv) > 2:
+        f = open(filename, 'r')
+        webbrowser.open(f.read())
+        f.close()
 
-m = md5.new(url)
-filename = '/tmp/i3blocksrss_' + m.hexdigest()
-maxLength = 50
-if len(sys.argv) > 2:
-    f = open(filename, 'r')
-    webbrowser.open(f.read())
+    rss = libxml2.parseDoc(urllib.urlopen(url).read())
+
+    titles = rss.xpathEval('/rss/channel/item/title')
+    urls = rss.xpathEval('/rss/channel/item/link')
+
+    f = open(filename, 'w')
+    f.write(urls[0].content)
     f.close()
 
-rss = libxml2.parseDoc(urllib.urlopen(url).read())
+    text = titles[0].content
+    if len(text) > maxLength:
+        text = text[:maxLength] + "…"
 
-titles = rss.xpathEval('/rss/channel/item/title')
-urls = rss.xpathEval('/rss/channel/item/link')
-
-f = open(filename, 'w')
-f.write(urls[0].content)
-f.close()
-
-text = titles[0].content
-if len(text) > maxLength:
-    text = text[:maxLength] + "…"
-
-print text
-print text
+    print text
+    print text
+except:
+    print sys.exc_info()[0]
+    print sys.exc_info()[0]
