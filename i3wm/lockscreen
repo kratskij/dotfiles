@@ -4,6 +4,11 @@ SCREENHEIGHT=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x
 SCREENS=`xrandr --current | grep '*' | wc -l`
 
 URL=`curl -s www.xkcd.com | grep /comics/ | awk '{print $2}' | cut -d '"' -f 2 | head -1`
+if [[ $URL == //* ]]; then
+        echo "oy!"
+        URL="http:$URL"
+fi
+
 EXT=`echo $URL | rev | cut -d '.' -f1 | rev`
 XKCDFILE=/tmp/todaysxkcd.${EXT}
 curl -s $URL -o ${XKCDFILE}
