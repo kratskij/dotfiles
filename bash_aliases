@@ -3,6 +3,7 @@ alias rdie9="rdesktop 172.17.20.62 -g 1280x1024"
 alias tv="vncviewer 172.17.20.232"
 alias cutycapt="ssh 172.19.22.45 -l newco"
 alias bob="ssh 192.168.0.237 -l bob"
+alias nrk="chromium-browser --app=http://tv.nrk.no/direkte/nrk1"
 
 
 function hl() { egrep -i --color=auto "$1|"; }
