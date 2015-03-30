@@ -15,6 +15,6 @@ color=#888888
 
 [timesystem]
 label=Timesystem:
-command=/home/henrik/dotfiles/i3wm/timesystem.py
+command=/home/henrik/timesystem/timesystem.py
 interval=10
 
