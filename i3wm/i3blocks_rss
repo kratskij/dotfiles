@@ -27,12 +27,12 @@ try:
     f.write(urls[0].content)
     f.close()
 
-    text = titles[0].content
+    text = titles[0].content.decode('utf-8', 'ignore')
     if len(text) > maxLength:
-        text = text[:maxLength] + "…"
+        text = text[:maxLength] + u'…'
 
-    print text
-    print text
-except:
-    print sys.exc_info()[0]
-    print sys.exc_info()[0]
+    print text.encode('utf-8', 'ignore')
+    print text.encode('utf-8', 'ignore')
+except Error as e:
+    print "Error({0})".format(e)
+    print "Error({0})".format(e)
