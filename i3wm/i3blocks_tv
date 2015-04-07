@@ -23,6 +23,8 @@ if (button == 1):
 	else:
 		call(["xrandr --auto"], shell=True)
 		call(["xrandr --output DP1 --above eDP1"], shell=True)
+		call(["xset -dpms"], shell=True)
+		call(["xset s off"], shell=True)
 
 tvStatus = tvOn()
 if (tvStatus):
