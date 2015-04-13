@@ -35,7 +35,7 @@ def main(argv, stdinLines):
         cleanValue = min(cleanValue, maxValue)
         cleanValue = max(cleanValue, minValue)
 
-        graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+        graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇"]
 
         values = []
         if (length > 1):
