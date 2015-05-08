@@ -3,11 +3,9 @@ SCREENWIDTH=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x'
 SCREENHEIGHT=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x' -f2`
 SCREENS=`xrandr --current | grep '*' | wc -l`
 
-URL=`curl -s www.xkcd.com | grep /comics/ | awk '{print $2}' | cut -d '"' -f 2 | head -1`
-if [[ $URL == //* ]]; then
-        echo "oy!"
-        URL="http:$URL"
-fi
+curl -s www.xkcd.com -o /tmp/todaysxkcd.html
+URL=`cat /tmp/todaysxkcd.html | grep "Image URL" | awk '{print $NF}'`
+HOVERTEXT=`cat /tmp/todaysxkcd.html | sed -rn 's/.*imgs\.xkcd\.com.*comics.*title="([^"]*)".*/\1/p' | html2text`
 
 EXT=`echo $URL | rev | cut -d '.' -f1 | rev`
 XKCDFILE=/tmp/todaysxkcd.${EXT}
@@ -20,8 +18,11 @@ TOPPOS=`bc <<< "(${SCREENHEIGHT}-${XKCDHEIGHT})/2"`
 scrot /tmp/screenshot.png
 #convert /tmp/screenshot.png -blur 5x5 -modulate 30,0,0 -colorize 50,0,50 -charcoal 1 -swirl 2 -negate /tmp/screenshotblur.png
 convert /tmp/screenshot.png -blur 5x5 -modulate 80,0,0 -colorize 50,0,20 /tmp/screenshotblur.png
+convert -background "rgba(0,0,0,0.50)" -fill white -gravity center -pointsize 20 -size ${XKCDWIDTH}x caption:"${HOVERTEXT}" /tmp/text.png
+
 for i in $(seq 1 ${SCREENS}); do
 	convert -composite /tmp/screenshotblur.png ${XKCDFILE} -geometry +${LEFTPOS}+${TOPPOS} /tmp/screenshotblur.png;
+	convert -composite /tmp/screenshotblur.png /tmp/text.png -geometry +${LEFTPOS}+`bc <<< "${TOPPOS}+${XKCDHEIGHT}+10"` /tmp/screenshotblur.png;
 	LEFTPOS=`bc <<< "${LEFTPOS}+${SCREENWIDTH}"`;
 done
 
