@@ -29,7 +29,7 @@ jabberfind()
 function fmeld()
 { #feed diff into meld
 	[ -e $1 ] && echo "USAGE: fmeld feed [client, default is betradar]" && echo "EXAMPLE: fmeld config_sports/1 aftonbladet" && return
-	[ ! -e $2 ] && CLIENT=$2 || CLIENT=aftonbladet
+	[ ! -e $2 ] && CLIENT=$2 || CLIENT=betradar
 	
 	curl -s http://ls.betradar.com/ls/feeds/?/${CLIENT}/en/gismo/$1 | python -mjson.tool > /tmp/live.txt
 	curl -s http://localhost/ls/feeds/?/${CLIENT}/en/gismo/$1 | python -mjson.tool > /tmp/local.txt
