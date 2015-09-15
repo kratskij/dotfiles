@@ -3,8 +3,9 @@ alias rdie9="rdesktop 172.17.20.62 -g 1280x1024"
 alias tv="vncviewer 172.17.20.232"
 alias cutycapt="ssh 172.19.22.45 -l newco"
 alias bob="ssh 192.168.0.237 -l bob"
-alias nrk="chromium-browser --app=http://tv.nrk.no/direkte/nrk1"
+alias nrk="google-chrome --app=http://tv.nrk.no/direkte/nrk1"
 alias fuck='$(thefuck $(fc -ln -1))'
+alias sqlyog='wine "/home/henrik/.wine/drive_c/Program Files (x86)/SQLyog/SQLyog.exe" &'
 
 function hl() { egrep -i --color=auto "$1|"; }
 
@@ -28,10 +29,15 @@ jabberfind()
 
 function fmeld()
 { #feed diff into meld
-	[ -e $1 ] && echo "USAGE: fmeld feed [client, default is betradar]" && echo "EXAMPLE: fmeld config_sports/1 aftonbladet" && return
+	[ -e $1 ] && echo "USAGE: fmeld feed [client, default is betradar] [newserver, default is localhost] [oldserver, default is lsdev.betradar.com" && echo "EXAMPLE: fmeld config_sports/1 aftonbladet lsrelease.sportradar.ag ls.betradar.com" && return
 	[ ! -e $2 ] && CLIENT=$2 || CLIENT=betradar
+	[ ! -e $3 ] && SERVER=$3 || SERVER=localhost
+	[ ! -e $4 ] && OLDSERVER=$4 || SERVER=lsdev.betradar.com
 	
-	curl -s http://ls.betradar.com/ls/feeds/?/${CLIENT}/en/gismo/$1 | python -mjson.tool > /tmp/live.txt
-	curl -s http://localhost/ls/feeds/?/${CLIENT}/en/gismo/$1 | python -mjson.tool > /tmp/local.txt
-	meld /tmp/live.txt /tmp/local.txt
+	OLDURL=http://${OLDSERVER}/ls/feeds/?/${CLIENT}/en/gismo/$1
+	NEWURL=http://${SERVER}/ls/feeds/?/${CLIENT}/en/gismo/$1
+	((echo ${OLDURL} && (curl -Ls ${OLDURL} | python -mjson.tool)) > /tmp/old.txt) &
+	((echo ${NEWURL} && (curl -Ls ${NEWURL} | python -mjson.tool)) > /tmp/new.txt) &
+	wait
+	meld /tmp/old.txt /tmp/new.txt
 }
