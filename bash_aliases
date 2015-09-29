@@ -29,13 +29,15 @@ jabberfind()
 
 function fmeld()
 { #feed diff into meld
-	[ -e $1 ] && echo "USAGE: fmeld feed [client, default is betradar] [newserver, default is localhost] [oldserver, default is lsdev.betradar.com" && echo "EXAMPLE: fmeld config_sports/1 aftonbladet lsrelease.sportradar.ag ls.betradar.com" && return
-	[ ! -e $2 ] && CLIENT=$2 || CLIENT=betradar
+	[ -e $1 ] && echo "USAGE: fmeld feed [oldserver=lsdev.betradar.com] [newserver=localhost] [client=betradar] [language=en]" && echo "EXAMPLE: fmeld config_sports/1 ls.betradar.com lsrelease.sportradar.ag fortuna sk"  && return
+	FEED=$1
+	[ ! -e $2 ] && OLDSERVER=$2 || OLDSERVER=lsdev.betradar.com
 	[ ! -e $3 ] && SERVER=$3 || SERVER=localhost
-	[ ! -e $4 ] && OLDSERVER=$4 || SERVER=lsdev.betradar.com
+	[ ! -e $4 ] && CLIENT=$4 || CLIENT=betradar
+	[ ! -e $5 ] && LANGUAGE=$5 || LANGUAGE=en
 	
-	OLDURL=http://${OLDSERVER}/ls/feeds/?/${CLIENT}/en/gismo/$1
-	NEWURL=http://${SERVER}/ls/feeds/?/${CLIENT}/en/gismo/$1
+	OLDURL=http://${OLDSERVER}/ls/feeds/?/${CLIENT}/${LANGUAGE}/gismo/${FEED}
+	NEWURL=http://${SERVER}/ls/feeds/?/${CLIENT}/${LANGUAGE}/gismo/${FEED}
 	((echo ${OLDURL} && (curl -Ls ${OLDURL} | python -mjson.tool)) > /tmp/old.txt) &
 	((echo ${NEWURL} && (curl -Ls ${NEWURL} | python -mjson.tool)) > /tmp/new.txt) &
 	wait
