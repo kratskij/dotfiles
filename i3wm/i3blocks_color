@@ -1,0 +1,50 @@
+#!/usr/bin/python
+# This Python file uses the following encoding: utf-8
+
+import sys, getopt
+
+def usage():
+    print "Example usage: <cmd> | color --fg=888 --bg=444"
+
+def main(argv, stdinLines):
+    try:
+        fgColor = ""
+        bgColor = ""
+        label=""
+        opts, args = getopt.getopt(argv, "f:b:l", ["fg=", "bg=", "label="])
+        for opt, arg in opts:
+            if opt == "--fg":
+                fgColor = "foreground='#" + arg + "'"
+            elif opt == "--bg":
+                bgColor = "background='#" + arg + "'"
+            elif opt == "--label":
+                label = arg + ": "
+            elif opt in ["--help", "-h"]:
+                usage()
+                sys.exit(2)
+            else:
+                usage()
+                sys.exit(2)
+
+        for line in stdinLines[:2]:
+            print "<span foreground='#555' {bg}>◤</span><span {fg} {bg} >   {lbl}{txt}    </span><span foreground='#555' {bg}>◢</span>".format(
+                fg = fgColor,
+                bg = bgColor,
+                lbl = label,
+                txt = line
+            )
+        for line in stdinLines[2:]:
+            print line
+
+    except getopt.GetoptError,e:
+        print e
+        usage()
+        sys.exit(2)
+    except UnboundLocalError, e:
+        print e
+        usage()
+        sys.exit(2)
+
+if __name__ == '__main__':
+    main(sys.argv[1:], sys.stdin.read().split('\n'))
+
