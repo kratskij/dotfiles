@@ -1,20 +1,18 @@
-separator_block_width=10
+separator_block_width=0
 separator=false
-color=#888888
-full_text=❮
 align=center
 
-[capitals]
-command=/usr/local/libexec/i3blocks/capitals
-interval=60
-separator_block_width=24
-color=#888888
-[separator]
+[begin]
+full_text=◢
+interval=once
+color=#555555
 
-[separator]
+[capitals]
+command=/usr/local/libexec/i3blocks/capitals | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888888 --label=♪
+markup=pango
+interval=60
 
 [timesystem]
-label=Timesystem:
-command=/home/henrik/timesystem/timesystem.py
+command=/home/henrik/timesystem/timesystem.py | /usr/local/libexec/i3blocks/color --bg=333333 --fg=888888 --label=Timesystem
+markup=pango
 interval=10
-

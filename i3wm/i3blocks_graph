@@ -60,7 +60,10 @@ def main(argv, stdinLines):
 
         print g + ' ' + stdinLines[0]
         print g + ' ' + stdinLines[1]
-        print stdinLines[2]
+        try:
+            print stdinLines[2]
+        except:
+            None
 
     except getopt.GetoptError,e:
         print e

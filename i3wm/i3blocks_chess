@@ -38,9 +38,13 @@ if len(sys.argv) > 1:
     data = urllib.urlopen(apibase + "game/" + sys.argv[1])
     game = json.loads(data.read(), "utf-8")
 else:
-    data = urllib.urlopen(apibase + "fetch-games/2")
+    data = urllib.urlopen(apibase + "fetch-games/5")
     games = json.loads(data.read(), "utf-8")
-    game = games["games"][len(games["games"]) - 1]
+
+    for g in games["games"]:
+        if 'Carlsen' in g["player"]["black"] or 'Carlsen' in g["player"]["white"]:
+            game = g
+            break
 
 moves = []
 moveColor = "w"

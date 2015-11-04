@@ -1,41 +1,41 @@
-separator_block_width=10
+separator_block_width=0
 separator=false
 color=#888888
-full_text=❮
 align=center
 
+[begin]
+full_text=◢
+interval=once
+color=#555555
+
 [topprocess]
-command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --length=10)"
+command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --length=10 | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888)"
+markup=pango
 interval=5
-separator_block_width=24
+
 
 [temp]
-label=TEMP
-command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50 --length=10
+command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50 --length=10 | /usr/local/libexec/i3blocks/color --bg=2A2A2A --fg=888 --label=TEMP
+markup=pango
 interval=10
-separator_block_width=24
 
 [cpu]
-label=CPU
-command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph --id=cpu --max=100 --length=10
+command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph --id=cpu --max=100 --length=10 | /usr/local/libexec/i3blocks/color --bg=333333 --fg=888 --label=CPU
+markup=pango
 interval=2
-separator_block_width=24
 
 [load]
-label=LOAD
-command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --id=load --max=4 --length=10
+command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --id=load --max=4 --length=10 | /usr/local/libexec/i3blocks/color --bg=3B3B3B --fg=888 --label=LOAD
+markup=pango
 interval=10
-separator_block_width=24
 
 [memory]
-label=MEM
-command=/usr/local/libexec/i3blocks/memory
+command=/usr/local/libexec/i3blocks/memory | /usr/local/libexec/i3blocks/color --bg=444444 --fg=888 --label=MEM
+markup=pango
 interval=30
-separator_block_width=24
 
 [swap]
-label=⇆
-command=/usr/local/libexec/i3blocks/memory swap
+command=/usr/local/libexec/i3blocks/memory swap | /usr/local/libexec/i3blocks/color --bg=4C4C4C --fg=888 --label=⇆
+markup=pango
+instance=swap
 interval=30
-separator_block_width=24
-[separator]

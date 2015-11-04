@@ -1,28 +1,28 @@
-separator_block_width=10
+separator_block_width=0
 separator=false
-color=#888888
-full_text=❮
+color=#444444
 align=center
 
-[volume]
-label=♪
-command=/usr/local/libexec/i3blocks/volume
+[begin]
+full_text=◢
 interval=once
-signal=1
-color=#DDDDAA
-[separator]
+color=#555555
+
+[volume]
+command=/usr/local/libexec/i3blocks/volume | /usr/local/libexec/i3blocks/color --bg=222222 --fg=ddddaa --label=♪
+markup=pango
+interval=once
+signal=10
 
 [weather]
-command=/usr/local/libexec/i3blocks/weather --limit=4
+command=/usr/local/libexec/i3blocks/weather --limit=4 | /usr/local/libexec/i3blocks/color --bg=333333 --fg=bbffff
+markup=pango
 interval=3600
-separator_block_width=24
-color=#bbffff
 
 [time]
-label=⌚
-command=date '+%Y-%m-%d %H:%M:%S'
+command=date '+%Y-%m-%d %H:%M:%S' | /usr/local/libexec/i3blocks/color --bg=444444 --fg=bbeebb --label=⌚
+markup=pango
 interval=1
-color=#BBEEBB
 
 #[disk-home]
 #command=/usr/local/libexec/i3blocks/disk $HOME

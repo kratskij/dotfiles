@@ -265,7 +265,7 @@ exec xrandr --auto --output DVI-0 --mode 1920x1080 --left-of DVI-1
 exec pidgin
 exec thunderbird
 exec i3-sensible-terminal
-exec chromium-browser
+exec google-chrome
 exec wimp
 
 exec feh --bg-scale ~/dotfiles/wp.jpg

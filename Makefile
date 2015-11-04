@@ -8,6 +8,7 @@ install-i3:
 	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat lm-sensors nmcli
 
 	-git clone git://github.com/vivien/i3blocks
+	-git clone git://github.com/vivien/i3blocks-contrib
 	cd i3blocks && make clean
 	cd i3blocks && sudo make install
 
@@ -28,6 +29,7 @@ install-i3:
 		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).topright ~/.i3blocks.conf.topright ; \
 	fi;
 
+
 	-sudo rm /usr/local/libexec/i3blocks/volume
 	sudo ln -s `pwd`/i3wm/i3blocks_volume /usr/local/libexec/i3blocks/volume
 	-sudo rm /usr/local/libexec/i3blocks/rss
@@ -36,18 +38,30 @@ install-i3:
 	sudo ln -s `pwd`/i3wm/i3blocks_lmt /usr/local/libexec/i3blocks/lmt
 	-sudo rm /usr/local/libexec/i3blocks/capitals
 	sudo ln -s `pwd`/i3wm/i3blocks_capitals /usr/local/libexec/i3blocks/capitals
-	-sudo rm /usr/local/libexec/i3blocks/graph
-	sudo ln -s `pwd`/i3wm/i3blocks_graph /usr/local/libexec/i3blocks/graph
 	-sudo rm /usr/local/libexec/i3blocks/tv
 	sudo ln -s `pwd`/i3wm/i3blocks_tv /usr/local/libexec/i3blocks/tv
 	-sudo rm /usr/local/libexec/i3blocks/chess
 	sudo ln -s `pwd`/i3wm/i3blocks_chess /usr/local/libexec/i3blocks/chess
-	-sudo rm /usr/local/libexec/i3blocks/temperature
-	sudo ln -s `pwd`/i3blocks/scripts/temperature /usr/local/libexec/i3blocks/temperature
 	-sudo rm /usr/local/libexec/i3blocks/vpn
 	sudo ln -s `pwd`/i3wm/i3blocks_vpn /usr/local/libexec/i3blocks/vpn
 	-sudo rm /usr/local/libexec/i3blocks/weather
 	sudo ln -s `pwd`/i3wm/i3blocks_weather /usr/local/libexec/i3blocks/weather
+	
+	-sudo rm /usr/local/libexec/i3blocks/graph
+	sudo ln -s `pwd`/i3wm/i3blocks_graph /usr/local/libexec/i3blocks/graph
+	-sudo rm /usr/local/libexec/i3blocks/color
+	sudo ln -s `pwd`/i3wm/i3blocks_color /usr/local/libexec/i3blocks/color
+	
+	-sudo rm /usr/local/libexec/i3blocks/cpu_usage
+	sudo ln -s `pwd`/i3blocks/scripts/cpu_usage /usr/local/libexec/i3blocks/cpu_usage
+	-sudo rm /usr/local/libexec/i3blocks/load_average
+	sudo ln -s `pwd`/i3blocks/scripts/load_average /usr/local/libexec/i3blocks/load_average
+	-sudo rm /usr/local/libexec/i3blocks/memory
+	sudo ln -s `pwd`/i3blocks/scripts/memory /usr/local/libexec/i3blocks/memory
+
+	-sudo rm /usr/local/libexec/i3blocks/temperature
+	sudo ln -s `pwd`/i3blocks-contrib/temperature/temperature /usr/local/libexec/i3blocks/temperature
+	
 
 	rm ~/.i3/config
 	ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config

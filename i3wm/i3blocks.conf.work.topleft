@@ -1,30 +1,26 @@
-separator_block_width=10
+separator_block_width=0
 separator=false
-color=#888888
-full_text=❮
 align=center
 
+[begin]
+full_text=◢
+interval=once
+color=#555555
+
 [nowplaying]
-label=♫
-command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8");print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8");')"
+command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8");print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8");' | /usr/local/libexec/i3blocks/color --bg=222222 --fg=ddaadd --label=♫)"
 interval=10
-color=#DDAADD
-[separator]
-
-#[chess]
-#command=/usr/local/libexec/i3blocks/chess
-#interval=10
-#color=#bb88bb
-#[separator]
-
-#[lmt]
-#command=/usr/local/libexec/i3blocks/lmt 6187860 $BLOCK_BUTTON
-#interval=3600
-#separator_block_width=24
-#[separator]
+markup=pango
 
 [nrk]
-label=NRK
-command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON
+command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/libexec/i3blocks/color --bg=333333 --fg=88aadd --label=NRK
 interval=300
-separator_block_width=24
+markup=pango
+
+#[chess]
+#command=/usr/local/libexec/i3blocks/chess | /usr/local/libexec/i3blocks/color --bg=222222 --fg=bb88bb
+#interval=10
+
+#[lmt]
+#command=/usr/local/libexec/i3blocks/lmt 6187860 $BLOCK_BUTTON | /usr/local/libexec/i3blocks/color --bg=222222 --fg=bb88bb
+#interval=3600
