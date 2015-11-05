@@ -8,7 +8,7 @@ interval=once
 color=#555555
 
 [capitals]
-command=/usr/local/libexec/i3blocks/capitals | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888888 --label=♪
+command=/usr/local/libexec/i3blocks/capitals | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888888 --label="? "
 markup=pango
 interval=60
 
