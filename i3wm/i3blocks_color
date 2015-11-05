@@ -18,7 +18,7 @@ def main(argv, stdinLines):
             elif opt == "--bg":
                 bgColor = "background='#" + arg + "'"
             elif opt == "--label":
-                label = arg + ": "
+                label = arg + " "
             elif opt in ["--help", "-h"]:
                 usage()
                 sys.exit(2)

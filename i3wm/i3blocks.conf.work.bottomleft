@@ -8,11 +8,11 @@ interval=once
 color=#555555
 
 [capitals]
-command=/usr/local/libexec/i3blocks/capitals | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888888 --label="? "
+command=/usr/local/libexec/i3blocks/capitals | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888888 --label=?
 markup=pango
 interval=60
 
 [timesystem]
-command=/home/henrik/timesystem/timesystem.py | /usr/local/libexec/i3blocks/color --bg=333333 --fg=888888 --label=Timesystem
+command=/home/henrik/timesystem/timesystem.py | /usr/local/libexec/i3blocks/color --bg=333333 --fg=999999 --label=Timesystem:
 markup=pango
 interval=10

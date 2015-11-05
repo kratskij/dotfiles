@@ -9,18 +9,18 @@ interval=once
 color=#555555
 
 [volume]
-command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=222222 --fg=ddddaa --label=♪
+command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=222222 --fg=aaaa88 --label=♪
 markup=pango
 interval=once
 signal=1
 
 [weather]
-command=/usr/local/libexec/i3blocks/weather --limit=4 | /usr/local/libexec/i3blocks/color --bg=333333 --fg=bbffff
+command=/usr/local/libexec/i3blocks/weather --limit=4 | /usr/local/libexec/i3blocks/color --bg=333333 --fg=99bbbb
 markup=pango
 interval=3600
 
 [time]
-command=date '+%Y-%m-%d %H:%M:%S' | /usr/local/libexec/i3blocks/color --bg=444444 --fg=bbeebb --label=⌚
+command=date '+%Y-%m-%d %H:%M:%S' | /usr/local/libexec/i3blocks/color --bg=444444 --fg=aac5aa --label=⌚
 markup=pango
 interval=1
 

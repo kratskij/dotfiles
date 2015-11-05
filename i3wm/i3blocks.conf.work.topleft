@@ -8,12 +8,12 @@ interval=once
 color=#555555
 
 [nowplaying]
-command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8"); print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8") if obj["recenttracks"]["track"][0]["@attr"]["nowplaying"] else ""' | /usr/local/libexec/i3blocks/color --bg=222222 --fg=ddaadd --label=♫)"
+command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8"); print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8") if obj["recenttracks"]["track"][0]["@attr"]["nowplaying"] else ""' | /usr/local/libexec/i3blocks/color --bg=222222 --fg=996699 --label=♫)"
 interval=10
 markup=pango
 
 [nrk]
-command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/libexec/i3blocks/color --bg=333333 --fg=88aadd --label=NRK
+command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/libexec/i3blocks/color --bg=333333 --fg=6688aa --label=NRK
 interval=300
 markup=pango
 
