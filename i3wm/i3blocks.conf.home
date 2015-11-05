@@ -38,18 +38,18 @@ markup=pango
 interval=30
 
 [volume]
-command=/usr/local/libexec/i3blocks/volume | /usr/local/libexec/i3blocks/color --bg=5d5d5d --fg=ddddaa --label=♪
+command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=555555 --fg=ddddaa --label=♪
 markup=pango
 interval=once
 signal=1
 
 [battery]
-command=/usr/local/libexec/i3blocks/battery BAT0 | /usr/local/libexec/i3blocks/graph --id=battery --max=100 --length=1 | /usr/local/libexec/i3blocks/color --bg=666666 --fg=aadddd --label=BAT
+command=/usr/local/libexec/i3blocks/battery BAT0 | /usr/local/libexec/i3blocks/graph --id=battery --max=100 --length=1 | /usr/local/libexec/i3blocks/color --bg=5d5d5d --fg=aadddd --label=BAT
 markup=pango
 interval=30
 
 [time]
-command=echo "$(date '+%Y-%m-%d %H:%M:%S %Z'; date '+%d.%m %H:%M:%S %Z')" | /usr/local/libexec/i3blocks/color --bg=6e6e6e --fg=bbeebb --label=⌚
+command=echo "$(date '+%Y-%m-%d %H:%M:%S %Z'; date '+%d.%m %H:%M:%S %Z')" | /usr/local/libexec/i3blocks/color --bg=666666 --fg=bbeebb --label=⌚
 markup=pango
 interval=1
 
