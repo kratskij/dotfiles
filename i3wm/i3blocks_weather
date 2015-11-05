@@ -22,9 +22,9 @@ def main(argv):
         coldcolor = "#0088FF"
 
         nicetemp = 20
-        badtemp = -10
+        badtemp = 0
         badprecipitaion = 1
-        badwind = 10
+        badwind = 7
 
         opts, args = getopt.getopt(argv, "x:v", ['limit=', 'badcolor=', 'warmcolor=', 'coldcolor='])
         for opt, arg in opts:
@@ -58,24 +58,27 @@ def main(argv):
                 rain = str(precipitation) + "mm "
 
             wind = ""
-            if windspeed > 1:
+            if windspeed > 3:
                 winddir = f.find('winddirection')['code']
                 wind = str(windspeed) + winddirmap[winddir];
 
-            if not color and temp > nicetemp:
+            if not color and temp >= nicetemp:
                 color = warmcolor
-            if not color and temp < badtemp:
+            if not color and temp <= badtemp:
                 color = coldcolor
-            if not color and precipitation > badprecipitaion:
+            if not color and precipitation >= badprecipitaion:
                 color = badcolor
-            if not color and windspeed > badwind:
+            if not color and windspeed >= badwind:
                 color = badcolor
 
-            texts.append(time + ': ' + symbolmap[weathertype] + " " +  str(temp) + "° " + rain + wind)
+            txt = '[' + time + ': ' + symbolmap[weathertype] + " " +  str(temp) + "° " + rain + wind + ']'
+            if color:
+                txt = "<span foreground='" + color + "'>" + txt + "</span>"
+            texts.append(txt)
 
-        print "[" +  "] [".join(texts) + "]"
-        print "[" +  "] [".join(texts) + "]"
-        print color
+        print " ".join(texts)
+        print " ".join(texts)
+
     except getopt.GetoptError,e:
         print e
         usage()
