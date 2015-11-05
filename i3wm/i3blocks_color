@@ -27,12 +27,13 @@ def main(argv, stdinLines):
                 sys.exit(2)
 
         for line in stdinLines[:2]:
-            print "<span foreground='#555' {bg}>◤</span><span {fg} {bg} >   {lbl}{txt}    </span><span foreground='#555' {bg}>◢</span>".format(
-                fg = fgColor,
-                bg = bgColor,
-                lbl = label,
-                txt = line
-            )
+            if line:
+                print "<span foreground='#555' {bg}>◤</span><span {fg} {bg} >   {lbl}{txt}    </span><span foreground='#555' {bg}>◢</span>".format(
+                    fg = fgColor,
+                    bg = bgColor,
+                    lbl = label,
+                    txt = line
+                )
         for line in stdinLines[2:]:
             print line
 

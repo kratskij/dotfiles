@@ -5,7 +5,7 @@ endif
 all: install-i3 install-git install-bash install-icdiff
 
 install-i3:
-	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat lm-sensors nmcli
+	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat lm-sensors 
 
 	-git clone git://github.com/vivien/i3blocks
 	-git clone git://github.com/vivien/i3blocks-contrib

@@ -1,62 +1,57 @@
-separator_block_width=24
-color=#888888
+separator_block_width=0
+separator=false
+align=center
 
+[begin]
+full_text=◢
+interval=once
+color=#555555
 
 [topprocess]
-command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --length=10)"
+command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --length=5 | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888888)"
+markup=pango
 interval=5
 
 [temp]
-label=TEMP
-command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50
+command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50 --length=5 | /usr/local/libexec/i3blocks/color --bg=2a2a2a --fg=888888 --label=TEMP
+markup=pango
 interval=10
 
 [cpu]
-label=CPU
-command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph --id=cpu --max=100
+command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph --id=cpu --max=100 --length=5 | /usr/local/libexec/i3blocks/color --bg=333333 --fg=888888 --label=CPU
+markup=pango
 interval=10
 
 [load]
-label=LOAD
-command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --max=4 --id=load
+command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --max=4 --id=load --length=5 | /usr/local/libexec/i3blocks/color --bg=3b3b3b --fg=888888 --label=LOAD
+markup=pango
 interval=10
 
 [memory]
-label=MEM
-command=/usr/local/libexec/i3blocks/memory
+command=/usr/local/libexec/i3blocks/memory | /usr/local/libexec/i3blocks/color --bg=444444 --fg=888888 --label=MEM
+markup=pango
 interval=30
 
 [swap]
-label=SWAP
-command=/usr/local/libexec/i3blocks/memory swap
+command=/usr/local/libexec/i3blocks/memory swap | /usr/local/libexec/i3blocks/color --bg=4c4c4c --fg=888888 --label=SWAP
+markup=pango
 interval=30
-
-[nowplaying]
-label=♫
-command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8");print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8");')"
-interval=10
-color=#DDAADD
 
 [volume]
-label=♪
-command=/usr/local/libexec/i3blocks/volume
+command=/usr/local/libexec/i3blocks/volume | /usr/local/libexec/i3blocks/color --bg=5d5d5d --fg=ddddaa --label=♪
+markup=pango
 interval=once
 signal=1
-color=#DDDDAA
 
 [battery]
-label=BAT
-#label=⚡
-command=/usr/local/libexec/i3blocks/battery BAT0 | /usr/local/libexec/i3blocks/graph --id=battery --max=100 --length=1
+command=/usr/local/libexec/i3blocks/battery BAT0 | /usr/local/libexec/i3blocks/graph --id=battery --max=100 --length=1 | /usr/local/libexec/i3blocks/color --bg=666666 --fg=aadddd --label=BAT
+markup=pango
 interval=30
-color=#AADDDD
 
 [time]
-label=
-command=date '+%Y-%m-%d %H:%M:%S %Z'
+command=echo "$(date '+%Y-%m-%d %H:%M:%S %Z'; date '+%d.%m %H:%M:%S %Z')" | /usr/local/libexec/i3blocks/color --bg=6e6e6e --fg=bbeebb --label=⌚
+markup=pango
 interval=1
-color=#BBEEBB
-
 
 
 #[disk-home]
@@ -78,4 +73,3 @@ color=#BBEEBB
 #command=/usr/local/libexec/i3blocks/network
 #color=#00FF00
 #interval=10
-
