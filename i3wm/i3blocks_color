@@ -1,22 +1,36 @@
 #!/usr/bin/python
 # This Python file uses the following encoding: utf-8
 
-import sys, getopt
+import sys, getopt, re
 
 def usage():
     print "Example usage: <cmd> | color --fg=888 --bg=444"
 
+def increaseColor(color, increaseBy):
+    colLen = len(str(color))
+    if colLen not in [3,6]:
+        return color
+    cols = [int(col, 16) for col in re.match(r'^([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})([0-9a-fA-F]{1,2})$', color).groups()]
+    avgCol = min(255 if colLen is 6 else 15, sum(cols) / 3)
+
+    if (colLen is 6):
+        return format(avgCol + (increaseBy), "02x") * 3
+
+    return format(avgCol + int(increaseBy/16), "01x") * 3
+    
 def main(argv, stdinLines):
     try:
         fgColor = ""
         bgColor = ""
         label=""
+        separatorColor="555"
         opts, args = getopt.getopt(argv, "f:b:l", ["fg=", "bg=", "label="])
         for opt, arg in opts:
             if opt == "--fg":
                 fgColor = "foreground='#" + arg + "'"
             elif opt == "--bg":
                 bgColor = "background='#" + arg + "'"
+                sepColor = "#" + increaseColor(arg, 64)
             elif opt == "--label":
                 label = arg + " "
             elif opt in ["--help", "-h"]:
@@ -28,11 +42,12 @@ def main(argv, stdinLines):
 
         for line in stdinLines[:2]:
             if line:
-                print "<span foreground='#555' {bg}>◤</span><span {fg} {bg} >   {lbl}{txt}    </span><span foreground='#555' {bg}>◢</span>".format(
+                print "<span foreground='{sep}' {bg}>◤</span><span {fg} {bg} >   {lbl}{txt}    </span><span foreground='{sep}' {bg}>◢</span>".format(
                     fg = fgColor,
                     bg = bgColor,
                     lbl = label,
-                    txt = line
+                    txt = line,
+                    sep = sepColor
                 )
         for line in stdinLines[2:]:
             print line
