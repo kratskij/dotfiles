@@ -13,7 +13,7 @@ interval=10
 markup=pango
 
 [nrk]
-command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/libexec/i3blocks/color --bg=333333 --fg=6688aa --label=NRK
+command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/libexec/i3blocks/color --bg=333333 --fg=6688aa --label=📖
 interval=300
 markup=pango
 
