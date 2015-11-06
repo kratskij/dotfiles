@@ -9,7 +9,7 @@ interval=once
 color=#555555
 
 [volume]
-command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=222222 --fg=aaaa88 --label=♪
+command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=222222 --fg=aaaa88 --label=🔉
 markup=pango
 interval=once
 signal=1

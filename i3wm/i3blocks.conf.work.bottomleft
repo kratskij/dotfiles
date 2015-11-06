@@ -13,6 +13,6 @@ markup=pango
 interval=60
 
 [timesystem]
-command=/home/henrik/timesystem/timesystem.py | /usr/local/libexec/i3blocks/color --bg=333333 --fg=999999 --label=Timesystem:
+command=/home/henrik/timesystem/timesystem.py | /usr/local/libexec/i3blocks/color --bg=333333 --fg=999999 --label=⏳
 markup=pango
 interval=10

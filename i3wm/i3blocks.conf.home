@@ -13,7 +13,7 @@ markup=pango
 interval=5
 
 [temp]
-command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50 --length=5 | /usr/local/libexec/i3blocks/color --bg=2a2a2a --fg=888888 --label=TEMP
+command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50 --length=5 | /usr/local/libexec/i3blocks/color --bg=2a2a2a --fg=888888
 markup=pango
 interval=10
 
@@ -23,28 +23,28 @@ markup=pango
 interval=10
 
 [load]
-command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --max=4 --id=load --length=5 | /usr/local/libexec/i3blocks/color --bg=3b3b3b --fg=888888 --label=LOAD
+command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --max=4 --id=load --length=5 | /usr/local/libexec/i3blocks/color --bg=3b3b3b --fg=888888 --label=⛟
 markup=pango
 interval=10
 
 [memory]
-command=/usr/local/libexec/i3blocks/memory | /usr/local/libexec/i3blocks/color --bg=444444 --fg=888888 --label=MEM
+command=/usr/local/libexec/i3blocks/memory | /usr/local/libexec/i3blocks/color --bg=444444 --fg=888888 --label=🐏
 markup=pango
 interval=30
 
 [swap]
-command=/usr/local/libexec/i3blocks/memory swap | /usr/local/libexec/i3blocks/color --bg=4c4c4c --fg=888888 --label=SWAP
+command=/usr/local/libexec/i3blocks/memory swap | /usr/local/libexec/i3blocks/color --bg=4c4c4c --fg=888888 --label=⇆
 markup=pango
 interval=30
 
 [volume]
-command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=555555 --fg=ddddaa --label=♪
+command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=555555 --fg=ddddaa --label=🔉
 markup=pango
 interval=once
 signal=1
 
 [battery]
-command=/usr/local/libexec/i3blocks/battery BAT0 | /usr/local/libexec/i3blocks/graph --id=battery --max=100 --length=1 | /usr/local/libexec/i3blocks/color --bg=5d5d5d --fg=aadddd --label=BAT
+command=/usr/local/libexec/i3blocks/battery BAT0 | /usr/local/libexec/i3blocks/graph --id=battery --max=100 --length=1 | /usr/local/libexec/i3blocks/color --bg=5d5d5d --fg=aadddd --label=🔋
 markup=pango
 interval=30
 
