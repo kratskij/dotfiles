@@ -2,10 +2,13 @@ ifndef ENV
 $(error ENV is not set. Use "home" or "work")
 endif
 
-all: install-i3 install-git install-bash install-icdiff
+all: install-basics install-i3 install-git install-bash install-icdiff
+
+install-basics:
+	sudo apt-get install vim tree python-bs4 gawk 
 
 install-i3:
-	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat lm-sensors 
+	sudo apt-get install i3 scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn 
 
 	-git clone git://github.com/vivien/i3blocks
 	-git clone git://github.com/vivien/i3blocks-contrib
