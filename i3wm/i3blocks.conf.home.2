@@ -7,43 +7,43 @@ interval=once
 color=#555555
 
 [capitals]
-command=/usr/local/libexec/i3blocks/capitals | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888888
+command=/usr/local/lib/i3blocks/capitals | /usr/local/lib/i3blocks/color --bg=222222 --fg=888888
 markup=pango
 interval=60
 
 [nowplaying]
-command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8");print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8");' | /usr/local/libexec/i3blocks/color --bg=2a2a2a --fg=909090 --label=♫)" 
+command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8");print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8");' | /usr/local/lib/i3blocks/color --bg=2a2a2a --fg=909090 --label=♫)" 
 markup=pango
 interval=10
 
 [nrk]
-command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/libexec/i3blocks/color --bg=333333 --fg=999999 --label=📖
+command=/usr/local/lib/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/lib/i3blocks/color --bg=333333 --fg=999999 --label=📖
 markup=pango
 interval=300
 color=#8096bA
 
 [weather]
-command=/usr/local/libexec/i3blocks/weather --limit=3 | /usr/local/libexec/i3blocks/color --bg=3b3b3b --fg=a1a1a1
+command=/usr/local/lib/i3blocks/weather --limit=3 | /usr/local/lib/i3blocks/color --bg=3b3b3b --fg=a1a1a1
 markup=pango
 interval=3600
 color=#bbffff
 
 [tv]
-command=/usr/local/libexec/i3blocks/tv $BLOCK_BUTTON | /usr/local/libexec/i3blocks/color --bg=444444 --fg=aaaaaa --label=TV:
+command=/usr/local/lib/i3blocks/tv $BLOCK_BUTTON | /usr/local/lib/i3blocks/color --bg=444444 --fg=aaaaaa --label=TV:
 markup=pango
 interval=once
 color=#ddaadd
 
 [vpn]
-command=/usr/local/libexec/i3blocks/vpn | /usr/local/libexec/i3blocks/color --bg=4c4c4c --fg=b2b2b2
+command=/usr/local/lib/i3blocks/vpn | /usr/local/lib/i3blocks/color --bg=4c4c4c --fg=b2b2b2
 markup=pango
 interval=60
 
 #[lmt]
-#command=/usr/local/libexec/i3blocks/lmt 5076538 $BLOCK_BUTTON
+#command=/usr/local/lib/i3blocks/lmt 5076538 $BLOCK_BUTTON
 #interval=10
 
 #[chess]
-#command=/usr/local/libexec/i3blocks/chess 7573
+#command=/usr/local/lib/i3blocks/chess 7573
 #interval=10
 #color=#bb88bb

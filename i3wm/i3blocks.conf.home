@@ -8,61 +8,61 @@ interval=once
 color=#555555
 
 [topprocess]
-command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --length=5 | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888888)"
+command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/lib/i3blocks/graph --id=topprocess --max=100 --length=5 | /usr/local/lib/i3blocks/color --bg=222222 --fg=888888)"
 markup=pango
 interval=5
 
 [temp]
-command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50 --length=5 | /usr/local/libexec/i3blocks/color --bg=2a2a2a --fg=888888
+command=/usr/local/lib/i3blocks/temperature | /usr/local/lib/i3blocks/graph --id=temp --max=100 --min=50 --length=5 | /usr/local/lib/i3blocks/color --bg=2a2a2a --fg=888888
 markup=pango
 interval=10
 
 [cpu]
-command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph --id=cpu --max=100 --length=5 | /usr/local/libexec/i3blocks/color --bg=333333 --fg=888888 --label=CPU
+command=/usr/local/lib/i3blocks/cpu_usage | /usr/local/lib/i3blocks/graph --id=cpu --max=100 --length=5 | /usr/local/lib/i3blocks/color --bg=333333 --fg=888888 --label=CPU
 markup=pango
 interval=10
 
 [load]
-command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --max=4 --id=load --length=5 | /usr/local/libexec/i3blocks/color --bg=3b3b3b --fg=888888 --label=⛟
+command=/usr/local/lib/i3blocks/load_average | /usr/local/lib/i3blocks/graph --max=4 --id=load --length=5 | /usr/local/lib/i3blocks/color --bg=3b3b3b --fg=888888 --label=⛟
 markup=pango
 interval=10
 
 [memory]
-command=/usr/local/libexec/i3blocks/memory | /usr/local/libexec/i3blocks/color --bg=444444 --fg=888888 --label=🐏
+command=/usr/local/lib/i3blocks/memory | /usr/local/lib/i3blocks/color --bg=444444 --fg=888888 --label=🐏
 markup=pango
 interval=30
 
 [swap]
-command=/usr/local/libexec/i3blocks/memory swap | /usr/local/libexec/i3blocks/color --bg=4c4c4c --fg=888888 --label=⇆
+command=/usr/local/lib/i3blocks/memory swap | /usr/local/lib/i3blocks/color --bg=4c4c4c --fg=888888 --label=⇆
 markup=pango
 interval=30
 
 [volume]
-command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=555555 --fg=ddddaa --label=🔉
+command=/usr/local/lib/i3blocks/volume 1 pulse | /usr/local/lib/i3blocks/color --bg=555555 --fg=ddddaa --label=🔉
 markup=pango
 interval=once
 signal=1
 
 [battery]
-command=/usr/local/libexec/i3blocks/battery BAT0 | /usr/local/libexec/i3blocks/graph --id=battery --max=100 --length=1 | /usr/local/libexec/i3blocks/color --bg=5d5d5d --fg=aadddd --label=🔋
+command=/usr/local/lib/i3blocks/battery BAT0 | /usr/local/lib/i3blocks/graph --id=battery --max=100 --length=1 | /usr/local/lib/i3blocks/color --bg=5d5d5d --fg=aadddd --label=🔋
 markup=pango
 interval=30
 
 [time]
-command=echo "$(date '+%Y-%m-%d %H:%M:%S %Z'; date '+%d.%m %H:%M:%S %Z')" | /usr/local/libexec/i3blocks/color --bg=666666 --fg=bbeebb --label=⌚
+command=echo "$(date '+%Y-%m-%d %H:%M:%S %Z'; date '+%d.%m %H:%M:%S %Z')" | /usr/local/lib/i3blocks/color --bg=666666 --fg=bbeebb --label=⌚
 markup=pango
 interval=1
 
 
 #[disk-home]
-#command=/usr/local/libexec/i3blocks/disk $HOME
+#command=/usr/local/lib/i3blocks/disk $HOME
 #interval=30
 
 #[wireless]
 #label=W
 #instance=wlan0
 #instance=wlp3s0
-#command=/usr/local/libexec/i3blocks/network
+#command=/usr/local/lib/i3blocks/network
 #color=#00FF00
 #interval=10
 
@@ -70,6 +70,6 @@ interval=1
 #label=E
 #instance=eth0
 #instance=enp0s25
-#command=/usr/local/libexec/i3blocks/network
+#command=/usr/local/lib/i3blocks/network
 #color=#00FF00
 #interval=10

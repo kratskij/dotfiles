@@ -11,8 +11,6 @@ install-i3:
 	sudo apt-get install i3 i3blocks scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn 
 
 	-git clone git://github.com/vivien/i3blocks-contrib
-	cd i3blocks && make clean
-	cd i3blocks && sudo make install
 
 	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).bottomleft ] ; then \
 		-rm ~/.i3blocks.conf.bottomleft ; \
@@ -32,44 +30,45 @@ install-i3:
 	fi;
 
 
-	-sudo rm /usr/local/libexec/i3blocks/volume
-	sudo ln -s `pwd`/i3wm/i3blocks_volume /usr/local/libexec/i3blocks/volume
-	-sudo rm /usr/local/libexec/i3blocks/rss
-	sudo ln -s `pwd`/i3wm/i3blocks_rss /usr/local/libexec/i3blocks/rss
-	-sudo rm /usr/local/libexec/i3blocks/lmt
-	sudo ln -s `pwd`/i3wm/i3blocks_lmt /usr/local/libexec/i3blocks/lmt
-	-sudo rm /usr/local/libexec/i3blocks/capitals
-	sudo ln -s `pwd`/i3wm/i3blocks_capitals /usr/local/libexec/i3blocks/capitals
-	-sudo rm /usr/local/libexec/i3blocks/tv
-	sudo ln -s `pwd`/i3wm/i3blocks_tv /usr/local/libexec/i3blocks/tv
-	-sudo rm /usr/local/libexec/i3blocks/chess
-	sudo ln -s `pwd`/i3wm/i3blocks_chess /usr/local/libexec/i3blocks/chess
-	-sudo rm /usr/local/libexec/i3blocks/vpn
-	sudo ln -s `pwd`/i3wm/i3blocks_vpn /usr/local/libexec/i3blocks/vpn
-	-sudo rm /usr/local/libexec/i3blocks/weather
-	sudo ln -s `pwd`/i3wm/i3blocks_weather /usr/local/libexec/i3blocks/weather
+	-sudo mkdir /usr/local/lib/i3blocks
+	-sudo rm /usr/local/lib/i3blocks/volume
+	sudo ln -s `pwd`/i3wm/i3blocks_volume /usr/local/lib/i3blocks/volume
+	-sudo rm /usr/local/lib/i3blocks/rss
+	sudo ln -s `pwd`/i3wm/i3blocks_rss /usr/local/lib/i3blocks/rss
+	-sudo rm /usr/local/lib/i3blocks/lmt
+	sudo ln -s `pwd`/i3wm/i3blocks_lmt /usr/local/lib/i3blocks/lmt
+	-sudo rm /usr/local/lib/i3blocks/capitals
+	sudo ln -s `pwd`/i3wm/i3blocks_capitals /usr/local/lib/i3blocks/capitals
+	-sudo rm /usr/local/lib/i3blocks/tv
+	sudo ln -s `pwd`/i3wm/i3blocks_tv /usr/local/lib/i3blocks/tv
+	-sudo rm /usr/local/lib/i3blocks/chess
+	sudo ln -s `pwd`/i3wm/i3blocks_chess /usr/local/lib/i3blocks/chess
+	-sudo rm /usr/local/lib/i3blocks/vpn
+	sudo ln -s `pwd`/i3wm/i3blocks_vpn /usr/local/lib/i3blocks/vpn
+	-sudo rm /usr/local/lib/i3blocks/weather
+	sudo ln -s `pwd`/i3wm/i3blocks_weather /usr/local/lib/i3blocks/weather
 	
-	-sudo rm /usr/local/libexec/i3blocks/graph
-	sudo ln -s `pwd`/i3wm/i3blocks_graph /usr/local/libexec/i3blocks/graph
-	-sudo rm /usr/local/libexec/i3blocks/color
-	sudo ln -s `pwd`/i3wm/i3blocks_color /usr/local/libexec/i3blocks/color
+	-sudo rm /usr/local/lib/i3blocks/graph
+	sudo ln -s `pwd`/i3wm/i3blocks_graph /usr/local/lib/i3blocks/graph
+	-sudo rm /usr/local/lib/i3blocks/color
+	sudo ln -s `pwd`/i3wm/i3blocks_color /usr/local/lib/i3blocks/color
 	
-	-sudo rm /usr/local/libexec/i3blocks/cpu_usage
-	sudo ln -s `pwd`/i3blocks/scripts/cpu_usage /usr/local/libexec/i3blocks/cpu_usage
-	-sudo rm /usr/local/libexec/i3blocks/load_average
-	sudo ln -s `pwd`/i3blocks/scripts/load_average /usr/local/libexec/i3blocks/load_average
-	-sudo rm /usr/local/libexec/i3blocks/memory
-	sudo ln -s `pwd`/i3blocks/scripts/memory /usr/local/libexec/i3blocks/memory
+	-sudo rm /usr/local/lib/i3blocks/cpu_usage
+	sudo ln -s /usr/share/i3blocks/cpu_usage /usr/local/lib/i3blocks/cpu_usage
+	-sudo rm /usr/local/lib/i3blocks/load_average
+	sudo ln -s /usr/share/i3blocks/load_average /usr/local/lib/i3blocks/load_average
+	-sudo rm /usr/local/lib/i3blocks/memory
+	sudo ln -s /usr/share/i3blocks/memory /usr/local/lib/i3blocks/memory
 
-	-sudo rm /usr/local/libexec/i3blocks/temperature
-	sudo ln -s `pwd`/i3blocks-contrib/temperature/temperature /usr/local/libexec/i3blocks/temperature
+	-sudo rm /usr/local/lib/i3blocks/temperature
+	sudo ln -s `pwd`/i3blocks-contrib/temperature/temperature /usr/local/lib/i3blocks/temperature
 	
 
 	rm ~/.i3/config
-	ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config
+	sudo ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config
 
 	-rm -f /bin/lock
-	ln -s `pwd`/i3wm/lockscreen /bin/lock
+	sudo ln -s `pwd`/i3wm/lockscreen /bin/lock
 
 	i3-msg restart
 install-git:
