@@ -44,7 +44,7 @@ interval=once
 signal=1
 
 [battery]
-command=/usr/local/lib/i3blocks/battery BAT0 | /usr/local/lib/i3blocks/graph --id=battery --max=100 --length=1 | /usr/local/lib/i3blocks/color --bg=5d5d5d --fg=aadddd --label=🔋
+command=/usr/local/lib/i3blocks/battery BAT0 | /usr/local/lib/i3blocks/color --bg=5d5d5d --fg=aadddd --label=🔋
 markup=pango
 interval=30
 

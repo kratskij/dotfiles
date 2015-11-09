@@ -2,13 +2,15 @@ ifndef ENV
 $(error ENV is not set. Use "home" or "work")
 endif
 
-all: install-basics install-i3 install-git install-bash install-icdiff
+all: install-basics install-python-packages install-i3 install-git install-bash install-icdiff
 
+install-python-packages:
+	sudo pip install python-dateutil
 install-basics:
-	sudo apt-get install vim tree python-bs4 gawk 
+	sudo apt-get install vim tree python-bs4 gawk
 
 install-i3:
-	sudo apt-get install i3 i3blocks scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn 
+	sudo apt-get install i3 i3blocks scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn
 
 	-git clone git://github.com/vivien/i3blocks-contrib
 
@@ -47,12 +49,14 @@ install-i3:
 	sudo ln -s `pwd`/i3wm/i3blocks_vpn /usr/local/lib/i3blocks/vpn
 	-sudo rm /usr/local/lib/i3blocks/weather
 	sudo ln -s `pwd`/i3wm/i3blocks_weather /usr/local/lib/i3blocks/weather
-	
+
 	-sudo rm /usr/local/lib/i3blocks/graph
 	sudo ln -s `pwd`/i3wm/i3blocks_graph /usr/local/lib/i3blocks/graph
 	-sudo rm /usr/local/lib/i3blocks/color
 	sudo ln -s `pwd`/i3wm/i3blocks_color /usr/local/lib/i3blocks/color
-	
+
+	-sudo rm /usr/local/lib/i3blocks/battery
+	sudo ln -s /usr/share/i3blocks/battery /usr/local/lib/i3blocks/battery
 	-sudo rm /usr/local/lib/i3blocks/cpu_usage
 	sudo ln -s /usr/share/i3blocks/cpu_usage /usr/local/lib/i3blocks/cpu_usage
 	-sudo rm /usr/local/lib/i3blocks/load_average
@@ -62,7 +66,7 @@ install-i3:
 
 	-sudo rm /usr/local/lib/i3blocks/temperature
 	sudo ln -s `pwd`/i3blocks-contrib/temperature/temperature /usr/local/lib/i3blocks/temperature
-	
+
 
 	rm ~/.i3/config
 	sudo ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config
