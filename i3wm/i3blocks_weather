@@ -17,7 +17,7 @@ def main(argv):
         winddirmap = { 'E': '←', 'S': '↑', 'W': '→', 'N': '↓', 'SE': '↖', 'SSE': '↖', 'ESE': '↖', 'SW': '↗', 'SSW': '↗', 'WSW': '↗', 'NW': '↘', 'NNW': '↘', 'WNW': '↘', 'NE': '↙', 'NNE': '↙', 'ENE': '↙' }
 
         limit = 3
-        badcolor = "#FF0000"
+        badcolor = "#FF6666"
         warmcolor = "#FFFF00"
         coldcolor = "#0088FF"
 
@@ -40,44 +40,47 @@ def main(argv):
 
         soup = BeautifulSoup(urllib2.urlopen(url).read())
 
-        forecasts = soup.find('forecast').tabular.find_all('time')[0:limit]
+        forecasts = soup.find('forecast').tabular.find_all('time')[0:limit-1]
         utcoffset = int(soup.find('timezone')['utcoffsetminutes'])
 
         texts = []
         color = ""
         for f in forecasts:
             time = (parse(f['from']) - timedelta(minutes=utcoffset)).strftime('%H')
-            temp = int(f.find('temperature')['value'])
+            temperature = int(f.find('temperature')['value'])
             weathertype = f.find('symbol')['number']
-
             precipitation = float(f.find('precipitation')['value'].encode('utf-8'))
             windspeed = float(f.find('windspeed')['mps'].encode('utf-8'))
+            winddir = f.find('winddirection')['code']
 
-            rain = ""
-            if precipitation > 0:
-                rain = str(precipitation) + "mm "
+            rain = str(precipitation) + "mm " if precipitation > 0 else ""
+            wind = str(windspeed) + winddirmap[winddir] if windspeed > 3 else "~"
+            temp = str(temperature) + "°"
+            symbol = symbolmap[weathertype]
 
-            wind = ""
-            if windspeed > 3:
-                winddir = f.find('winddirection')['code']
-                wind = str(windspeed) + winddirmap[winddir];
-
-            if not color and temp >= nicetemp:
-                color = warmcolor
-            if not color and temp <= badtemp:
-                color = coldcolor
-            if not color and precipitation >= badprecipitaion:
-                color = badcolor
-            if not color and windspeed >= badwind:
-                color = badcolor
-
-            txt = '[' + time + ': ' + symbolmap[weathertype] + " " +  str(temp) + "° " + rain + wind + ']'
-            if color:
-                txt = "<span foreground='" + color + "'>" + txt + "</span>"
+            colorTemplate = "<span foreground='{fg}'>{txt}</span>"
+            
+            if temperature >= nicetemp:
+                temp = colorTemplate.format(fg=warmcolor, txt=str(temp))
+            elif temperature <= badtemp:
+                temp = colorTemplate.format(fg=coldcolor, txt=str(temp))
+            if precipitation >= badprecipitaion:
+                rain = colorTemplate.format(fg=badcolor, txt=symbol + " " + rain)
+                symbol = ""
+            if windspeed >= badwind:
+                wind = colorTemplate.format(fg=badcolor, txt=wind)
+            
+            txt = "<span foreground='#777'>{time}: </span>{temp} {symbol} {rain} {wind}".format(
+                time = time,
+                temp = temp,
+                symbol = symbol,
+                rain = rain,
+                wind = wind
+            ).replace("  ", " ")
             texts.append(txt)
 
-        print " ".join(texts)
-        print " ".join(texts)
+        print " <span foreground='#777'>|</span> ".join(texts)
+        print " <span foreground='#777'>|</span> ".join(texts)
 
     except getopt.GetoptError,e:
         print e

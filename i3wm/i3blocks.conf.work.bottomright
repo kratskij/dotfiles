@@ -6,7 +6,7 @@ align=center
 [begin]
 full_text=◢
 interval=once
-color=#555555
+color=#636363
 
 [volume]
 command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=222222 --fg=aaaa88 --label=🔉

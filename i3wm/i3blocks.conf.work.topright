@@ -6,7 +6,7 @@ align=center
 [begin]
 full_text=◢
 interval=once
-color=#555555
+color=#636363
 
 [topprocess]
 command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --length=10 | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888)"
