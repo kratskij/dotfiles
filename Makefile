@@ -6,6 +6,7 @@ all: install-basics install-python-packages install-i3 install-git install-bash 
 
 install-python-packages:
 	sudo pip install python-dateutil
+	sudo apt-get install python-libxml2
 install-basics:
 	sudo apt-get install vim tree python-bs4 gawk
 
