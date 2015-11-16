@@ -5,6 +5,8 @@ import urllib2, sys, getopt
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
 from datetime import timedelta
+from datetime import datetime
+from dateutil import tz
 
 #import pprint
 
@@ -46,7 +48,7 @@ def main(argv):
         texts = []
         color = ""
         for f in forecasts:
-            time = (parse(f['from']) - timedelta(minutes=utcoffset)).strftime('%H')
+            time = datetime.strptime(f['from'], '%Y-%m-%dT%H:%M:%S').replace(tzinfo=tz.gettz('Europe/Berlin')).astimezone(tz.tzlocal()).strftime('%H')
             temperature = int(f.find('temperature')['value'])
             weathertype = f.find('symbol')['number']
             precipitation = float(f.find('precipitation')['value'].encode('utf-8'))
