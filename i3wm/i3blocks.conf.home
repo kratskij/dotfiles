@@ -33,8 +33,9 @@ markup=pango
 interval=30
 
 [swap]
-command=/usr/local/lib/i3blocks/memory swap | /usr/local/lib/i3blocks/color --bg=4c4c4c --fg=888888 --label=⇆
+command=/usr/local/lib/i3blocks/memory | /usr/local/lib/i3blocks/color --bg=4c4c4c --fg=888888 --label=⇆
 markup=pango
+instance=swap
 interval=30
 
 [volume]

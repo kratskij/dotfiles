@@ -35,7 +35,7 @@ markup=pango
 interval=30
 
 [swap]
-command=/usr/local/libexec/i3blocks/memory swap | /usr/local/libexec/i3blocks/color --bg=4C4C4C --fg=b2b2b2 --label=⇆
+command=/usr/local/libexec/i3blocks/memory | /usr/local/libexec/i3blocks/color --bg=4C4C4C --fg=b2b2b2 --label=⇆
 markup=pango
 instance=swap
 interval=30
