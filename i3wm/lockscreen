@@ -3,7 +3,27 @@ SCREENWIDTH=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x'
 SCREENHEIGHT=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x' -f2`
 SCREENS=`xrandr --current | grep '*' | wc -l`
 
+
 FILE_LOCATION=/tmp/screenshot.png
+END_LOCATION=/tmp/screenshot9.png
+scrot $FILE_LOCATION
+
+function replacei3lock {
+    IDLETIME=`xprintidle`
+    TIME=`echo $(($(date +%s%N)/1000000))`
+    IDLESINCE=$(bc <<< "$TIME-$IDLETIME")
+    echo "$IDLESINCE $STARTIDLESINCE"
+    if [ $IDLESINCE -gt $STARTIDLESINCE ]; then
+        killall i3lock
+        exit 0
+    fi
+    i3lock -i $1 & pid=$!
+    pids=`ps aux | grep i3lock | grep -v $pid | awk '{print $2}'`
+    sleep 0.2;
+    for p in $pids; do
+        kill $p;
+    done;
+}
 
 OLDURL=`cat /tmp/todaysxkcd.html | grep "Image URL" | awk '{print $NF}'`
 
@@ -20,14 +40,25 @@ XKCDHEIGHT=`identify -format '%h' ${XKCDFILE}`
 LEFTPOS=`bc <<< "(${SCREENWIDTH}-${XKCDWIDTH})/2"`
 TOPPOS=`bc <<< "(${SCREENHEIGHT}-${XKCDHEIGHT})/2"`
 
-scrot $FILE_LOCATION
-mogrify -scale 10% -scale 1000% $FILE_LOCATION
 convert -background "rgba(0,0,0,0.50)" -fill white -gravity center -pointsize 20 -size ${XKCDWIDTH}x caption:"${HOVERTEXT}" /tmp/text.png
 
+STARTIDLETIME=`xprintidle`
+STARTTIME=`echo $(($(date +%s%N)/1000000))`
+STARTIDLESINCE=$(bc <<< "$STARTTIME-$STARTIDLETIME+100")
+
+
+for i in `seq 1 9`; do
+    cp $FILE_LOCATION "/tmp/screenshot$i.png"
+    DOWNSCALE=$(bc <<< "scale=9; 100-$i*10")
+    UPSCALE=$(bc <<< "scale=9; 100*(100/$DOWNSCALE)")
+    mogrify -scale $DOWNSCALE% -scale $UPSCALE% "/tmp/screenshot$i.png"
+    replacei3lock "/tmp/screenshot$i.png"
+done;
+
 for i in $(seq 1 ${SCREENS}); do
-	convert -composite $FILE_LOCATION ${XKCDFILE} -geometry +${LEFTPOS}+${TOPPOS} $FILE_LOCATION;
-	convert -composite $FILE_LOCATION /tmp/text.png -geometry +${LEFTPOS}+`bc <<< "${TOPPOS}+${XKCDHEIGHT}+10"` $FILE_LOCATION;
-	LEFTPOS=`bc <<< "${LEFTPOS}+${SCREENWIDTH}"`;
+    convert -composite $END_LOCATION ${XKCDFILE} -geometry +${LEFTPOS}+${TOPPOS} $END_LOCATION;
+    convert -composite $END_LOCATION /tmp/text.png -geometry +${LEFTPOS}+`bc <<< "${TOPPOS}+${XKCDHEIGHT}+10"` $END_LOCATION;
+    LEFTPOS=`bc <<< "${LEFTPOS}+${SCREENWIDTH}"`;
 done
 
-i3lock -i $FILE_LOCATION
+replacei3lock $END_LOCATION
