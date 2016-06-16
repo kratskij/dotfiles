@@ -1,0 +1,21 @@
+#!/usr/bin/python
+# This python file uses the following encoding: utf-8
+
+import json, urllib, sys
+
+def usage():
+	print "Example usage: ./spor 70722150060338761"
+
+def main(argv):
+	try:
+		obj=json.loads(urllib.urlopen("https://tracking.bring.com/tracking.json?q=" + sys.argv[1]).read(), "utf-8")
+		lastEvent = obj["consignmentSet"][0]["packageSet"][0]["eventSet"][0]
+		text = lastEvent["displayDate"] + " " + lastEvent["displayTime"] + " CEST: " + lastEvent["description"] + "\n"
+		print 2 * text.encode("utf-8")
+	except Exception as e:
+		print e
+		usage()
+		sys.exit(2)
+
+if __name__ == "__main__":
+	main(sys.argv[1:])

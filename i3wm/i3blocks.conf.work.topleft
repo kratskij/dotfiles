@@ -12,10 +12,16 @@ command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecentt
 interval=10
 markup=pango
 
+#[sporing]
+#command=/usr/local/libexec/i3blocks/spor 70714834583798417 | /usr/local/libexec/i3blocks/color --bg=282828 --fg=aa8866 --label=Pedalz: 
+#interval=300
+#markup=pango
+
 [nrk]
 command=/usr/local/libexec/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/libexec/i3blocks/color --bg=333333 --fg=6688aa --label=📖
 interval=300
 markup=pango
+
 
 #[chess]
 #command=/usr/local/libexec/i3blocks/chess | /usr/local/libexec/i3blocks/color --bg=222222 --fg=bb88bb
