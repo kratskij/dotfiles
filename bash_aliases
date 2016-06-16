@@ -3,9 +3,10 @@ alias rdie9="rdesktop 172.17.20.62 -g 1280x1024"
 alias tv="vncviewer 172.17.20.232"
 alias cutycapt="ssh 172.19.22.45 -l newco"
 alias bob="ssh 192.168.0.237 -l bob"
-alias nrk="google-chrome --app=http://tv.nrk.no/direkte/nrk1"
+alias nrk="livestreamer http://tv.nrk.no/direkte/nrk1 best &"
 alias fuck='$(thefuck $(fc -ln -1))'
 alias sqlyog='wine "/home/henrik/.wine/drive_c/Program Files (x86)/SQLyog/SQLyog.exe" &'
+alias www-rdesktop-lars='rdesktop -k no -u Lars -g 1920x1080 10.12.121.190'
 
 function hl() { egrep -i --color=auto "$1|"; }
 
@@ -38,8 +39,22 @@ function fmeld()
 	
 	OLDURL=http://${OLDSERVER}/ls/feeds/?/${CLIENT}/${LANGUAGE}/gismo/${FEED}
 	NEWURL=http://${SERVER}/ls/feeds/?/${CLIENT}/${LANGUAGE}/gismo/${FEED}
-	((echo ${OLDURL} && (curl -Ls ${OLDURL} | python -mjson.tool)) > /tmp/old.txt) &
-	((echo ${NEWURL} && (curl -Ls ${NEWURL} | python -mjson.tool)) > /tmp/new.txt) &
-	wait
-	meld /tmp/old.txt /tmp/new.txt
+	fmeldurl $OLDURL $NEWURL
+}
+
+function fmeldurl()
+{
+	[ -e $2 ] && echo "USAGE: fmeldurl <old feed url> <new feed url>" && return
+        ((echo $1 && (curl -Ls $1 | python -mjson.tool)) > /tmp/old.txt) &
+        ((echo $2 && (curl -Ls $2 | python -mjson.tool)) > /tmp/new.txt) &
+        wait
+        meld /tmp/old.txt /tmp/new.txt
+}
+
+function fmeldfeature()
+{
+	FEED=$1
+        NEWURL=http://localhost/ls/feeds/?/betradarqa/ru/gismo/${FEED}
+        OLDURL=http://localhost/feature/feeds/?/betradarqa/ru/gismo/${FEED}
+        fmeldurl $OLDURL $NEWURL
 }
