@@ -9,30 +9,35 @@ interval=once
 color=#636363
 
 [volume]
-command=/usr/local/libexec/i3blocks/volume 1 pulse | /usr/local/libexec/i3blocks/color --bg=222222 --fg=aaaa88 --label=🔉
+command=/usr/local/lib/i3blocks/volume 1 pulse | /usr/local/lib/i3blocks/color --bg=222222 --fg=aaaa88 --label=🔉
 markup=pango
 interval=once
 signal=1
 
+[precipitation]
+command=/usr/local/lib/i3blocks/precipitation | /usr/local/lib/i3blocks/color --bg=333333 --fg=5588bb --label=☔90min
+markup=pango
+interval=300
+
 [weather]
-command=/usr/local/libexec/i3blocks/weather --limit=4 | /usr/local/libexec/i3blocks/color --bg=333333 --fg=99bbbb
+command=/usr/local/lib/i3blocks/weather --limit=4 | /usr/local/lib/i3blocks/color --bg=444444 --fg=99bbbb
 markup=pango
 interval=3600
 
 [time]
-command=date '+%Y-%m-%d %H:%M:%S' | /usr/local/libexec/i3blocks/color --bg=444444 --fg=aac5aa --label=⌚
+command=date '+%Y-%m-%d %H:%M:%S' | /usr/local/lib/i3blocks/color --bg=555555 --fg=aac5aa --label=⌚
 markup=pango
 interval=1
 
 #[disk-home]
-#command=/usr/local/libexec/i3blocks/disk $HOME
+#command=/usr/local/lib/i3blocks/disk $HOME
 #interval=30
 
 #[wireless]
 #label=W
 #instance=wlan0
 #instance=wlp3s0
-#command=/usr/local/libexec/i3blocks/network
+#command=/usr/local/lib/i3blocks/network
 #color=#00FF00
 #interval=10
 
@@ -40,7 +45,6 @@ interval=1
 #label=E
 #instance=eth0
 #instance=enp0s25
-#command=/usr/local/libexec/i3blocks/network
+#command=/usr/local/lib/i3blocks/network
 #color=#00FF00
 #interval=10
-

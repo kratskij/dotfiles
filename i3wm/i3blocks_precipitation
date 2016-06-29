@@ -1,0 +1,40 @@
+#!/usr/bin/python
+# This python file uses the following encoding: utf-8
+
+import urllib2, sys, getopt
+from bs4 import BeautifulSoup
+from dateutil.parser import parse
+from datetime import timedelta
+from datetime import datetime
+from dateutil import tz
+
+#import pprint
+
+def usage():
+    print "Example usage: i3blocks_precipitation"
+
+def main(argv):
+    try:
+        url="http://api.met.no/weatherapi/nowcast/0.9/?lat=63.4299;lon=10.3961"
+
+        graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇"]
+        maxValue = 1;
+        soup = BeautifulSoup(urllib2.urlopen(url).read())
+        forecasts = soup.find('product').find_all('time')
+
+        txt = ""
+        for f in forecasts:
+            time = datetime.strptime(f['from'], '%Y-%m-%dT%H:%M:%SZ').strftime('%H-%m-%d')
+            precipitation = float(f.find('precipitation')['value'].encode('utf-8'))
+            txt = graph[int((precipitation / maxValue) * (len(graph) - 1))] + txt
+
+        print txt
+        print txt
+
+    except getopt.GetoptError,e:
+        print e
+        usage()
+        sys.exit(2)
+
+if __name__ == '__main__':
+    main(sys.argv[1:])

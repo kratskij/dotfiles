@@ -9,33 +9,33 @@ interval=once
 color=#636363
 
 [topprocess]
-command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/libexec/i3blocks/graph --id=topprocess --max=100 --length=10 | /usr/local/libexec/i3blocks/color --bg=222222 --fg=888)"
+command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/lib/i3blocks/graph --id=topprocess --max=100 --length=10 | /usr/local/lib/i3blocks/color --bg=222222 --fg=888)"
 markup=pango
 interval=5
 
 
 [temp]
-command=/usr/local/libexec/i3blocks/temperature | /usr/local/libexec/i3blocks/graph --id=temp --max=100 --min=50 --length=10 | /usr/local/libexec/i3blocks/color --bg=2A2A2A --fg=909090
+command=/usr/local/lib/i3blocks/temperature | /usr/local/lib/i3blocks/graph --id=temp --max=100 --min=50 --length=10 | /usr/local/lib/i3blocks/color --bg=2A2A2A --fg=909090
 markup=pango
 interval=10
 
 [cpu]
-command=/usr/local/libexec/i3blocks/cpu_usage | /usr/local/libexec/i3blocks/graph --id=cpu --max=100 --length=10 | /usr/local/libexec/i3blocks/color --bg=333333 --fg=999999 --label=CPU:
+command=/usr/local/lib/i3blocks/cpu_usage | /usr/local/lib/i3blocks/graph --id=cpu --max=100 --length=10 | /usr/local/lib/i3blocks/color --bg=333333 --fg=999999 --label=CPU:
 markup=pango
 interval=2
 
 [load]
-command=/usr/local/libexec/i3blocks/load_average | /usr/local/libexec/i3blocks/graph --id=load --max=4 --length=10 | /usr/local/libexec/i3blocks/color --bg=3B3B3B --fg=a1a1a1 --label=⛟
+command=/usr/local/lib/i3blocks/load_average | /usr/local/lib/i3blocks/graph --id=load --max=4 --length=10 | /usr/local/lib/i3blocks/color --bg=3B3B3B --fg=a1a1a1 --label=⛟
 markup=pango
 interval=10
 
 [memory]
-command=/usr/local/libexec/i3blocks/memory | /usr/local/libexec/i3blocks/color --bg=444444 --fg=aaaaaa --label=🐏
+command=/usr/local/lib/i3blocks/memory | /usr/local/lib/i3blocks/color --bg=444444 --fg=aaaaaa --label=🐏
 markup=pango
 interval=30
 
 [swap]
-command=/usr/local/libexec/i3blocks/memory | /usr/local/libexec/i3blocks/color --bg=4C4C4C --fg=b2b2b2 --label=⇆
+command=/usr/local/lib/i3blocks/memory | /usr/local/lib/i3blocks/color --bg=4C4C4C --fg=b2b2b2 --label=⇆
 markup=pango
 instance=swap
 interval=30

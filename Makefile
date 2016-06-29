@@ -5,6 +5,7 @@ endif
 all: install-basics install-python-packages install-i3 install-git install-bash install-icdiff
 
 install-python-packages:
+	sudo easy_install pip
 	sudo pip install python-dateutil
 	sudo apt-get install python-libxml2
 install-basics:
@@ -15,21 +16,21 @@ install-i3:
 
 	-git clone git://github.com/vivien/i3blocks-contrib
 
-	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).bottomleft ] ; then \
-		-rm ~/.i3blocks.conf.bottomleft ; \
-		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).bottomleft ~/.i3blocks.conf.bottomleft ; \
+	if [ -e `pwd`/i3wm/i3blocks.conf.$(ENV).bottomleft ] ; then \
+		rm ~/.config/i3/i3blocks.conf.bottomleft ; \
+		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).bottomleft ~/.config/i3/i3blocks.conf.bottomleft ; \
 	fi;
-	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).bottomright ] ; then \
-		-rm ~/.i3blocks.conf.bottomright ; \
-		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).bottomright ~/.i3blocks.conf.bottomright ; \
+	if [ -e `pwd`/i3wm/i3blocks.conf.$(ENV).bottomright ] ; then \
+		rm ~/.config/i3/i3blocks.conf.bottomright ; \
+		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).bottomright ~/.config/i3/i3blocks.conf.bottomright ; \
 	fi;
-	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).topleft ] ; then \
-		-rm ~/.i3blocks.conf.topleft ; \
-		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).topleft ~/.i3blocks.conf.topleft ; \
+	if [ -e `pwd`/i3wm/i3blocks.conf.$(ENV).topleft ] ; then \
+		rm ~/.config/i3/i3blocks.conf.topleft ; \
+		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).topleft ~/.config/i3/i3blocks.conf.topleft ; \
 	fi;
-	if [ -a `pwd`/i3wm/i3blocks.conf.$(ENV).topright ] ; then \
-		-rm ~/.i3blocks.conf.topright ; \
-		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).topright ~/.i3blocks.conf.topright ; \
+	if [ -e `pwd`/i3wm/i3blocks.conf.$(ENV).topright ] ; then \
+		rm ~/.config/i3/i3blocks.conf.topright ; \
+		ln -s `pwd`/i3wm/i3blocks.conf.$(ENV).topright ~/.config/i3/i3blocks.conf.topright ; \
 	fi;
 
 
@@ -50,6 +51,8 @@ install-i3:
 	sudo ln -s `pwd`/i3wm/i3blocks_vpn /usr/local/lib/i3blocks/vpn
 	-sudo rm /usr/local/lib/i3blocks/weather
 	sudo ln -s `pwd`/i3wm/i3blocks_weather /usr/local/lib/i3blocks/weather
+	-sudo rm /usr/local/lib/i3blocks/precipitation
+	sudo ln -s `pwd`/i3wm/i3blocks_precipitation /usr/local/lib/i3blocks/precipitation
 
 	-sudo rm /usr/local/lib/i3blocks/graph
 	sudo ln -s `pwd`/i3wm/i3blocks_graph /usr/local/lib/i3blocks/graph
@@ -69,10 +72,10 @@ install-i3:
 	sudo ln -s `pwd`/i3blocks-contrib/temperature/temperature /usr/local/lib/i3blocks/temperature
 
 
-	rm ~/.i3/config
-	sudo ln -s `pwd`/i3wm/i3config.$(ENV) ~/.i3/config
+	rm ~/.config/i3/config
+	sudo ln -s `pwd`/i3wm/i3config.$(ENV) ~/.config/i3/config
 
-	-rm -f /bin/lock
+	rm -f /bin/lock
 	sudo ln -s `pwd`/i3wm/lockscreen /bin/lock
 
 	i3-msg restart

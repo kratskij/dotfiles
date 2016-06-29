@@ -170,7 +170,7 @@ bindsym $mod+Shift+s mode "soundedit"
 
 bar {
         tray_output none
-        status_command i3blocks -c ~/.i3blocks.conf.bottomright
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf.bottomright
         output DVI-1
         colors {
                 background              #000000
@@ -184,7 +184,7 @@ bar {
 
 bar {
         tray_output none
-        status_command i3blocks -c ~/.i3blocks.conf.bottomleft
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf.bottomleft
         output DVI-0
         colors {
                 background              #000000
@@ -198,7 +198,7 @@ bar {
 
 bar {
         tray_output none
-        status_command i3blocks -c ~/.i3blocks.conf.topright
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf.topright
         output DVI-1
         position top
         colors {
@@ -213,7 +213,7 @@ bar {
 
 bar {
         tray_output none
-        status_command i3blocks -c ~/.i3blocks.conf.topleft
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf.topleft
         output DVI-0
         position top
         colors {
@@ -240,13 +240,12 @@ for_window [class="Adl" instance="adl"] floating enable # all wimp windows
 for_window [class="Adl" instance="adl" title="^[a-zA-Z].*$"] floating disable # wimp (not notification)
 for_window [class="Thunderbird" instance="Msgcompose"] floating enable
 for_window [class="Wine" instance="TeamViewer.exe"] floating enable
-for_window [class="Guake" instance="guake"] floating enable
+for_window [class="Main.py" instance="guake"] floating enable
 for_window [title="Controlled multi-tab browsing"] floating enable
 
 #assign certain applications to certain workspaces
 assign [class="Pidgin"] $ws2
 assign [class="Thunderbird"] $ws2
-assign [class="Adl"] $wsMusic
 
 workspace "$ws1" output DVI-0
 workspace "$wsMisc" output DVI-0
@@ -264,8 +263,6 @@ exec xrandr --auto --output DVI-0 --mode 1920x1080 --left-of DVI-1
 
 exec pidgin
 exec thunderbird
-exec i3-sensible-terminal
 exec google-chrome
-exec wimp
 
 exec feh --bg-scale ~/dotfiles/wp.jpg
