@@ -36,7 +36,7 @@ function fmeld()
 	[ ! -e $3 ] && SERVER=$3 || SERVER=localhost
 	[ ! -e $4 ] && CLIENT=$4 || CLIENT=betradar
 	[ ! -e $5 ] && LANGUAGE=$5 || LANGUAGE=en
-	
+
 	OLDURL=http://${OLDSERVER}/ls/feeds/?/${CLIENT}/${LANGUAGE}/gismo/${FEED}
 	NEWURL=http://${SERVER}/ls/feeds/?/${CLIENT}/${LANGUAGE}/gismo/${FEED}
 	fmeldurl $OLDURL $NEWURL
@@ -46,8 +46,10 @@ function fmeldurl()
 {
 	[ -e $2 ] && echo "USAGE: fmeldurl <old feed url> <new feed url>" && return
         ((echo $1 && (curl -Ls $1 | python -mjson.tool)) > /tmp/old.txt) &
+        proc1=$!
         ((echo $2 && (curl -Ls $2 | python -mjson.tool)) > /tmp/new.txt) &
-        wait
+        proc2=$!
+        wait "$proc1" "$proc2"
         meld /tmp/old.txt /tmp/new.txt
 }
 

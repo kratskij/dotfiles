@@ -94,4 +94,4 @@ install-icdiff:
 install-bash:
 	-rm ~/.bash_aliases
 	ln -s `pwd`/bash_aliases ~/.bash_aliases
-	echo "source ̃/.bash_aliases <- DO IT!"
+	echo "source ~/.bash_aliases <- DO IT!"
