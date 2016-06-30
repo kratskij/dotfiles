@@ -3,10 +3,6 @@
 
 import urllib2, sys, getopt
 from bs4 import BeautifulSoup
-from dateutil.parser import parse
-from datetime import timedelta
-from datetime import datetime
-from dateutil import tz
 
 #import pprint
 
@@ -24,7 +20,6 @@ def main(argv):
 
         txt = ""
         for f in forecasts:
-            time = datetime.strptime(f['from'], '%Y-%m-%dT%H:%M:%SZ').strftime('%H-%m-%d')
             precipitation = float(f.find('precipitation')['value'].encode('utf-8'))
             txt = graph[int((precipitation / maxValue) * (len(graph) - 1))] + txt
 

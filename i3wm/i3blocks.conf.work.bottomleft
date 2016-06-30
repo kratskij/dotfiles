@@ -12,7 +12,7 @@ command=/usr/local/lib/i3blocks/capitals | /usr/local/lib/i3blocks/color --bg=22
 markup=pango
 interval=60
 
-[timesystem]
-command=/home/henrik/prog/timesystem/timesystem.py | /usr/local/lib/i3blocks/color --bg=333333 --fg=999999 --label=⏳
-markup=pango
-interval=10
+#[timesystem]
+#command=/home/henrik/prog/timesystem/timesystem.py | /usr/local/lib/i3blocks/color --bg=333333 --fg=999999 --label=⏳
+#markup=pango
+#interval=10
