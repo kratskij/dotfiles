@@ -14,14 +14,14 @@ def main(argv):
         url="http://api.met.no/weatherapi/nowcast/0.9/?lat=63.4299;lon=10.3961"
 
         graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇"]
-        maxValue = 1;
+        maxValue = 2;
         soup = BeautifulSoup(urllib2.urlopen(url).read())
         forecasts = soup.find('product').find_all('time')
 
         txt = ""
         for f in forecasts:
             precipitation = float(f.find('precipitation')['value'].encode('utf-8'))
-            txt = graph[int((precipitation / maxValue) * (len(graph) - 1))] + txt
+            txt = txt + graph[int(min(1, precipitation / maxValue) * (len(graph) - 1))]
 
         print txt
         print txt
