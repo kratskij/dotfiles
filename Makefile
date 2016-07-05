@@ -12,7 +12,7 @@ install-basics:
 	sudo apt-get install vim tree python-bs4 gawk
 
 install-i3:
-	sudo apt-get install i3 i3blocks scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn xautolock
+	sudo apt-get install i3 i3blocks scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn xautolock html2text
 
 	-git clone git://github.com/vivien/i3blocks-contrib
 
