@@ -1,0 +1,43 @@
+#!/usr/bin/python
+# This Python file uses the following encoding: utf-8
+
+import json
+import urllib
+
+import pprint
+apibase = "http://10.12.121.251:8080/restroom/"
+data = urllib.urlopen(apibase + "get_all")
+toilets = json.loads(data.read(), "utf-8")
+
+text = []
+for toilet in toilets:
+    propertyMap = {
+        "ladies": "👩",
+        "gentlemen": "👨",
+        "handicap": "♿"
+    }
+    statusColors = {
+        "free": "00ff00",
+        "disconnected": "666666",
+        "occupied": "ff0000"
+    }
+    try:
+        statusColor = statusColors[toilet["status"]]
+    except:
+        statusColor = "000000"
+
+    symbols = []
+    for prop in toilet["properties"]:
+        try:
+            symbols.append(propertyMap[prop["name"]])
+        except:
+            continue
+
+    text.append("<span foreground='#{fg}'>{symbols}</span>".format(
+        fg = statusColor,
+        symbols = "".join(symbols)
+    ))
+
+
+print ("  | ").join(text)
+print ("  | ").join(text)

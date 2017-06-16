@@ -86,39 +86,39 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $ws1 1: Coding
-set $ws2 2: Social
+set $wsBrowser 1: Browser
+set $wsCoding 2: Coding
 set $wsMisc 3: Misc
-set $ws4 4
-set $wsTimeliste 5: Timeliste
+set $wsSocial 4: Social
+set $ws5 5: NoName
 set $wsMusic 6: Music
-set $wsZabbix 7: Zabbix
-set $ws8 8
-set $wsSQL 9: SQL
-set $ws10 10
+set $ws7 7: NoName
+set $ws8 8: NoName
+set $wsDatabase 9: Database
+set $ws10 10: NoName
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
+bindsym $mod+1 workspace $wsBrowser
+bindsym $mod+2 workspace $wsCoding
 bindsym $mod+3 workspace $wsMisc
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $wsTimeliste
+bindsym $mod+4 workspace $wsSocial
+bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $wsMusic
-bindsym $mod+7 workspace $wsZabbix
+bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $wsSQL
+bindsym $mod+9 workspace $wsDatabase
 bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+1 move container to workspace $wsBrowser
+bindsym $mod+Shift+2 move container to workspace $wsCoding
 bindsym $mod+Shift+3 move container to workspace $wsMisc
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $wsTimeliste
+bindsym $mod+Shift+4 move container to workspace $wsSocial
+bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $wsMusic
-bindsym $mod+Shift+7 move container to workspace $wsZabbix
+bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $wsSQL
+bindsym $mod+Shift+9 move container to workspace $wsDatabase
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # reload the configuration file
@@ -236,25 +236,22 @@ focus_follows_mouse no
 bindsym $mod+p exec /bin/lock
 bindsym $mod+t border toggle
 
-for_window [class="Adl" instance="adl"] floating enable # all wimp windows
-for_window [class="Adl" instance="adl" title="^[a-zA-Z].*$"] floating disable # wimp (not notification)
 for_window [class="Thunderbird" instance="Msgcompose"] floating enable
 for_window [class="Wine" instance="TeamViewer.exe"] floating enable
 for_window [class="Main.py" instance="guake"] floating enable
-for_window [title="Controlled multi-tab browsing"] floating enable
 
 #assign certain applications to certain workspaces
-assign [class="Pidgin"] $ws2
-assign [class="Thunderbird"] $ws2
+assign [class="Pidgin"] $wsSocial
+assign [class="Thunderbird"] $wsSocial
+assign [class="DBeaver"] $wsDatabase
 
-workspace "$ws1" output DVI-0
+workspace "$wsBrowser" output DVI-0
 workspace "$wsMisc" output DVI-0
-workspace "$wsZabbix" output DVI-0
-workspace "$wsTimeliste" output DVI-0
 
-workspace "$ws2" output DVI-1
+workspace "$wsCoding" output DVI-1
+workspace "$wsSocial" output DVI-1
 workspace "$wsMusic" output DVI-1
-workspace "$wsSQL" output DVI-1
+workspace "$wsDatabase" output DVI-1
 
 #startup
 exec xautolock -time 5 -locker lock
@@ -264,5 +261,8 @@ exec xrandr --auto --output DVI-0 --mode 1920x1080 --left-of DVI-1
 exec pidgin
 exec thunderbird
 exec google-chrome
+exec google-chrome --app=https://play.google.com/music/listen#/now
+exec dbeaver
+exec gnome-terminal -e "ssh kratskij@beerradar -t screen -rd"
 
 exec feh --bg-scale ~/dotfiles/wp.jpg

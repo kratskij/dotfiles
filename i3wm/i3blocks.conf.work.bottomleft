@@ -3,16 +3,26 @@ separator=false
 align=center
 
 [begin]
-full_text=◢
+full_text=◀
 interval=once
 color=#555555
 
+[matchodds]
+command=curl http://localhost/ls/feeds/?/betradar/en/gismo/match_odds/7678272 | jq '.doc[0].data["3way"].odds[].home.odds | tonumber' | awk '{if (NR == 1) {d = $0}; if (NR != 1) {n += $0}} END{printf "%.03f\n", n/NR}' | /usr/local/lib/i3blocks/color --bg=111111 --fg=777777 --label=Norge-odds:
+markup=pango
+interval=600
+
+[toiletradar]
+command=/usr/local/lib/i3blocks/toiletradar | /usr/local/lib/i3blocks/color --bg=222222 --fg=ffffff --label=🚽
+markup=pango
+interval=5
+
 [capitals]
-command=/usr/local/lib/i3blocks/capitals | /usr/local/lib/i3blocks/color --bg=222222 --fg=888888 --label=?
+command=/usr/local/lib/i3blocks/capitals | /usr/local/lib/i3blocks/color --bg=333333 --fg=999999 --label=?
 markup=pango
 interval=60
 
 #[timesystem]
-#command=/home/henrik/prog/timesystem/timesystem.py | /usr/local/lib/i3blocks/color --bg=333333 --fg=999999 --label=⏳
+#command=/home/henrik/prog/timesystem/timesystem.py | /usr/local/lib/i3blocks/color --bg=444444 --fg=aaaaaa --label=⏳
 #markup=pango
 #interval=10

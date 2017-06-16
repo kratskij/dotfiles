@@ -17,7 +17,7 @@ def increaseColor(color, increaseBy):
         return format(avgCol + (increaseBy), "02x") * 3
 
     return format(avgCol + int(increaseBy/16), "01x") * 3
-    
+
 def main(argv, stdinLines):
     try:
         fgColor = ""
@@ -42,7 +42,7 @@ def main(argv, stdinLines):
 
         for line in stdinLines[:2]:
             if line:
-                print "<span foreground='{sep}' {bg}>◤</span><span {fg} {bg} >   {lbl}{txt}    </span><span foreground='{sep}' {bg}>◢</span>".format(
+                print "<span foreground='{sep}' {bg}>▶</span><span {fg} {bg} >   {lbl}{txt}    </span><span foreground='{sep}' {bg}>◀</span>".format(
                     fg = fgColor,
                     bg = bgColor,
                     lbl = label,
@@ -63,4 +63,3 @@ def main(argv, stdinLines):
 
 if __name__ == '__main__':
     main(sys.argv[1:], sys.stdin.read().split('\n'))
-

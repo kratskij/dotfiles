@@ -3,9 +3,14 @@ separator=false
 align=center
 
 [begin]
-full_text=◢
+full_text=◀
 interval=once
 color=#555555
+
+[innherredsveien]
+command=DAYS=$(echo $(date -d 7-Apr +%j)-$(date +%j) | bc) && HOURS=$(echo "($DAYS)*24+10-$(date +%H)" | bc) && echo "$DAYS ($HOURS timer)" | /usr/local/lib/i3blocks/color --bg=222222 --fg=66aa88 --label="Dager til Innherredsveien 86C:"
+interval=3600
+markup=pango
 
 [nowplaying]
 command=echo "$(curl -s http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks\&user=kratskij\&api_key=a778aa7cbe301da6860e4f30325cde2f\&format=json\&limit=1 | python -c 'import json,sys,codecs;sys.stdin = codecs.getreader("utf-8")(sys.stdin);obj=json.load(sys.stdin, "utf-8"); print (obj["recenttracks"]["track"][0]["artist"]["#text"] + " - " + obj["recenttracks"]["track"][0]["name"]).encode("utf-8") if obj["recenttracks"]["track"][0]["@attr"]["nowplaying"] else ""' | /usr/local/lib/i3blocks/color --bg=222222 --fg=996699 --label=♫)"
@@ -13,7 +18,7 @@ interval=10
 markup=pango
 
 #[sporing]
-#command=/usr/local/lib/i3blocks/spor 70714834583798417 | /usr/local/lib/i3blocks/color --bg=282828 --fg=aa8866 --label=Pedalz: 
+#command=/usr/local/lib/i3blocks/spor 70702055458995891 | /usr/local/lib/i3blocks/color --bg=282828 --fg=aa8866 --label=SSD:
 #interval=300
 #markup=pango
 

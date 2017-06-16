@@ -14,15 +14,22 @@ def main(argv):
         url="http://api.met.no/weatherapi/nowcast/0.9/?lat=63.4299;lon=10.3961"
 
         graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇"]
-        maxValue = 2;
-        soup = BeautifulSoup(urllib2.urlopen(url).read())
+
+        soup = BeautifulSoup(urllib2.urlopen(url).read(), "lxml")
         forecasts = soup.find('product').find_all('time')
+        values = []
+        maxValue = 0
+        for f in forecasts:
+            f = float(f.find('precipitation')['value'].encode('utf-8'))
+            values.append(f)
+            maxValue = f if f > maxValue else maxValue
 
         txt = ""
-        for f in forecasts:
-            precipitation = float(f.find('precipitation')['value'].encode('utf-8'))
-            txt = txt + graph[int(min(1, precipitation / maxValue) * (len(graph) - 1))]
+        for precipitation in values:
+            graphPos = 0 if precipitation == 0.0 else max(1, int( min(1, precipitation / maxValue) * (len(graph)) )) - 1
+            txt = txt + graph[graphPos]
 
+        txt += " (max: " + str(maxValue) + " mm/h)"
         print txt
         print txt
 

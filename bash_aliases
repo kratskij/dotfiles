@@ -53,10 +53,26 @@ function fmeldurl()
         meld /tmp/old.txt /tmp/new.txt
 }
 
+function fmeldrelease()
+{
+	FEED=$1
+	[ ! -e $2 ] && LANG=$2 || LANG=en
+	[ ! -e $3 ] && CLIENT=$3 || CLIENT=betradarqa
+        NEWURL=http://lsrelease.sportradar.ag/ls/feeds/?/${CLIENT}/${LANG}/gismo/${FEED}
+        OLDURL=http://ls.betradar.com/ls/feeds/?/${CLIENT}/${LANG}/gismo/${FEED}
+        fmeldurl $OLDURL $NEWURL
+}
+
 function fmeldfeature()
 {
 	FEED=$1
         NEWURL=http://localhost/ls/feeds/?/betradarqa/ru/gismo/${FEED}
-        OLDURL=http://localhost/feature/feeds/?/betradarqa/ru/gismo/${FEED}
+        OLDURL=http://localhost/ls/feature/?/betradarqa/ru/gismo/${FEED}
         fmeldurl $OLDURL $NEWURL
+}
+
+function fjq()
+{
+	curl $1 | jq ".doc[0].data$2"
+
 }

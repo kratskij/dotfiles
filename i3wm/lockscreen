@@ -27,7 +27,7 @@ function replacei3lock {
 
 OLDURL=`cat /tmp/todaysxkcd.html | grep "Image URL" | awk '{print $NF}'`
 
-curl -s www.xkcd.com -o /tmp/todaysxkcd.html
+curl -s https://www.xkcd.com -o /tmp/todaysxkcd.html
 URL=`cat /tmp/todaysxkcd.html | grep "Image URL" | awk '{print $NF}'`
 HOVERTEXT=`cat /tmp/todaysxkcd.html | sed -rn 's/.*imgs\.xkcd\.com.*comics.*title="([^"]*)".*/\1/p' | html2text`
 EXT=`echo $URL | rev | cut -d '.' -f1 | rev`
