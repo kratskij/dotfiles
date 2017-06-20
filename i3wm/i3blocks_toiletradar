@@ -5,33 +5,37 @@ import json
 import urllib
 
 import pprint
-apibase = "http://10.12.121.251:8080/restroom/"
+apibase = "http://10.12.121.175/restroom/"
 data = urllib.urlopen(apibase + "get_all")
 toilets = json.loads(data.read(), "utf-8")
 
 text = []
 for toilet in toilets:
-    propertyMap = {
-        "ladies": "👩",
-        "gentlemen": "👨",
-        "handicap": "♿"
-    }
     statusColors = {
         "free": "00ff00",
         "disconnected": "666666",
         "occupied": "ff0000"
     }
+
     try:
         statusColor = statusColors[toilet["status"]]
     except:
         statusColor = "000000"
 
-    symbols = []
-    for prop in toilet["properties"]:
-        try:
-            symbols.append(propertyMap[prop["name"]])
-        except:
-            continue
+    propNames = map(lambda prop: prop["name"], toilet["properties"])
+    propertyMap = {
+        "unisex": "🚻",
+        "ladies": "👩",
+        "gentlemen": "👨",
+        "handicap": "♿"
+    }
+    if "ladies" in propNames and "gentlemen" in propNames:
+        del propNames[propNames.index("ladies")]
+        del propNames[propNames.index("gentlemen")]
+        propNames.append("unisex")
+
+    propNames = [x for x in propNames if x in list(propertyMap.keys())]
+    symbols = map(lambda propName: propertyMap[propName], propNames)
 
     text.append("<span foreground='#{fg}'>{symbols}</span>".format(
         fg = statusColor,
