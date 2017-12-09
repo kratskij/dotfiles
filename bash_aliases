@@ -1,3 +1,5 @@
+export LESSCHARSET=utf-8
+
 alias rdie7="rdesktop 172.17.20.61 -g 1280x1024"
 alias rdie9="rdesktop 172.17.20.62 -g 1280x1024"
 alias tv="vncviewer 172.17.20.232"
@@ -66,8 +68,8 @@ function fmeldrelease()
 function fmeldfeature()
 {
 	FEED=$1
-        NEWURL=http://localhost/ls/feeds/?/betradarqa/ru/gismo/${FEED}
-        OLDURL=http://localhost/ls/feature/?/betradarqa/ru/gismo/${FEED}
+        NEWURL=http://localhost/ls/feeds/?/betradarqa/en/gismo/${FEED}
+        OLDURL=http://localhost/ls/feature/?/betradarqa/en/gismo/${FEED}
         fmeldurl $OLDURL $NEWURL
 }
 
@@ -75,4 +77,10 @@ function fjq()
 {
 	curl $1 | jq ".doc[0].data$2"
 
+}
+
+function aoc()
+{
+    [ $# -ne 3 ] && echo "aoc <file> <day> <star>" && return 1
+    cat $1 | jq ".members[] | {name:.name, time:.completion_day_level[\"$2\"][\"$3\"].get_star_ts} | .time + \" \" + .name" | cut -d '"' -f 2 | egrep '^2' | sort | awk '{printf "%d\t%s\n", NR, $0}'
 }
