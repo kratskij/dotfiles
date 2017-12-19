@@ -84,3 +84,15 @@ function aoc()
     [ $# -ne 3 ] && echo "aoc <file> <day> <star>" && return 1
     cat $1 | jq ".members[] | {name:.name, time:.completion_day_level[\"$2\"][\"$3\"].get_star_ts} | .time + \" \" + .name" | cut -d '"' -f 2 | egrep '^2' | sort | awk '{printf "%d\t%s\n", NR, $0}'
 }
+
+function aoc_init()
+{
+	basedir=`git rev-parse --show-toplevel`
+	year=`date +%Y`
+	day=$((`ls $basedir/$year | sort -n | tail -n 1+1`))
+	newdir=$basedir/$year/$day
+	mkdir $newdir
+	cp $basedir/index.php $newdir/$day.php
+	touch $newdir/test
+	curl -s 'http://adventofcode.com/'$year'/day/'$day'/input' -H 'Cookie: session='$GIT_SESSION_ID > $newdir/input
+}
