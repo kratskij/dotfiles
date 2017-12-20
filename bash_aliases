@@ -85,14 +85,16 @@ function aoc()
     cat $1 | jq ".members[] | {name:.name, time:.completion_day_level[\"$2\"][\"$3\"].get_star_ts} | .time + \" \" + .name" | cut -d '"' -f 2 | egrep '^2' | sort | awk '{printf "%d\t%s\n", NR, $0}'
 }
 
-function aoc_init()
+function aoc_input()
 {
-	basedir=`git rev-parse --show-toplevel`
-	year=`date +%Y`
-	day=$((`ls $basedir/$year | sort -n | tail -n 1+1`))
-	newdir=$basedir/$year/$day
-	mkdir $newdir
-	cp $basedir/index.php $newdir/$day.php
-	touch $newdir/test
-	curl -s 'http://adventofcode.com/'$year'/day/'$day'/input' -H 'Cookie: session='$GIT_SESSION_ID > $newdir/input
+	DAY=$1
+	curl -s 'http://adventofcode.com/2017/day/${DAY}/input' -H 'Cookie: session=53616c7465645f5f5c62cb15ce6cdfa683d66eefc37e16f4c375f3824493f596baa58ca9bb8700dee55cd096a560844b' -o input
+}
+function aoc_new_day() {
+	DAY=$1
+	AOCDIR="/home/henrik/prog/adventofcode/2017";
+	mkdir $AOCDIR/$DAY
+	cp $AOCDIR/index.php $AOCDIR/$DAY/$DAY.php
+	touch $AOCDIR/$DAY/input
+	touch $AOCDIR/$DAY/test
 }
