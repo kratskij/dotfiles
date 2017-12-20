@@ -98,3 +98,8 @@ function aoc_new_day() {
 	touch $AOCDIR/$DAY/input
 	touch $AOCDIR/$DAY/test
 }
+function aoc_top()
+{
+	day=$1
+	 curl --cookie "session=53616c7465645f5fd75b1e0c746858b7cc2abf470fc492c1a7e4b8464d395c26b5acae1f2d32f60ab462c7664801d0cc" http://adventofcode.com/2017/leaderboard/private/view/116603.json > /tmp/leaderboard && aoc /tmp/leaderboard $day 1 && echo "---" && aoc /tmp/leaderboard $day 2;
+}
