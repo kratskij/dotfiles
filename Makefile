@@ -9,10 +9,12 @@ install-python-packages:
 	sudo pip install python-dateutil
 	sudo apt-get install python-libxml2
 install-basics:
-	sudo apt-get install vim tree python-bs4 gawk
+	sudo apt-add-repository -y ppa:webupd8team/atom
+	sudo apt-get install vim tree python-bs4 gawk slack atom meld
+	sudo snap install datagrip --classic
 
 install-i3:
-	sudo apt-get install i3 i3blocks scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn xautolock html2text
+	sudo apt-get install i3 i3blocks scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn xautolock html2text feh
 
 	-git clone git://github.com/vivien/i3blocks-contrib
 
