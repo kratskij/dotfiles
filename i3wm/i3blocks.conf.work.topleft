@@ -23,7 +23,7 @@ markup=pango
 #markup=pango
 
 [nrk]
-command=/usr/local/lib/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/lib/i3blocks/color --bg=333333 --fg=6688aa --label=📖
+command=/usr/local/lib/i3blocks/rss http://www.nrk.no/toppsaker.rss $BLOCK_BUTTON | /usr/local/lib/i3blocks/color --bg=333333 --fg=88aacc --label=📖
 interval=300
 markup=pango
 

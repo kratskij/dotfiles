@@ -16,6 +16,10 @@ def main(argv):
         graph = ["▁", "▂", "▃", "▄", "▅", "▆", "▇"]
 
         soup = BeautifulSoup(urllib2.urlopen(url).read(), "lxml")
+        if not soup.find('product'):
+            print 'no data'
+            print 'no data'
+            sys.exit(2)
         forecasts = soup.find('product').find_all('time')
         values = []
         maxValue = 0

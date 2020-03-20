@@ -47,6 +47,8 @@ install-i3:
 	sudo ln -s `pwd`/i3wm/i3blocks_capitals /usr/local/lib/i3blocks/capitals
 	-sudo rm /usr/local/lib/i3blocks/tv
 	sudo ln -s `pwd`/i3wm/i3blocks_tv /usr/local/lib/i3blocks/tv
+	-sudo rm /usr/local/lib/i3blocks/disable_monitor
+	sudo ln -s `pwd`/i3wm/i3blocks_disable_monitor /usr/local/lib/i3blocks/disable_monitor
 	-sudo rm /usr/local/lib/i3blocks/chess
 	sudo ln -s `pwd`/i3wm/i3blocks_chess /usr/local/lib/i3blocks/chess
 	-sudo rm /usr/local/lib/i3blocks/vpn

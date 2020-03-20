@@ -75,7 +75,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle sticky toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -181,9 +181,22 @@ bar {
                 active_workspace        #ffffff #000000
         }
 }
-
 bar {
         tray_output none
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf.bottomright2
+        output DVI-1
+        colors {
+                background              #000000
+
+                inactive_workspace      #666666 #000000
+                focused_workspace       #ffffff #000000
+                urgent_workspace        #ffffff #883232
+                active_workspace        #ffffff #000000
+        }
+}
+
+bar {
+        tray_output primary
         status_command i3blocks -c ~/.config/i3/i3blocks.conf.bottomleft
         output DVI-0
         colors {
@@ -225,6 +238,20 @@ bar {
                 active_workspace        #ffffff #000000
         }
 }
+
+bar {
+        tray_output DVI-1-3
+        output DVI-1-3
+        position bottom
+        colors {
+                background              #000000
+
+                inactive_workspace      #666666 #000000
+                focused_workspace       #ffffff #000000
+                urgent_workspace        #ffffff #883232
+                active_workspace        #ffffff #000000
+        }
+}
 client.focused              #555555        #555555         #FFFFFF
 client.focused_inactive     #323232        #323232         #888888
 client.unfocused            #323232        #323232         #888888
@@ -237,32 +264,40 @@ bindsym $mod+p exec /bin/lock
 bindsym $mod+t border toggle
 
 for_window [class="Thunderbird" instance="Msgcompose"] floating enable
-for_window [class="Wine" instance="TeamViewer.exe"] floating enable
 for_window [class="Main.py" instance="guake"] floating enable
+for_window [class="jetbrains-datagrip" instance="sun-awt-X11-XWindowPeer"] floating enable
 
 #assign certain applications to certain workspaces
 assign [class="Pidgin"] $wsSocial
+assign [class="Slack"] $wsSocial
 assign [class="Thunderbird"] $wsSocial
-assign [class="DBeaver"] $wsDatabase
-
+assign [class="jetbrains-datagrip"] $wsDatabase
+assign [class="Google Play Music Desktop Player"] $wsMusic
+assign [class="Atom"] $wsCoding
 workspace "$wsBrowser" output DVI-0
 workspace "$wsMisc" output DVI-0
 
 workspace "$wsCoding" output DVI-1
-workspace "$wsSocial" output DVI-1
-workspace "$wsMusic" output DVI-1
+workspace "$wsSocial" output DVI-1-3
+workspace "$wsMusic" output DVI-1-3
 workspace "$wsDatabase" output DVI-1
 
 #startup
 exec xautolock -time 5 -locker lock
+exec xset s 600 s blank
 exec setxkbmap no
-exec xrandr --auto --output DVI-0 --mode 1920x1080 --left-of DVI-1
+exec xrandr --output DVI-0   --rotate left
+exec xrandr --output DVI-1   --right-of DVI-0 --pos 1080x300
+exec xrandr --output DVI-1-3 --right-of DVI-1 --rotate left
+exec export LC_ALL=nb_NO.UTF-8
 
-exec pidgin
+exec guake
+exec slack
 exec thunderbird
 exec google-chrome
-exec google-chrome --app=https://play.google.com/music/listen#/now
-exec dbeaver
+exec google-play-music-desktop-player #chrome --app=https://play.google.com/music/listen#/now
+exec datagrip
 exec gnome-terminal -e "ssh kratskij@beerradar -t screen -rd"
+exec atom
 
 exec feh --bg-scale ~/dotfiles/wp.jpg

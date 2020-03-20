@@ -1,10 +1,10 @@
 [alias]
-  hist  = "!f () { git log --abbrev-commit --date=raw --pretty=format:'%h%x00%cd%x00%ad%x00%s%x00%cn%x00%an%x00%d' $@ | gawk -F '\\0' ' { \
+  hist  = "!f () { git log --abbrev-commit --date=unix --pretty=format:'%h%x00%cd%x00%ad%x00%s%x00%cn%x00%an%x00%d' $@ | gawk -F '\\0' ' { \
     revision = $1; \
-    dateFormat = \"%d/%m/%y %H:%M\"; \
-    authorDate = strftime(dateFormat, $3); \
+    dateFormat = \"%d/%m/%y %H:%M UTC\"; \
+    authorDate = strftime(dateFormat, $3, 1); \
     authorName = $6; \
-    committerDate = strftime(dateFormat, $2); \
+    committerDate = strftime(dateFormat, $2, 1); \
     committerName = $5; \
     tags = $7; \
     message = substr($4, 0, 100); \

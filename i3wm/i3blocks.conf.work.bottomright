@@ -25,7 +25,7 @@ markup=pango
 interval=3600
 
 [time]
-command=date '+%Y-%m-%d %H:%M:%S' | /usr/local/lib/i3blocks/color --bg=555555 --fg=aac5aa --label=⌚
+command=date '+Week %V: %Y-%m-%d %H:%M:%S' | /usr/local/lib/i3blocks/color --bg=555555 --fg=aac5aa --label=⌚
 markup=pango
 interval=1
 

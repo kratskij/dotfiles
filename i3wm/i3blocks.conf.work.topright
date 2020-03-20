@@ -8,11 +8,15 @@ full_text=◀
 interval=once
 color=#636363
 
+[capitals]
+command=/usr/local/lib/i3blocks/capitals | /usr/local/lib/i3blocks/color --bg=222222 --fg=888 --label=?
+markup=pango
+interval=60
+
 [topprocess]
 command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/lib/i3blocks/graph --id=topprocess --max=100 --length=10 | /usr/local/lib/i3blocks/color --bg=222222 --fg=888)"
 markup=pango
 interval=5
-
 
 [temp]
 command=/usr/local/lib/i3blocks/temperature | /usr/local/lib/i3blocks/graph --id=temp --max=100 --min=50 --length=10 | /usr/local/lib/i3blocks/color --bg=2A2A2A --fg=909090
@@ -35,7 +39,12 @@ markup=pango
 interval=30
 
 [swap]
-command=/usr/local/lib/i3blocks/memory | /usr/local/lib/i3blocks/color --bg=4C4C4C --fg=b2b2b2 --label=⇆
+command=/usr/local/lib/i3blocks/memory $BLOCK_BUTTON | /usr/local/lib/i3blocks/color --bg=4C4C4C --fg=b2b2b2 --label=⇆
 markup=pango
 instance=swap
 interval=30
+
+[uptime]
+command=uptime | tr "," " " | cut -f4-6 -d " " | /usr/local/lib/i3blocks/color --bg=555555 --fg=bbbbbb --label=👀
+markup=pango
+interval=3600
