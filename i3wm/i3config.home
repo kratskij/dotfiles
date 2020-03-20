@@ -210,21 +210,21 @@ focus_follows_mouse no
 bindsym $mod+p exec /bin/lock
 bindsym $mod+t border toggle
 
-for_window [class="Wimp" instance="wimp"] floating enable
-for_window [class="Wimp" instance="wimp" title="^[a-zA-Z].*$"] floating disable
-for_window [class="Thunderbird" instance="Msgcompose"] floating enable
-for_window [class="Wine" instance="TeamViewer.exe"] floating enable
 for_window [class="Guake" instance="guake"] floating enable
-for_window [title="Controlled multi-tab browsing"] floating enable
+#for_window [title="Controlled multi-tab browsing"] floating enable
 
 #assign certain applications to certain workspaces
-assign [class="Pidgin"] $ws2
-assign [class="Thunderbird"] $ws2
-assign [class="Wimp" instance="wimp" title="^[a-zA-Z].*$"] $ws6
+#assign [class="Pidgin"] $ws2
+#assign [class="Thunderbird"] $ws2
+#assign [class="Wimp" instance="wimp" title="^[a-zA-Z].*$"] $ws6
 
 #startup
 exec xautolock -detectsleep -time 5 -locker lock
 exec setxkbmap no
 exec feh --bg-scale ~/dotfiles/wp.jpg
+
+exec xrandr --auto
+exec xrandr --output DP-1 --right-of eDP-1
+exec "xrandr --output DP-2 --right-of DP-1
 
 exec chromium-browser

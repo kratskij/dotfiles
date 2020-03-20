@@ -68,8 +68,10 @@ function fmeldrelease()
 function fmeldfeature()
 {
 	FEED=$1
-        NEWURL=http://localhost/ls/feeds/?/betradarqa/en/gismo/${FEED}
-        OLDURL=http://localhost/ls/feature/?/betradarqa/en/gismo/${FEED}
+	[ ! -e $2 ] && LANG=$2 || LANG=en
+	[ ! -e $3 ] && CLIENT=$3 || CLIENT=betradarqa
+        NEWURL=http://10.12.121.66/ls/feeds/?/${CLIENT}/${LANG}/gismo/${FEED}
+        OLDURL=http://10.12.121.66/ls/feature/?/${CLIENT}/${LANG}/gismo/${FEED}
         fmeldurl $OLDURL $NEWURL
 }
 
@@ -82,7 +84,7 @@ function fjq()
 function aoc()
 {
     [ $# -ne 3 ] && echo "aoc <file> <day> <star>" && return 1
-    cat $1 | jq ".members[] | {name:.name, time:.completion_day_level[\"$2\"][\"$3\"].get_star_ts} | .time + \" \" + .name" | cut -d '"' -f 2 | egrep '^2' | sort | awk '{printf "%d\t%s\n", NR, $0}'
+    cat $1 | jq ".members[] | {name:.name, time:.completion_day_level[\"$2\"][\"$3\"].get_star_ts} | .time + \" \" + .name" | cut -d '"' -f 2 | egrep '^1' | sort | awk '{printf "%d|\t|%s|\n", NR, $0}'
 }
 
 function aoc_input()

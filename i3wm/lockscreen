@@ -1,11 +1,15 @@
 #!/bin/bash
-SCREENWIDTH=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x' -f1`
-SCREENHEIGHT=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x' -f2`
-SCREENS=`xrandr --current | grep '*' | wc -l`
+#SCREENWIDTH=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x' -f1`
+#SCREENHEIGHT=`xrandr --current | grep '*' | uniq | awk '{print $1}' |  cut -d 'x' -f2`
+#SCREENS=`xrandr --current | grep '*' | wc -l`
 
+SCREENWIDTH=3000
+SCREENHEIGHT=1080
+POSITIONS=(540 2040)
+STEPS=5
 
 FILE_LOCATION=/tmp/screenshot.png
-END_LOCATION=/tmp/screenshot9.png
+END_LOCATION=/tmp/screenshot$STEPS.png
 scrot $FILE_LOCATION
 
 function replacei3lock {
@@ -18,7 +22,7 @@ function replacei3lock {
         exit 0
     fi
     i3lock -i $1 & pid=$!
-    pids=`ps aux | grep i3lock | grep -v $pid | awk '{print $2}'`
+    pids=`ps aux | grep i3lock | grep -v $pid | grep -v grep | awk '{print $2}'`
     sleep 0.2;
     for p in $pids; do
         kill $p;
@@ -37,8 +41,6 @@ if [ "$OLDURL" != "$URL" ]; then
 fi
 XKCDWIDTH=`identify -format '%w' ${XKCDFILE}`
 XKCDHEIGHT=`identify -format '%h' ${XKCDFILE}`
-LEFTPOS=`bc <<< "(${SCREENWIDTH}-${XKCDWIDTH})/2"`
-TOPPOS=`bc <<< "(${SCREENHEIGHT}-${XKCDHEIGHT})/2"`
 
 convert -background "rgba(0,0,0,0.50)" -fill white -gravity center -pointsize 20 -size ${XKCDWIDTH}x caption:"${HOVERTEXT}" /tmp/text.png
 
@@ -46,19 +48,29 @@ STARTIDLETIME=`xprintidle`
 STARTTIME=`echo $(($(date +%s%N)/1000000))`
 STARTIDLESINCE=$(bc <<< "$STARTTIME-$STARTIDLETIME+100")
 
-
-for i in `seq 1 9`; do
+for i in `seq 1 $STEPS`; do
     cp $FILE_LOCATION "/tmp/screenshot$i.png"
-    DOWNSCALE=$(bc <<< "scale=9; 100-$i*10")
-    UPSCALE=$(bc <<< "scale=9; 100*(100/$DOWNSCALE)")
-    mogrify -scale $DOWNSCALE% -scale $UPSCALE% "/tmp/screenshot$i.png"
-    replacei3lock "/tmp/screenshot$i.png"
+    #DOWNSCALE=$(bc <<< "100-(90/${i})")
+    #UPSCALE=$(bc <<< "100*(100/${DOWNSCALE})")
+    #echo $DOWNSCALE $UPSCALE
+    #mogrify -scale $DOWNSCALE% -scale $UPSCALE% -colorize 70,70,70 "/tmp/screenshot$i.png"
+    BLUR_LEVEL=$(bc <<< "scale=1; (${i}/${STEPS})*8")
+    COLORIZE_LEVEL=$(bc <<< "scale=1; ${BLUR_LEVEL}*9");
+    mogrify -blur 0x${BLUR_LEVEL} -colorize $COLORIZE_LEVEL,$COLORIZE_LEVEL,$COLORIZE_LEVEL "/tmp/screenshot$i.png"
 done;
 
-for i in $(seq 1 ${SCREENS}); do
+for i in `seq 1 $STEPS`; do
+    replacei3lock "/tmp/screenshot$i.png"
+    sleep 1
+done;
+
+TOPPOS=`bc <<< "(${SCREENHEIGHT}-${XKCDHEIGHT})/2"`
+for i in ${POSITIONS[@]}; do
+    echo "${i}-(${XKCDWIDTH}/2)"
+    let LEFTPOS="${i}-(${XKCDWIDTH}/2)"
+    echo $LEFTPOS
     convert -composite $END_LOCATION ${XKCDFILE} -geometry +${LEFTPOS}+${TOPPOS} $END_LOCATION;
     convert -composite $END_LOCATION /tmp/text.png -geometry +${LEFTPOS}+`bc <<< "${TOPPOS}+${XKCDHEIGHT}+10"` $END_LOCATION;
-    LEFTPOS=`bc <<< "${LEFTPOS}+${SCREENWIDTH}"`;
 done
 
 replacei3lock $END_LOCATION

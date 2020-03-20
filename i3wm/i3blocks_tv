@@ -6,31 +6,54 @@ import sys
 from subprocess import Popen, call, PIPE
 
 if len(sys.argv) > 1:
-	button = int(sys.argv[1])
+    button = int(sys.argv[1])
 else:
-	button = 0
+    button = 0
+
+NONE="OFF"
+WORK="WORK"
+TV="TV"
 
 def tvOn():
-	p = Popen(["xrandr-tool current-resolution DP1"], shell=True, stdout=PIPE)
-	output = p.stdout.readline()
-	return (output != "")
+        p = Popen(["xrandr-tool current-resolution DP-1"], shell=True, stdout=PIPE)
+        return (p.stdout.readline() != "")
 
+def environment():
+        p = Popen(["xrandr-tool resolutions DP-2"], shell=True, stdout=PIPE)
+        if p.stdout.readline() != "":
+            return WORK
+
+        p = Popen(["xrandr-tool resolutions DP-1"], shell=True, stdout=PIPE)
+        if p.stdout.readline() != "":
+            return TV
+
+        return NONE
 
 if (button == 1):
-	tvStatus = tvOn()
-	if tvStatus:
-		call(["xrandr --output DP1 --off"], shell=True)
-	else:
-		call(["xrandr --auto"], shell=True)
-		call(["xrandr --output DP1 --above eDP1"], shell=True)
-		call(["xset -dpms"], shell=True)
-		call(["xset s off"], shell=True)
+        extOn = tvOn()
+        env = environment()
+        if not extOn and env != NONE:
+            call(["xrandr --auto"], shell=True)
+            call(["xset -dpms"], shell=True)
+            call(["xset s off"], shell=True)
+            call(["xautolock -disable"], shell=True)
+            if env == WORK:
+                call(["xrandr --output DP-1 --right-of eDP-1"], shell=True)
+                call(["xrandr --output DP-2 --right-of DP-1"], shell=True)
+            elif env == TV:
+                call(["xrandr --output DP-1 --mode=3840x2160 --above eDP-1"], shell=True)
+        else:
+            call(["xrandr --output DP-1 --off"], shell=True)
+            if env == WORK:
+                call(["xrandr --output DP-2 --off"], shell=True)
 
-tvStatus = tvOn()
-if (tvStatus):
-	output = "ON"
+        call(["feh --bg-scale /home/henrik/dotfiles/wp.jpg"], shell=True)
+
+if tvOn():
+    env = environment()
+
+    print env
+    print env
 else:
-	output = "OFF"
-
-print output
-print output
+    print NONE
+    print NONE

@@ -14,7 +14,7 @@ install-basics:
 	sudo snap install datagrip --classic
 
 install-i3:
-	sudo apt-get install i3 i3blocks scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn xautolock html2text feh
+	sudo apt-get install i3 i3blocks scrot imagemagick i3lock curl acpi sysstat lm-sensors ruby-ronn xautolock html2text feh xdiagnose
 
 	-git clone git://github.com/vivien/i3blocks-contrib
 
