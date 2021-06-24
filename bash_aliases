@@ -1,4 +1,6 @@
 export LESSCHARSET=utf-8
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"
 
 alias rdie7="rdesktop 172.17.20.61 -g 1280x1024"
 alias rdie9="rdesktop 172.17.20.62 -g 1280x1024"
@@ -24,6 +26,20 @@ function swap()
     mv "$2" "$1"
     mv $TMPFILE "$2"
 }
+
+function pt
+{
+    for query in "$@"; do
+        google-chrome --new-window "https://www.google.com/search?q=$query%20HIMYM";
+    done
+}
+function pti
+{
+    for query in "$@"; do
+        google-chrome --new-window "https://www.google.com/search?q=$query%20HIMYM&tbm=isch";
+    done
+}
+
 
 jabberfind()
 {
@@ -90,18 +106,25 @@ function aoc()
 function aoc_input()
 {
 	DAY=$1
-	curl -s 'http://adventofcode.com/2017/day/${DAY}/input' -H 'Cookie: session=53616c7465645f5f5c62cb15ce6cdfa683d66eefc37e16f4c375f3824493f596baa58ca9bb8700dee55cd096a560844b' -o input
+	curl -s 'http://adventofcode.com/2017/day/${DAY}/input' -H 'Cookie: session=53616c7465645f5facd22d8d026627818fbf2d07f770ca3dbc1c4e81ae5284a32e070b6e4f6352d72ad588ceb987402f' -o input
 }
 function aoc_new_day() {
 	DAY=$1
-	AOCDIR="/home/henrik/prog/adventofcode/2017";
+	AOCDIR="/home/henrik/prog/adventofcode/2020";
 	mkdir $AOCDIR/$DAY
-	cp $AOCDIR/index.php $AOCDIR/$DAY/$DAY.php
+	cp $AOCDIR/base.php $AOCDIR/$DAY/$DAY.php
 	touch $AOCDIR/$DAY/input
 	touch $AOCDIR/$DAY/test
 }
 function aoc_top()
 {
 	day=$1
-	 curl --cookie "session=53616c7465645f5fd75b1e0c746858b7cc2abf470fc492c1a7e4b8464d395c26b5acae1f2d32f60ab462c7664801d0cc" http://adventofcode.com/2017/leaderboard/private/view/116603.json > /tmp/leaderboard && aoc /tmp/leaderboard $day 1 && echo "---" && aoc /tmp/leaderboard $day 2;
+	 curl --cookie "session=53616c7465645f5facd22d8d026627818fbf2d07f770ca3dbc1c4e81ae5284a32e070b6e4f6352d72ad588ceb987402f" https://adventofcode.com/2020/leaderboard/private/view/116603.json > /tmp/leaderboard && aoc /tmp/leaderboard $day 1 && echo "---" && aoc /tmp/leaderboard $day 2;
 }
+
+function record-audio-henrik() { # record audio (use mp3 as filename)
+	OUTPUT=$(pacmd list-sinks | grep -A1 "* index" | grep -oP "<\K[^ >]+")
+	echo "OUTPUT: ${OUTPUT}"
+	pacat --record -d $OUTPUT.monitor | lame -r -b 192 - $1;
+}
+

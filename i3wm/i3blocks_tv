@@ -10,50 +10,91 @@ if len(sys.argv) > 1:
 else:
     button = 0
 
-NONE="OFF"
-WORK="WORK"
-TV="TV"
+RIGHT = "--right-of"
+LEFT = "--left-of"
+ABOVE = "--above"
+BELOW = "--below"
 
-def tvOn():
-        p = Popen(["xrandr-tool current-resolution DP-1"], shell=True, stdout=PIPE)
-        return (p.stdout.readline() != "")
+config = {
+    "disableScreensaverCommands": ["xrandr --auto", "xset -dpms", "xset s off", "xautolock -disable"],
+    "bgPath": "/home/henrik/dotfiles/wp.jpg",
+
+    # run the command in getId() (replace "{}" with DP-1) in a terminal to find these ids
+    "mainMonitor": {
+        "id": "00ffffffffffff0006af2d5b00000000001c0104a51d107803ee95a3544c9926"
+    },
+
+    "externalMonitors": {
+        "WORK": [
+            {
+                "id": "00ffffffffffff0010ac4b40554745410713010380351e78ea9eb5a259559b25",
+                "position": ABOVE,
+                "relativeTo": "main", # either "main" or an integer refering to another monitor within this env
+                "mode": "1920x1080"
+            },
+            {
+                "id": "00ffffffffffff0010ac4b40555843410713010380351e78ea9eb5a259559b25",
+                "position": RIGHT,
+                "relativeTo": 0, # either "main" or an integer refering to another monitor within this env
+                "mode": "1920x1080"
+            }
+        ],
+        "TV": [
+            {
+                "id": "UNKNOWN",
+                "position": ABOVE,
+                "relativeTo": "main", # either "main" or an integer refering to another monitor within this env
+                "mode": "1920x1080"
+            }
+        ]
+    }
+}
+
+def externalOn(output):
+    return Popen(["xrandr-tool current-resolution {}".format(output)], shell=True, stdout=PIPE).stdout.readline() != ""
 
 def environment():
-        p = Popen(["xrandr-tool resolutions DP-2"], shell=True, stdout=PIPE)
-        if p.stdout.readline() != "":
-            return WORK
+    allIds = getAllIds()
+    for env in config["externalMonitors"]:
+        if config["externalMonitors"][env][0]["id"] in allIds:
+            return env
+    return None
 
-        p = Popen(["xrandr-tool resolutions DP-1"], shell=True, stdout=PIPE)
-        if p.stdout.readline() != "":
-            return TV
+def getId(outputId):
+    return Popen(["xrandr --prop | egrep ^{} -A4 | grep EDID -A2 | tail -2 | tr -d '[:space:]'".format(outputId)], shell=True, stdout=PIPE).stdout.readline()
 
-        return NONE
+def monitorOn(newMonitor, position, relativeTo, mode):
+    call(["xrandr --output {} --mode {} {} {}".format(newMonitor, mode, position, relativeTo)], shell=True)
 
-if (button == 1):
-        extOn = tvOn()
-        env = environment()
-        if not extOn and env != NONE:
-            call(["xrandr --auto"], shell=True)
-            call(["xset -dpms"], shell=True)
-            call(["xset s off"], shell=True)
-            call(["xautolock -disable"], shell=True)
-            if env == WORK:
-                call(["xrandr --output DP-1 --right-of eDP-1"], shell=True)
-                call(["xrandr --output DP-2 --right-of DP-1"], shell=True)
-            elif env == TV:
-                call(["xrandr --output DP-1 --mode=3840x2160 --above eDP-1"], shell=True)
+def monitorOff(output):
+    call(["xrandr --output {} --off".format(output)], shell=True)
+
+def getAllIds(): #maps an EDID to the "output id" used by xrandr
+    ret = {}
+    p = Popen(["xrandr-tool outputs"], shell=True, stdout=PIPE)
+    for output in iter(p.stdout.readline, b''):
+        ret[getId(output.strip())] = output.strip()
+    return ret
+
+def setBackground(bgPath):
+    call(["feh --bg-scale {}".format(bgPath)], shell=True)
+
+allIds = getAllIds()
+env = environment()
+
+if env != None:
+    if (button == 1):
+        if externalOn(allIds[config["externalMonitors"][env][0]["id"]]):
+            for id in allIds:
+                if id != config["mainMonitor"]["id"]:
+                    monitorOff(allIds[id])
         else:
-            call(["xrandr --output DP-1 --off"], shell=True)
-            if env == WORK:
-                call(["xrandr --output DP-2 --off"], shell=True)
+            [call(cmd, shell=True) for cmd in config["disableScreensaverCommands"]]
+            for monitor in config["externalMonitors"][env]:
+                relativeToId = config["mainMonitor"]["id"] if monitor["relativeTo"] == "main" else config["externalMonitors"][env][monitor["relativeTo"]]["id"]
+                monitorOn(allIds[monitor["id"]], monitor["position"], allIds[relativeToId], monitor["mode"])
 
-        call(["feh --bg-scale /home/henrik/dotfiles/wp.jpg"], shell=True)
+        if config["bgPath"]:
+            setBackground(config["bgPath"])
 
-if tvOn():
-    env = environment()
-
-    print env
-    print env
-else:
-    print NONE
-    print NONE
+print "{}\n".format(env if env != None and externalOn(allIds[config["externalMonitors"][env][0]["id"]]) else "OFF") * 2

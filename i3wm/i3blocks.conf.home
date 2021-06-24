@@ -7,6 +7,11 @@ full_text=◢
 interval=once
 color=#555555
 
+[jiralog]
+command=/home/henrik/prog/jiracli/jiracli.py -w d | tail -n1 | tr -d 'Total: ' | /usr/local/lib/i3blocks/color --bg=080808 --fg=888888 --label="Jira:"
+markup=pango
+interval=300
+
 [topprocess]
 command=echo "$(top -b -n1 | sed -n 8p | awk '{print $9 "%","(PID",$1",",$12 ")";}' | /usr/local/lib/i3blocks/graph --id=topprocess --max=100 --length=5 | /usr/local/lib/i3blocks/color --bg=222222 --fg=888888)"
 markup=pango

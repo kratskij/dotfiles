@@ -13,7 +13,8 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-font pango:Ubuntu Mono 10
+#font pango:Ubuntu Mono 10
+font pango:Rajdhani Bold 10
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
@@ -87,39 +88,39 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $ws1 1: Main
-set $ws2 2: Code
+set $wsSocial 1: Social
+set $wsCoding 2: Coding
 set $ws3 3:
 set $ws4 4:
 set $ws5 5:
-set $ws6 6: WiMP
-set $ws7 7:
+set $wsMusic 6: Music
+set $wsMisc 7: Misc
 set $ws8 8:
-set $ws9 9:
+set $wsDatabase 9: Database
 set $ws10 10:
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
+bindsym $mod+1 workspace $wsSocial
+bindsym $mod+2 workspace $wsCoding
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
+bindsym $mod+6 workspace $wsMusic
+bindsym $mod+7 workspace $wsMisc
 bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
+bindsym $mod+9 workspace $wsDatabase
 bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+1 move container to workspace $wsSocial
+bindsym $mod+Shift+2 move container to workspace $wsCoding
 bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+6 move container to workspace $wsMusic
+bindsym $mod+Shift+7 move container to workspace $wsMisc
 bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+9 move container to workspace $wsDatabase
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # reload the configuration file
@@ -170,6 +171,7 @@ bindsym $mod+Shift+s mode "soundedit"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+        font                            pango: Cutive Mono 8
         status_command 			i3blocks -c /home/henrik/dotfiles/i3wm/i3blocks.conf.home
         colors {
                 background              #000000
@@ -183,6 +185,7 @@ bar {
 }
 
 bar {
+        font                            pango: Cutive Mono 8
 	status_command		i3blocks -c /home/henrik/dotfiles/i3wm/i3blocks.conf.home.2
 	position		top
 	tray_output		none
@@ -214,17 +217,29 @@ for_window [class="Guake" instance="guake"] floating enable
 #for_window [title="Controlled multi-tab browsing"] floating enable
 
 #assign certain applications to certain workspaces
-#assign [class="Pidgin"] $ws2
-#assign [class="Thunderbird"] $ws2
-#assign [class="Wimp" instance="wimp" title="^[a-zA-Z].*$"] $ws6
+assign [class="Atom"] $wsCoding
+assign [class="slack"] $wsSocial
+#assign [class="Wimp" instance="wimp" title="^[a-zA-Z].*$"] $wsMusic
+assign [class="google play music desktop player"] $wsMusic
+assign [class="jetbrains-datagrip"] $wsDatabase
+
+workspace "$wsSocial" output eDP-1
+
+workspace "$wsCoding" output DP-1
+workspace "$wsMusic" output DP-1
+workspace "$wsMisc" output DP-2
+workspace "$wsDatabase" output DP-2
 
 #startup
 exec xautolock -detectsleep -time 5 -locker lock
+exec xset s off
+exec xset -dpms
+exec xset s noblank
+
 exec setxkbmap no
 exec feh --bg-scale ~/dotfiles/wp.jpg
 
-exec xrandr --auto
-exec xrandr --output DP-1 --right-of eDP-1
-exec "xrandr --output DP-2 --right-of DP-1
+exec export LC_ALL=nb_NO.UTF-8
 
-exec chromium-browser
+exec google-chrome
+exec guake

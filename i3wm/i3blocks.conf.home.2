@@ -6,6 +6,32 @@ full_text=◢
 interval=once
 color=#555555
 
+[uptime]
+command=uptime | tr "," " " | cut -f4-6 -d " " | /usr/local/lib/i3blocks/color --bg=080808 --fg=777777 --label=👀
+markup=pango
+interval=3600
+
+[corona2]
+command=echo "$(curl -s https://redutv-api.vg.no/corona/v1/areas/country/key | jq -c '.items[] | select(.id=="deaths") | .data[-2:][] | .value' | paste -sd '/' - | /usr/local/lib/i3blocks/color --bg=111111 --fg=777777 --label=☠️)"
+markup=pango
+interval=300
+
+[corona]
+command=echo "$(curl -s https://redutv-api.vg.no/corona/v1/areas/country/key | jq -c '.items[] | select(.id=="cases") | .data[-2:][] | .value' | paste -sd '/' - | /usr/local/lib/i3blocks/color --bg=111111 --fg=777777 --label=🚑)"
+markup=pango
+interval=300
+
+
+[coronabart2]
+command=echo "$(curl -s https://redutv-api.vg.no/corona/v1/areas/municipalities/5001/key | jq -c '.items[] | select(.id=="deaths") | .data[-2:][] | .value' | paste -sd '/' - | /usr/local/lib/i3blocks/color --bg=111111 --fg=777777 --label=෴☠️)"
+markup=pango
+interval=300
+
+[coronabart]
+command=echo "$(curl -s https://redutv-api.vg.no/corona/v1/areas/municipalities/5001/key | jq -c '.items[] | select(.id=="cases") | .data[-2:][] | .value' | paste -sd '/' - | /usr/local/lib/i3blocks/color --bg=111111 --fg=777777 --label=෴🚑)"
+markup=pango
+interval=300
+
 [capitals]
 command=/usr/local/lib/i3blocks/capitals | /usr/local/lib/i3blocks/color --bg=222222 --fg=888888
 markup=pango
